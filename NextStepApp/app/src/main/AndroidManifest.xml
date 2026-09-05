@@ -12,21 +12,26 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NextStepApp">
 
-        <!-- NOVA ACTIVITY -->
+        <!-- 1. Tela de Cursos -->
         <activity
             android:name=".ui.CursosActivity"
             android:exported="false" />
 
+        <!-- 2. Tela Principal / Login -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
+
+        <!-- 3. Tela de Agenda (fechada individualmente com />) -->
+        <activity
+            android:name=".ui.AgendaActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>

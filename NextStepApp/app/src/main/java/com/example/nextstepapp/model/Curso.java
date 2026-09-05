@@ -11,7 +11,16 @@ public class Curso {
         this.cargaHoraria = cargaHoraria;
     }
 
-    public int getId() { return id; }
-    public String getNome() { return nome; }
-    public int getCargaHoraria() { return cargaHoraria; }
+    public int getId() {
+        return id;
+    }
+    public String getNome() {
+        return nome;
+    }
+    public int getCargaHoraria() {
+        return cargaHoraria;
+    }
+    public String getInfo() {
+        return "Curso : " + nome + "\nCarga Horaria: " + cargaHoraria + "h";
+    }
 }

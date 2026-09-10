@@ -32,6 +32,8 @@
             android:name=".ui.AgendaActivity"
             android:exported="false" />
 
+        <activity android:name=".ui.PresencaActivity" />
+
     </application>
 
 </manifest>

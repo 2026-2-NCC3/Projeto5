@@ -27,15 +27,15 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:fontFamily="serif"
         android:gravity="center"
         android:text="Clique em um curso abaixo para ver as informações"
         android:textSize="16sp"
-    android:fontFamily="serif"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvTituloCursos" />
 
-    <!-- 3. Botão Curso 1 (fica abaixo da mensagem textInfo) -->
+    <!-- 3. Botão Curso 1 -->
     <Button
         android:id="@+id/btnCurso1"
         android:layout_width="0dp"
@@ -79,7 +79,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btnCurso3" />
 
-
+    <!-- 7. Botão Ver Minha Agenda -->
     <Button
         android:id="@+id/btnAbrirAgenda"
         android:layout_width="0dp"
@@ -90,7 +90,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btnCurso4" />
 
+    <!-- 8. Botão Registrar Presença (QR Code) -->
+    <Button
+        android:id="@+id/btnAbrirPresenca"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Registrar Presença (QR Code)"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnAbrirAgenda" />
 
+    <!-- 9. Botão Voltar -->
     <Button
         android:id="@+id/btnVoltar"
         android:layout_width="wrap_content"
@@ -99,7 +110,6 @@
         android:text="Voltar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnAbrirAgenda" />
+        app:layout_constraintTop_toBottomOf="@id/btnAbrirPresenca" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-

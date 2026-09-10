@@ -19,7 +19,6 @@ public class CursosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cursos);
 
-
         curso1 = new Curso(1, "Introdução à Programação", 40);
         curso2 = new Curso(2, "Lógica de Programação", 30);
         curso3 = new Curso(3, "Banco de Dados I", 50);
@@ -34,6 +33,9 @@ public class CursosActivity extends AppCompatActivity {
         Button btnVoltar = findViewById(R.id.btnVoltar);
         Button btnAbrirAgenda = findViewById(R.id.btnAbrirAgenda);
 
+        // 1. Mapeia o novo botão de presença
+        Button btnAbrirPresenca = findViewById(R.id.btnAbrirPresenca);
+
         btnCurso1.setOnClickListener(v -> textInfo.setText(curso1.getInfo()));
         btnCurso2.setOnClickListener(v -> textInfo.setText(curso2.getInfo()));
         btnCurso3.setOnClickListener(v -> textInfo.setText(curso3.getInfo()));
@@ -45,5 +47,13 @@ public class CursosActivity extends AppCompatActivity {
             Intent intent = new Intent(CursosActivity.this, AgendaActivity.class);
             startActivity(intent);
         });
+
+        // 2. Evento de clique para abrir a tela de QR Code
+        if (btnAbrirPresenca != null) {
+            btnAbrirPresenca.setOnClickListener(v -> {
+                Intent intent = new Intent(CursosActivity.this, PresencaActivity.class);
+                startActivity(intent);
+            });
+        }
     }
 }

@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import com.example.nextstepapp.ui.CursosActivity;
+import com.example.nextstepapp.ui.PresencaActivity;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -21,6 +23,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Localiza o botão no XML
+        Button btnAbrirPresenca = findViewById(R.id.btnAbrirPresenca);
+
+// Clique para abrir a tela de Presença
+        btnAbrirPresenca.setOnClickListener(v -> {
+            Intent intent = new Intent(this, PresencaActivity.class);
+            startActivity(intent);
+        });
 
         // Liga as variáveis Java aos elementos do XML, usando o id de cada um
         etMatricula = findViewById(R.id.etMatricula);

@@ -6,6 +6,7 @@ const helmet = require("helmet");
 
 const db = require("./src/config/database");
 const authRoutes = require("./src/routes/authRoutes");
+const courseRoutes = require("./src/routes/courseRoutes");
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
+app.use("/api/courses", courseRoutes);
 
 app.get("/", (req, res) => {
     res.json({

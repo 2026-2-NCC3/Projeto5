@@ -1,29 +1,16 @@
 const db = require("./database");
+const fs = require("fs");
+const path = require("path");
 
-const tableExists = db.prepare(`
-    SELECT name
-    FROM sqlite_master
-    WHERE type = 'table'
-    AND name = 'auth_credentials'
-`).get();
+try {
+    // Sobe duas pastas a partir de src/config para chegar em ProximaEtapaAPI, depois entra em database
+    const schemaPath = path.join(__dirname, "../../database/schema.sql");
+    const schemaSql = fs.readFileSync(schemaPath, "utf8");
 
-if (!tableExists) {
-    db.exec(`
-        CREATE TABLE auth_credentials (
-            user_id TEXT PRIMARY KEY,
-            password_hash TEXT NOT NULL,
-            created_at TEXT NOT NULL,
-            updated_at TEXT NOT NULL,
-
-            FOREIGN KEY (user_id)
-                REFERENCES profiles(id)
-                ON DELETE CASCADE
-        );
-    `);
-
-    console.log("Tabela auth_credentials criada.");
-} else {
-    console.log("Tabela auth_credentials já existe.");
+    db.exec(schemaSql);
+    console.log("Base de dados migrada e estruturada com sucesso!");
+} catch (error) {
+    console.error("Erro ao migrar a base de dados:", error.message);
+} finally {
+    db.close();
 }
-
-db.close();

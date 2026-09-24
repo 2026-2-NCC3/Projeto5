@@ -1,13 +1,22 @@
 {
-  "name": "proximaetapaapi",
+  "name": "proxima-etapa-api",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "API REST do aplicativo Próxima Etapa",
+  "main": "src/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "migrate": "node src/config/migrate.js",
+    "seed": "node src/config/seed.js",
+    "setup": "npm run migrate && npm run seed"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "node",
+    "express",
+    "sqlite",
+    "api-rest"
+  ],
+  "author": "Equipe Próxima Etapa",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {

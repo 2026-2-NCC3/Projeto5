@@ -6,7 +6,7 @@ PRAGMA foreign_keys = ON;
 
 -- Universidades
 
-CREATE TABLE universities (
+CREATE TABLE IF NOT EXISTS universities (
     id TEXT PRIMARY KEY,
     name TEXT NOT NULL,
     logo_url TEXT,
@@ -17,7 +17,7 @@ CREATE TABLE universities (
 
 -- Badges / Conquistas
 
-CREATE TABLE badges (
+CREATE TABLE IF NOT EXISTS badges (
     id TEXT PRIMARY KEY,
     name TEXT NOT NULL,
     description TEXT,
@@ -30,7 +30,7 @@ CREATE TABLE badges (
 
 -- Estatísticas de impacto
 
-CREATE TABLE impact_stats (
+CREATE TABLE IF NOT EXISTS impact_stats (
     id TEXT PRIMARY KEY,
     year INTEGER NOT NULL UNIQUE,
     students_impacted INTEGER NOT NULL,
@@ -45,7 +45,7 @@ CREATE TABLE impact_stats (
 -- Perfis dos usuários
 -- Contém alunos e administradores
 
-CREATE TABLE profiles (
+CREATE TABLE IF NOT EXISTS profiles (
     id TEXT PRIMARY KEY,
     full_name TEXT NOT NULL,
     avatar_url TEXT,
@@ -68,7 +68,7 @@ CREATE TABLE profiles (
 -- admin = administrador
 -- student = aluno
 
-CREATE TABLE user_roles (
+CREATE TABLE IF NOT EXISTS user_roles (
     id TEXT PRIMARY KEY,
     user_id TEXT NOT NULL,
     role TEXT NOT NULL CHECK (
@@ -86,7 +86,7 @@ CREATE TABLE user_roles (
 
 -- Cursos
 
-CREATE TABLE courses (
+CREATE TABLE IF NOT EXISTS courses (
     id TEXT PRIMARY KEY,
     title TEXT NOT NULL,
     description TEXT,
@@ -116,7 +116,7 @@ CREATE TABLE courses (
 -- no_show = não compareceu
 -- cancelled = cancelado
 
-CREATE TABLE enrollments (
+CREATE TABLE IF NOT EXISTS enrollments (
     id TEXT PRIMARY KEY,
     user_id TEXT NOT NULL,
     course_id TEXT NOT NULL,
@@ -148,7 +148,7 @@ CREATE TABLE enrollments (
 
 -- Certificados
 
-CREATE TABLE certificates (
+CREATE TABLE IF NOT EXISTS certificates (
     id TEXT PRIMARY KEY,
     user_id TEXT NOT NULL,
     course_id TEXT,
@@ -168,7 +168,7 @@ CREATE TABLE certificates (
 
 -- Badges dos usuários
 
-CREATE TABLE user_badges (
+CREATE TABLE IF NOT EXISTS user_badges (
     id TEXT PRIMARY KEY,
     user_id TEXT NOT NULL,
     badge_id TEXT NOT NULL,
@@ -191,7 +191,7 @@ CREATE TABLE user_badges (
 -- disc = teste DISC
 -- bolsas = teste de bolsas
 
-CREATE TABLE test_results (
+CREATE TABLE IF NOT EXISTS test_results (
     id TEXT PRIMARY KEY,
     user_id TEXT NOT NULL,
 
@@ -215,7 +215,7 @@ CREATE TABLE test_results (
 
 -- Notícias
 
-CREATE TABLE news_posts (
+CREATE TABLE IF NOT EXISTS news_posts (
     id TEXT PRIMARY KEY,
     title TEXT NOT NULL,
     slug TEXT NOT NULL UNIQUE,
@@ -236,7 +236,7 @@ CREATE TABLE news_posts (
 
 -- Comentários das notícias
 
-CREATE TABLE news_comments (
+CREATE TABLE IF NOT EXISTS news_comments (
     id TEXT PRIMARY KEY,
     post_id TEXT NOT NULL,
     user_id TEXT,
@@ -257,7 +257,7 @@ CREATE TABLE news_comments (
 
 -- Vídeos e podcasts
 
-CREATE TABLE videos (
+CREATE TABLE IF NOT EXISTS videos (
     id TEXT PRIMARY KEY,
     title TEXT NOT NULL,
     description TEXT,
@@ -286,7 +286,7 @@ CREATE TABLE videos (
 -- system = sistema
 -- news = notícia
 
-CREATE TABLE notifications (
+CREATE TABLE IF NOT EXISTS notifications (
     id TEXT PRIMARY KEY,
     user_id TEXT NOT NULL,
 
@@ -316,7 +316,7 @@ CREATE TABLE notifications (
 -- Guarda somente o hash da senha.
 -- A senha original nunca deve ser armazenada.
 
-CREATE TABLE auth_credentials (
+CREATE TABLE IF NOT EXISTS auth_credentials (
     user_id TEXT PRIMARY KEY,
     password_hash TEXT NOT NULL,
     created_at TEXT NOT NULL,
@@ -330,64 +330,64 @@ CREATE TABLE auth_credentials (
 
 -- Índices
 
-CREATE INDEX idx_user_roles_user_id
+CREATE INDEX IF NOT EXISTS idx_user_roles_user_id
 ON user_roles(user_id);
 
-CREATE INDEX idx_courses_university_id
+CREATE INDEX IF NOT EXISTS idx_courses_university_id
 ON courses(university_id);
 
-CREATE INDEX idx_enrollments_user_id
+CREATE INDEX IF NOT EXISTS idx_enrollments_user_id
 ON enrollments(user_id);
 
-CREATE INDEX idx_enrollments_course_id
+CREATE INDEX IF NOT EXISTS idx_enrollments_course_id
 ON enrollments(course_id);
 
-CREATE INDEX idx_certificates_user_id
+CREATE INDEX IF NOT EXISTS idx_certificates_user_id
 ON certificates(user_id);
 
-CREATE INDEX idx_certificates_course_id
+CREATE INDEX IF NOT EXISTS idx_certificates_course_id
 ON certificates(course_id);
 
-CREATE INDEX idx_user_badges_user_id
+CREATE INDEX IF NOT EXISTS idx_user_badges_user_id
 ON user_badges(user_id);
 
-CREATE INDEX idx_user_badges_badge_id
+CREATE INDEX IF NOT EXISTS idx_user_badges_badge_id
 ON user_badges(badge_id);
 
-CREATE INDEX idx_test_results_user_id
+CREATE INDEX IF NOT EXISTS idx_test_results_user_id
 ON test_results(user_id);
 
-CREATE INDEX idx_news_comments_post_id
+CREATE INDEX IF NOT EXISTS idx_news_comments_post_id
 ON news_comments(post_id);
 
-CREATE INDEX idx_news_comments_user_id
+CREATE INDEX IF NOT EXISTS idx_news_comments_user_id
 ON news_comments(user_id);
 
-CREATE INDEX idx_videos_university_id
+CREATE INDEX IF NOT EXISTS idx_videos_university_id
 ON videos(university_id);
 
-CREATE INDEX idx_notifications_user_id
+CREATE INDEX IF NOT EXISTS idx_notifications_user_id
 ON notifications(user_id);
 
-CREATE INDEX idx_notifications_is_read
+CREATE INDEX IF NOT EXISTS idx_notifications_is_read
 ON notifications(is_read);
 
 
 -- Views
 
-CREATE VIEW active_courses AS
+CREATE VIEW IF NOT EXISTS active_courses AS
 SELECT *
 FROM courses
 WHERE is_active = 1;
 
 
-CREATE VIEW published_news_posts AS
+CREATE VIEW IF NOT EXISTS published_news_posts AS
 SELECT *
 FROM news_posts
 WHERE is_published = 1;
 
 
-CREATE VIEW active_videos AS
+CREATE VIEW IF NOT EXISTS active_videos AS
 SELECT *
 FROM videos
 WHERE is_active = 1;

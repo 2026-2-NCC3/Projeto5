@@ -54,7 +54,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n  \"id\": \"aluno-teste\",\r\n  \"full_name\": \"Aluno de Teste\",\r\n  \"password\": \"Senha123\"\r\n}",
+          "raw": "{\r\n  \"id\": \"aluno-postman-1\",\r\n  \"full_name\": \"Aluno Postman\",\r\n  \"password\": \"Senha123\"\r\n}",
           "options": {
             "raw": {
               "language": "json"

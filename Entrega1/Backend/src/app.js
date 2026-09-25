@@ -3,22 +3,29 @@ const cors = require("cors");
 const helmet = require("helmet");
 
 const db = require("./config/database");
+
 const authRoutes = require("./routes/authRoutes");
 const courseRoutes = require("./routes/courseRoutes");
+const profileRoutes = require("./routes/profileRoutes");
+const appRoutes = require("./routes/appRoutes");
+const adminRoutes = require("./routes/adminRoutes");
 
 const app = express();
 
-// Remove o cabeçalho que identifica o Express
 app.disable("x-powered-by");
 
-// Middlewares gerais
 app.use(helmet());
-app.use(cors());
-app.use(express.json({
-    limit: "1mb"
-}));
 
-// Rota inicial
+app.use(cors());
+
+app.use(
+    express.json({
+        limit: "1mb"
+    })
+);
+
+// ROTA PRINCIPAL
+
 app.get("/", (req, res) => {
     return res.status(200).json({
         success: true,
@@ -26,7 +33,11 @@ app.get("/", (req, res) => {
     });
 });
 
-// Entrada principal da API
+
+// ======================================================
+// API
+// ======================================================
+
 app.get("/api", (req, res) => {
     return res.status(200).json({
         success: true,
@@ -34,8 +45,15 @@ app.get("/api", (req, res) => {
     });
 });
 
+
+// ======================================================
+// HEALTH CHECK
+// ======================================================
+
 app.get("/api/health", (req, res) => {
+
     try {
+
         const result = db.prepare(`
             SELECT 1 AS database_connected
         `).get();
@@ -46,7 +64,9 @@ app.get("/api/health", (req, res) => {
             database: result.database_connected === 1,
             timestamp: new Date().toISOString()
         });
+
     } catch (error) {
+
         console.error(
             "Erro na verificação de saúde:",
             error.message
@@ -61,28 +81,61 @@ app.get("/api/health", (req, res) => {
     }
 });
 
-// Rotas da aplicação
-app.use("/api/auth", authRoutes);
-app.use("/api/courses", courseRoutes);
+// AUTENTICAÇÃO
 
-// Rota não encontrada
-// Deve permanecer depois de todas as rotas
+app.use(
+    "/api/auth",
+    authRoutes
+);
+
+// ROTAS DO APLICATIVO
+
+app.use(
+    "/api/courses",
+    courseRoutes
+);
+
+app.use(
+    "/api/profile",
+    profileRoutes
+);
+
+app.use(
+    "/api",
+    appRoutes
+);
+
+// SITE ADMIN
+
+app.use(
+    "/api/admin",
+    adminRoutes
+);
+
+// ROTA NÃO ENCONTRADA
+
 app.use((req, res) => {
+
     return res.status(404).json({
         success: false,
         message: "Rota não encontrada."
     });
 });
 
-// Tratamento geral de erros
-// Deve permanecer por último
+// ERRO GERAL
+
 app.use((error, req, res, next) => {
-    console.error("Erro não tratado:", error);
+
+    console.error(
+        "Erro não tratado:",
+        error
+    );
 
     return res.status(500).json({
         success: false,
         message: "Erro interno do servidor."
     });
 });
+
 
 module.exports = app;

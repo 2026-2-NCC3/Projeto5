@@ -13,8 +13,12 @@ import SettingsPage from './pages/SettingsPage/SettingsPage';
 import ModulesPage from './pages/ModulesPage/ModulesPage';
 import Login from './pages/Login/Login';
 import NotFound from './pages/NotFound/NotFound';
+import { getCourses } from './services/getCourses';
 
 export default function App() {
+  getCourses().then(courses => {
+  console.log(courses);
+});
   const [authenticated, setAuthenticated] = useState(() => {
     return (
       localStorage.getItem(

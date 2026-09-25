@@ -40,64 +40,30 @@ function register(req, res) {
         }
 
         const passwordHash = bcrypt.hashSync(password, 12);
-
         const now = new Date().toISOString();
 
         const createUser = db.transaction(() => {
             db.prepare(`
                 INSERT INTO profiles (
-                    id,
-                    full_name,
-                    points,
-                    level,
-                    courses_completed,
-                    no_shows,
-                    is_blocked,
-                    created_at,
-                    updated_at
+                    id, full_name, points, level, courses_completed, 
+                    no_shows, is_blocked, created_at, updated_at
                 )
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-            `).run(
-                id,
-                full_name,
-                0,
-                "Explorador",
-                0,
-                0,
-                0,
-                now,
-                now
-            );
+            `).run(id, full_name, 0, "Explorador", 0, 0, 0, now, now);
 
             db.prepare(`
                 INSERT INTO auth_credentials (
-                    user_id,
-                    password_hash,
-                    created_at,
-                    updated_at
+                    user_id, password_hash, created_at, updated_at
                 )
                 VALUES (?, ?, ?, ?)
-            `).run(
-                id,
-                passwordHash,
-                now,
-                now
-            );
+            `).run(id, passwordHash, now, now);
 
             db.prepare(`
                 INSERT INTO user_roles (
-                    id,
-                    user_id,
-                    role,
-                    created_at
+                    id, user_id, role, created_at
                 )
                 VALUES (?, ?, ?, ?)
-            `).run(
-                crypto.randomUUID(),
-                id,
-                role,
-                now
-            );
+            `).run(crypto.randomUUID(), id, role, now);
         });
 
         createUser();
@@ -105,23 +71,17 @@ function register(req, res) {
         return res.status(201).json({
             success: true,
             message: "Usuário criado com sucesso.",
-            data: {
-                id,
-                full_name,
-                role
-            }
+            data: { id, full_name, role }
         });
 
     } catch (error) {
-        console.error(error);
-
+        console.error("Erro no register:", error);
         return res.status(500).json({
             success: false,
-            message: "Erro ao criar usuário."
+            message: "Erro interno ao criar usuário."
         });
     }
 }
-
 
 function login(req, res) {
     try {
@@ -142,15 +102,9 @@ function login(req, res) {
                 c.password_hash,
                 r.role
             FROM profiles p
-
-            INNER JOIN auth_credentials c
-                ON c.user_id = p.id
-
-            INNER JOIN user_roles r
-                ON r.user_id = p.id
-
+            INNER JOIN auth_credentials c ON c.user_id = p.id
+            INNER JOIN user_roles r ON r.user_id = p.id
             WHERE p.id = ?
-
             LIMIT 1
         `).get(id);
 
@@ -168,10 +122,7 @@ function login(req, res) {
             });
         }
 
-        const passwordCorrect = bcrypt.compareSync(
-            password,
-            user.password_hash
-        );
+        const passwordCorrect = bcrypt.compareSync(password, user.password_hash);
 
         if (!passwordCorrect) {
             return res.status(401).json({
@@ -180,12 +131,15 @@ function login(req, res) {
             });
         }
 
+        // Adicionado fallback no secret para evitar quebra caso o .env não carregue
+        const secret = process.env.JWT_SECRET || "1bbda348bad451fd0509169cb199da7066f6acc4c7ea74d85f63c5332d79de6a";
+        
         const token = jwt.sign(
             {
                 id: user.id,
                 role: user.role
             },
-            process.env.JWT_SECRET,
+            secret,
             {
                 expiresIn: process.env.JWT_EXPIRES_IN || "8h"
             }
@@ -205,15 +159,13 @@ function login(req, res) {
         });
 
     } catch (error) {
-        console.error(error);
-
+        console.error("Erro no login:", error);
         return res.status(500).json({
             success: false,
-            message: "Erro ao realizar login."
+            message: "Erro interno ao realizar login."
         });
     }
 }
-
 
 module.exports = {
     register,

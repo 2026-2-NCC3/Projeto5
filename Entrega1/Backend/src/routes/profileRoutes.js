@@ -1,28 +1,12 @@
-const express = require("express");
+const getProfile = async (req, res) => {
+    return res.status(200).json({ success: true, message: "Dados do perfil." });
+};
 
-const {
+const updateProfile = async (req, res) => {
+    return res.status(200).json({ success: true, message: "Perfil atualizado." });
+};
+
+module.exports = {
     getProfile,
     updateProfile
-} = require("../controllers/profileController");
-
-const {
-    authMiddleware
-} = require("../middleware/authMiddleware");
-
-const router = express.Router();
-
-router.use(authMiddleware);
-
-// Buscar perfil do usuário logado
-router.get(
-    "/",
-    getProfile
-);
-
-// Atualizar perfil do usuário logado
-router.put(
-    "/",
-    updateProfile
-);
-
-module.exports = router;
+};

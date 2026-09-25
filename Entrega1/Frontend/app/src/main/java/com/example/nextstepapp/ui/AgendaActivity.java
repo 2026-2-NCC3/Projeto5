@@ -1,52 +1,137 @@
 package com.example.nextstepapp.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.nextstepapp.MainActivity;
 import com.example.nextstepapp.R;
-import com.example.nextstepapp.model.Atividade;
+import com.example.nextstepapp.model.ApiResponse;
+import com.example.nextstepapp.model.Curso;
+import com.example.nextstepapp.network.ApiClient;
+import com.example.nextstepapp.session.SessionManager;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class AgendaActivity extends AppCompatActivity {
-
-    private Atividade evento1, evento2, evento3;
+    private final List<Curso> agenda =
+            new ArrayList<>();
     private TextView tvInfoAgenda;
-
+    private CalendarView calendarView;
+    private SessionManager sessionManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agenda);
-
-        // Seus 3 eventos cadastrados
-        evento1 = new Atividade("Boas-vindas e Introdução", "15/09/2026", "09:00 - 11:00", "Auditório Online (Zoom)");
-        evento2 = new Atividade("Oficina de Currículo", "22/09/2026", "14:00 - 16:00", "Sala de Informática 2");
-        evento3 = new Atividade("Mentoria Profissional", "29/09/2026", "10:00 - 12:00", "Laboratório Central");
-
-        // Componentes do seu XML
+        sessionManager = new SessionManager(this);
         tvInfoAgenda = findViewById(R.id.tvInfoAgenda);
-        CalendarView calendarView = findViewById(R.id.calendarView);
+        calendarView = findViewById(R.id.calendarView);
         Button btnVoltarAgenda = findViewById(R.id.btnVoltarAgenda);
+        calendarView.setEnabled(false);
 
-        // Ao clicar em uma data do Calendário
         calendarView.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
-            // Formata a data clicada no formato DD/MM/YYYY
-            String dataSelecionada = String.format(Locale.getDefault(), "%02d/%02d/%04d", dayOfMonth, month + 1, year);
+            String dataSelecionada =
+                            String.format(Locale.getDefault(), "%04d-%02d-%02d", year, month + 1, dayOfMonth
+                            );exibirAgendaDaData(dataSelecionada);
+                }
+        );btnVoltarAgenda.setOnClickListener(v -> finish());carregarAgenda();
+    }
 
-            if (dataSelecionada.equals("15/09/2026")) {
-                tvInfoAgenda.setText(evento1.getInfo());
-            } else if (dataSelecionada.equals("22/09/2026")) {
-                tvInfoAgenda.setText(evento2.getInfo());
-            } else if (dataSelecionada.equals("29/09/2026")) {
-                tvInfoAgenda.setText(evento3.getInfo());
-            } else {
-                tvInfoAgenda.setText("Nenhum curso ou evento agendado para o dia " + dataSelecionada);
+    private void carregarAgenda() {
+        String token = sessionManager.obterToken();
+        if (token == null) {
+            voltarParaLogin();
+            return;
+        }
+        tvInfoAgenda.setText("Carregando sua agenda...");
+        ApiClient.getApiService()
+                .getAgenda("Bearer " + token).enqueue(new Callback<ApiResponse<List<Curso>>>() {
+                    @Override
+                    public void onResponse(Call<ApiResponse<List<Curso>>> call, Response<ApiResponse<List<Curso>>> response) {
+                                if (response.code() == 401) {sessionManager.limparSessao();voltarParaLogin();return;
+                                }
+                                ApiResponse<List<Curso>> body = response.body();
+                                if (response.isSuccessful() && body != null && body.isSuccess()) {agenda.clear();
+                                    if (body.getData() != null) {
+                                        agenda.addAll(body.getData()
+                                        );
+                                    }
+                                    calendarView.setEnabled(true);
+
+                                    if (agenda.isEmpty()) {
+                                        tvInfoAgenda.setText(
+                                                "Você ainda não possui cursos na agenda."
+                                        );
+                                    } else {
+                                        tvInfoAgenda.setText(
+                                                "Selecione uma data no calendário.\n"
+                                                        + "Cursos encontrados: "
+                                                        + agenda.size()
+                                        );
+                                    }
+                                    return;
+                                }
+                                tvInfoAgenda.setText(
+                                        "Não foi possível carregar a agenda."
+                                );
+                            }
+                            @Override
+                            public void onFailure(
+                                    Call<ApiResponse<List<Curso>>> call,
+                                    Throwable throwable
+                            ) {
+                                tvInfoAgenda.setText(
+                                        "Falha de conexão com o servidor."
+                                );
+                            }
+                        }
+                );
+    }
+    private void exibirAgendaDaData(
+            String dataSelecionada
+    ) {
+        StringBuilder informacoes = new StringBuilder();
+        for (Curso curso : agenda) {String dataCurso = extrairData(curso.getCourseDate());
+            if (dataSelecionada.equals(dataCurso)) {
+                if (informacoes.length() > 0) {
+                    informacoes.append("\n\n----------------\n\n");
+                }
+
+                informacoes.append(curso.getInfoAgenda()
+                );
             }
-        });
+        }
 
-        btnVoltarAgenda.setOnClickListener(v -> finish());
+        if (informacoes.length() == 0) {
+            tvInfoAgenda.setText("Nenhum curso agendado para " + dataSelecionada);
+        } else {
+            tvInfoAgenda.setText(informacoes.toString());
+        }
+    }
+
+    private String extrairData(String valor) {
+        if (valor == null || valor.length() < 10) {
+            return "";
+        }
+
+        return valor.substring(0, 10);
+    }
+
+    private void voltarParaLogin() {
+        Intent intent = new Intent(AgendaActivity.this, MainActivity.class);
+
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 }

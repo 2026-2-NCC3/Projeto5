@@ -1,22 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:layout_marginBottom="12dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="3dp"
+    app:contentPadding="16dp"
+    app:strokeColor="#E0D6F3"
+    app:strokeWidth="1dp">
 
-    <TextView
-        android:id="@+id/tvNomeCurso"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tvCargaHoraria"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:textColor="#666666" />
+        <TextView
+            android:id="@+id/tvNomeCurso"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nome do curso"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/tvDescricaoCurso"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="Descrição"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tvDataCurso"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Data"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvLocalCurso"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Local"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tvVagasCurso"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Vagas disponíveis"
+            android:textSize="14sp"
+            android:textColor="#5E3EA1" />
+
+        <TextView
+            android:id="@+id/tvPontosCurso"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Pontos"
+            android:textSize="14sp"
+            android:textColor="#5E3EA1" />
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

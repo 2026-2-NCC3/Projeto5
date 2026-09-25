@@ -19,7 +19,7 @@ public class PresencaActivity extends AppCompatActivity {
 
         // Ação do botão para simular a validação de presença no servidor
         btnRegistrarPresenca.setOnClickListener(v -> {
-            Toast.makeText(PresencaActivity.this, "Presença confirmada com sucesso!", Toast.LENGTH_LONG).show();
+            Toast.makeText(PresencaActivity.this, "Simulação de presença registrada.", Toast.LENGTH_LONG).show();
         });
 
         // Retorna à tela anterior

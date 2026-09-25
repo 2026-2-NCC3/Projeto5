@@ -1,16 +1,72 @@
 const bcrypt = require("bcryptjs");
-const crypto = require("crypto");
 const db = require("./database");
 
 try {
     const now = new Date().toISOString();
 
     const userId = "aluno-teste";
-    const courseId = "curso-1";
-    const passwordHash = bcrypt.hashSync("Senha123", 12);
+    const passwordHash = bcrypt.hashSync(
+        "Senha123",
+        12
+    );
+
+    const cursos = [
+        {
+            id: "curso-1",
+            title: "Introdução à Programação Mobile",
+            description:
+                "Aprenda os conceitos fundamentais para desenvolver aplicativos Android.",
+            location: "FECAP",
+            courseDate: "2026-10-01T18:00:00.000Z",
+            courseTimeEnd: "2026-10-01T21:00:00.000Z",
+            totalSpots: 30,
+            availableSpots: 29,
+            pointsAwarded: 100,
+            category: "Tecnologia"
+        },
+        {
+            id: "curso-2",
+            title: "Lógica de Programação",
+            description:
+                "Desenvolva o raciocínio lógico utilizando algoritmos e exercícios práticos.",
+            location: "Sala de Informática 2",
+            courseDate: "2026-10-08T14:00:00.000Z",
+            courseTimeEnd: "2026-10-08T17:00:00.000Z",
+            totalSpots: 25,
+            availableSpots: 18,
+            pointsAwarded: 80,
+            category: "Tecnologia"
+        },
+        {
+            id: "curso-3",
+            title: "Banco de Dados I",
+            description:
+                "Conheça modelagem relacional, SQL e fundamentos de bancos de dados.",
+            location: "Laboratório Central",
+            courseDate: "2026-10-15T18:00:00.000Z",
+            courseTimeEnd: "2026-10-15T21:00:00.000Z",
+            totalSpots: 30,
+            availableSpots: 22,
+            pointsAwarded: 100,
+            category: "Tecnologia"
+        },
+        {
+            id: "curso-4",
+            title: "Orientação Profissional",
+            description:
+                "Prepare-se para oportunidades acadêmicas e para o mercado de trabalho.",
+            location: "Auditório Principal",
+            courseDate: "2026-10-22T10:00:00.000Z",
+            courseTimeEnd: "2026-10-22T12:00:00.000Z",
+            totalSpots: 40,
+            availableSpots: 35,
+            pointsAwarded: 60,
+            category: "Carreira"
+        }
+    ];
 
     const seedDatabase = db.transaction(() => {
-        // 1. Cria o perfil fictício do aluno
+        // Cria o perfil fictício do aluno
         db.prepare(`
             INSERT OR IGNORE INTO profiles (
                 id,
@@ -36,7 +92,7 @@ try {
             now
         );
 
-        // 2. Cria a credencial com senha criptografada
+        // Cria a credencial do aluno
         db.prepare(`
             INSERT OR IGNORE INTO auth_credentials (
                 user_id,
@@ -52,7 +108,7 @@ try {
             now
         );
 
-        // 3. Cria o papel de estudante
+        // Cria o papel de estudante
         db.prepare(`
             INSERT OR IGNORE INTO user_roles (
                 id,
@@ -62,14 +118,13 @@ try {
             )
             VALUES (?, ?, ?, ?)
         `).run(
-            crypto.randomUUID(),
+            "role-aluno-teste-student",
             userId,
             "student",
             now
         );
 
-        // 4. Cria o curso fictício
-        db.prepare(`
+        const inserirCurso = db.prepare(`
             INSERT OR IGNORE INTO courses (
                 id,
                 title,
@@ -88,28 +143,13 @@ try {
                 created_at,
                 updated_at
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        `).run(
-            courseId,
-            "Introdução à Programação Mobile",
-            "Aprenda a criar aplicativos Android do zero.",
-            null,
-            null,
-            "FECAP",
-            "2026-10-01T18:00:00.000Z",
-            "2026-10-01T21:00:00.000Z",
-            30,
-            29,
-            100,
-            1,
-            "Tecnologia",
-            1,
-            now,
-            now
-        );
+            VALUES (
+                ?, ?, ?, ?, ?, ?, ?, ?, ?,
+                ?, ?, ?, ?, ?, ?, ?
+            )
+        `);
 
-        // 5. Inscreve o aluno no curso
-        db.prepare(`
+        const inserirInscricao = db.prepare(`
             INSERT OR IGNORE INTO enrollments (
                 id,
                 user_id,
@@ -120,24 +160,55 @@ try {
                 created_at
             )
             VALUES (?, ?, ?, ?, ?, ?, ?)
-        `).run(
-            crypto.randomUUID(),
-            userId,
-            courseId,
-            "enrolled",
-            null,
-            null,
-            now
-        );
+        `);
+
+        cursos.forEach((curso, index) => {
+            inserirCurso.run(
+                curso.id,
+                curso.title,
+                curso.description,
+                null,
+                null,
+                curso.location,
+                curso.courseDate,
+                curso.courseTimeEnd,
+                curso.totalSpots,
+                curso.availableSpots,
+                curso.pointsAwarded,
+                1,
+                curso.category,
+                1,
+                now,
+                now
+            );
+
+            inserirInscricao.run(
+                `enrollment-aluno-teste-${index + 1}`,
+                userId,
+                curso.id,
+                "enrolled",
+                null,
+                null,
+                now
+            );
+        });
     });
 
     seedDatabase();
 
-    console.log("Dados de teste inseridos com sucesso.");
+    console.log(
+        "Dados de teste inseridos com sucesso."
+    );
+
     console.log("Aluno: aluno-teste");
     console.log("Senha: Senha123");
-    console.log("Curso: curso-1");
-    console.log("Inscrição criada com status enrolled.");
+    console.log(
+        `${cursos.length} cursos inseridos.`
+    );
+
+    console.log(
+        `${cursos.length} inscrições criadas.`
+    );
 } catch (error) {
     console.error(
         "Erro ao inserir dados de teste:",

@@ -1,75 +1,35 @@
-const express = require("express");
+const getActiveCourses = async (req, res) => {
+    return res.status(200).json({ message: "Lista de cursos ativos pronta para ser implementada." });
+};
 
-const {
+const getCourseById = async (req, res) => {
+    const { id } = req.params;
+    return res.status(200).json({ message: `Detalhes do curso ${id}.` });
+};
+
+const getStudentSchedule = async (req, res) => {
+    return res.status(200).json({ message: "Agenda do aluno pronta para ser implementada." });
+};
+
+const createCourse = async (req, res) => {
+    return res.status(201).json({ message: "Rota de criação de curso pronta." });
+};
+
+const updateCourse = async (req, res) => {
+    const { id } = req.params;
+    return res.status(200).json({ message: `Rota de atualização do curso ${id} pronta.` });
+};
+
+const deleteCourse = async (req, res) => {
+    const { id } = req.params;
+    return res.status(200).json({ message: `Rota para deletar o curso ${id} pronta.` });
+};
+
+module.exports = {
     getActiveCourses,
     getCourseById,
     getStudentSchedule,
     createCourse,
     updateCourse,
     deleteCourse
-} = require("../controllers/courseController");
-
-const {
-    authMiddleware,
-    requireAdmin
-} = require("../middleware/authMiddleware");
-
-const router = express.Router();
-
-
-// AGENDA
-
-// GET /api/courses/schedule
-router.get(
-    "/schedule",
-    authMiddleware,
-    getStudentSchedule
-);
-
-
-// LISTAGEM PÚBLICA
-
-// GET /api/courses
-router.get(
-    "/",
-    getActiveCourses
-);
-
-
-// GET /api/courses/:id
-router.get(
-    "/:id",
-    getCourseById
-);
-
-
-// ADMIN
-
-// POST /api/courses
-router.post(
-    "/",
-    authMiddleware,
-    requireAdmin,
-    createCourse
-);
-
-
-// PUT /api/courses/:id
-router.put(
-    "/:id",
-    authMiddleware,
-    requireAdmin,
-    updateCourse
-);
-
-
-// DELETE /api/courses/:id
-router.delete(
-    "/:id",
-    authMiddleware,
-    requireAdmin,
-    deleteCourse
-);
-
-
-module.exports = router;
+};

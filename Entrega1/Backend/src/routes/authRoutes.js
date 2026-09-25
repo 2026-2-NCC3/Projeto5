@@ -1,5 +1,9 @@
 const express = require("express");
-const authRoutes = require('./caminho/para/o/seu/authroutes');
+// Importa o arquivo de rotas apontando para a pasta correta
+const authRoutes = require('./routes/authRoutes');
+
+// Define o prefixo da rota
+app.use('/api/auth', authRoutes);
 
 app.use('/api/auth', authRoutes);
 const {

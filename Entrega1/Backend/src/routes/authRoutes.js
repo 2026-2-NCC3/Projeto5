@@ -1,7 +1,6 @@
 const express = require("express");
 
-// Caminho corrigido apontando para a pasta "controllers"
-const { register, login } = require("../controllers/authController");
+const { register, login } = require("../auth/authController");
 
 const router = express.Router();
 

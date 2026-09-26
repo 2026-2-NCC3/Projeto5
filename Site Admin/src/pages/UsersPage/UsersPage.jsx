@@ -1,5 +1,6 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
+import { getUsers } from '../../services/api';
 import { initialUsers } from '../../services/mockData';
 import Avatar from '../../components/Avatar';
 import Icon from '../../components/Icon';
@@ -21,10 +22,35 @@ const emptyForm = {
 
 export default function UsersPage() {
   const [users, setUsers] = useState(initialUsers);
+  const [usingMockUsers, setUsingMockUsers] = useState(true);
   const [query, setQuery] = useState('');
   const [modalOpen, setModalOpen] = useState(false);
   const [form, setForm] = useState(emptyForm);
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    getUsers()
+      .then((response) => {
+        const realUsers = Array.isArray(response)
+          ? response
+          : response?.users;
+
+        if (Array.isArray(realUsers)) {
+          setUsers(realUsers.map((user) => ({
+            ...user,
+            name: user.name ?? user.nome ?? '',
+            email: user.email ?? '',
+            role: user.role ?? user.role_name ?? 'Analista',
+            status: user.status ?? (user.is_blocked ? 'Inativo' : 'Ativo'),
+            initials: user.initials ?? (user.name ?? user.nome ?? '')
+              .split(/\s+/).map((part) => part[0] ?? '').slice(0, 2).join('').toUpperCase(),
+            color: user.color ?? 'blue',
+          })));
+          setUsingMockUsers(false);
+        }
+      })
+      .catch(() => setUsingMockUsers(true));
+  }, []);
 
   const filteredUsers = useMemo(() => {
     const normalizedQuery = query.toLowerCase();
@@ -90,6 +116,7 @@ export default function UsersPage() {
       ...currentUsers,
       newUser,
     ]);
+    setUsingMockUsers(false);
 
     closeModal();
   }
@@ -143,6 +170,7 @@ export default function UsersPage() {
           </div>
 
           <span>
+            {usingMockUsers && <small>Dados demonstrativos · </small>}
             {filteredUsers.length}{' '}
             {filteredUsers.length === 1
               ? 'usuário'

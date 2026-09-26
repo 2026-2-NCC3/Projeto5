@@ -1,4 +1,6 @@
-import { activity, metrics } from '../../services/mockData';
+import { useEffect, useState } from 'react';
+import { getDashboard } from '../../services/api';
+import { activity as mockActivity, metrics as mockMetrics } from '../../services/mockData';
 import StatCard from '../../components/StatCard';
 import Avatar from '../../components/Avatar';
 import './DashboardPage.css';
@@ -21,6 +23,44 @@ const months = [
 const bars = [40, 53, 43, 65, 56, 79, 69, 94, 78, 88, 72, 98];
 
 export default function DashboardPage() {
+  const [dashboard, setDashboard] = useState(null);
+
+  useEffect(() => {
+    getDashboard()
+      .then(setDashboard)
+      .catch(() => setDashboard(null));
+  }, []);
+
+  const metrics = mockMetrics.map((metric, index) => {
+    const aliases = [
+      ['students', 'students_count', 'total_students', 'alunos'],
+      ['courses', 'courses_count', 'total_courses', 'cursos'],
+      ['enrollments', 'enrollments_count', 'active_enrollments', 'inscricoes'],
+      ['attendance_rate', 'attendance', 'presenca'],
+    ][index];
+    const source = dashboard?.metrics ?? dashboard;
+    const value = aliases
+      .map((key) => source?.[key])
+      .find((candidate) => candidate !== undefined && candidate !== null && candidate !== '');
+    const labeledMetric = Array.isArray(source)
+      ? source.find((item) => item.label === metric.label || aliases.includes(item.key))
+      : null;
+
+    return value !== undefined || labeledMetric
+      ? { ...metric, ...(labeledMetric ?? {}), ...(value !== undefined ? { value: String(value) } : {}) }
+      : metric;
+  });
+  const realActivity = dashboard?.activity ?? dashboard?.recent_activity ?? dashboard?.recentActivity;
+  const activity = Array.isArray(realActivity) && realActivity.length > 0
+    ? realActivity.map((item) => ({
+        ...item,
+        name: item.name ?? item.user_name ?? item.user ?? 'Usuário',
+        action: item.action ?? item.description ?? item.event ?? '',
+        time: item.time ?? item.created_at ?? '',
+        initials: item.initials ?? (item.name ?? item.user_name ?? item.user ?? 'U').split(/\s+/).map((part) => part[0]).slice(0, 2).join('').toUpperCase(),
+        color: item.color ?? 'blue',
+      }))
+    : mockActivity;
   function handleExport() {
     window.alert(
       'Relatório demonstrativo preparado para exportação.'

@@ -1,12 +1,12 @@
-const getAppInfo = async (req, res) => {
-    return res.status(200).json({ success: true, message: "Informações gerais do aplicativo." });
-};
+﻿const notImplemented = (name) => (req, res) => res.status(501).json({
+    success: false,
+    message: `A funcionalidade "${name}" ainda não foi implementada.`
+});
 
-const getAppStatus = async (req, res) => {
-    return res.status(200).json({ success: true, message: "Status do sistema operacional." });
-};
+const names = [
+    "getCertificates", "getBadges", "getTests", "getTestResults", "createTestResult",
+    "getNews", "getNewsById", "getComments", "createComment",
+    "getVideos", "getVideoById", "getNotifications", "markNotificationRead"
+];
 
-module.exports = {
-    getAppInfo,
-    getAppStatus
-};
+module.exports = Object.fromEntries(names.map((name) => [name, notImplemented(name)]));

@@ -1,72 +1,31 @@
-const jwt = require("jsonwebtoken");
+﻿const jwt = require("jsonwebtoken");
 
 function authMiddleware(req, res, next) {
+    const header = req.headers.authorization;
+    const [scheme, token] = (header || "").split(" ");
+
+    if (scheme !== "Bearer" || !token) {
+        return res.status(401).json({ success: false, message: "Token ausente ou inválido." });
+    }
+
+    if (!process.env.JWT_SECRET) {
+        return res.status(500).json({ success: false, message: "JWT_SECRET não configurado." });
+    }
+
     try {
-        const authorization = req.headers.authorization;
-
-        if (!authorization) {
-            return res.status(401).json({
-                success: false,
-                message: "Token não fornecido."
-            });
-        }
-
-        const [type, token] = authorization.split(" ");
-
-        if (type !== "Bearer" || !token) {
-            return res.status(401).json({
-                success: false,
-                message: "Formato de token inválido."
-            });
-        }
-
-        if (!process.env.JWT_SECRET) {
-            console.error("JWT_SECRET não configurado.");
-
-            return res.status(500).json({
-                success: false,
-                message: "Erro de configuração do servidor."
-            });
-        }
-
-        const decoded = jwt.verify(
-            token,
-            process.env.JWT_SECRET
-        );
-
-        req.user = {
-            id: decoded.id,
-            role: decoded.role
-        };
-
+        req.user = jwt.verify(token, process.env.JWT_SECRET);
         return next();
     } catch (error) {
-        if (error.name === "TokenExpiredError") {
-            return res.status(401).json({
-                success: false,
-                message: "Token expirado. Faça login novamente."
-            });
-        }
-
-        return res.status(401).json({
-            success: false,
-            message: "Token inválido."
-        });
+        const message = error.name === "TokenExpiredError" ? "Token expirado." : "Token inválido.";
+        return res.status(401).json({ success: false, message });
     }
 }
 
 function requireAdmin(req, res, next) {
-    if (!req.user || req.user.role !== "admin") {
-        return res.status(403).json({
-            success: false,
-            message: "Acesso permitido somente para administradores."
-        });
+    if (req.user?.role !== "admin") {
+        return res.status(403).json({ success: false, message: "Acesso restrito a administradores." });
     }
-
     return next();
 }
 
-module.exports = {
-    authMiddleware,
-    requireAdmin
-};
+module.exports = { authMiddleware, requireAdmin };

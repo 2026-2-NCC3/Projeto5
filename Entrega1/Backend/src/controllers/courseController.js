@@ -1,35 +1,13 @@
-const getActiveCourses = async (req, res) => {
-    return res.status(200).json({ message: "Lista de cursos ativos pronta para ser implementada." });
-};
-
-const getCourseById = async (req, res) => {
-    const { id } = req.params;
-    return res.status(200).json({ message: `Detalhes do curso ${id}.` });
-};
-
-const getStudentSchedule = async (req, res) => {
-    return res.status(200).json({ message: "Agenda do aluno pronta para ser implementada." });
-};
-
-const createCourse = async (req, res) => {
-    return res.status(201).json({ message: "Rota de criação de curso pronta." });
-};
-
-const updateCourse = async (req, res) => {
-    const { id } = req.params;
-    return res.status(200).json({ message: `Rota de atualização do curso ${id} pronta.` });
-};
-
-const deleteCourse = async (req, res) => {
-    const { id } = req.params;
-    return res.status(200).json({ message: `Rota para deletar o curso ${id} pronta.` });
-};
+﻿const notImplemented = (name) => (req, res) => res.status(501).json({
+    success: false,
+    message: `A funcionalidade "${name}" ainda não foi implementada.`
+});
 
 module.exports = {
-    getActiveCourses,
-    getCourseById,
-    getStudentSchedule,
-    createCourse,
-    updateCourse,
-    deleteCourse
+    getActiveCourses: notImplemented("listagem de cursos"),
+    getCourseById: notImplemented("consulta de curso"),
+    getStudentSchedule: notImplemented("agenda do aluno"),
+    createCourse: notImplemented("criação de curso"),
+    updateCourse: notImplemented("atualização de curso"),
+    deleteCourse: notImplemented("remoção de curso")
 };

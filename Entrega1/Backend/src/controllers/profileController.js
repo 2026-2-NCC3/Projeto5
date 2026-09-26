@@ -1,12 +1,9 @@
-const getProfile = async (req, res) => {
-    return res.status(200).json({ success: true, message: "Dados do perfil." });
-};
-
-const updateProfile = async (req, res) => {
-    return res.status(200).json({ success: true, message: "Perfil atualizado com sucesso." });
-};
+﻿const notImplemented = (name) => (req, res) => res.status(501).json({
+    success: false,
+    message: `A funcionalidade "${name}" ainda não foi implementada.`
+});
 
 module.exports = {
-    getProfile,
-    updateProfile
+    getProfile: notImplemented("consulta de perfil"),
+    updateProfile: notImplemented("atualização de perfil")
 };

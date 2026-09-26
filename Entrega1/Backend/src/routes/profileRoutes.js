@@ -1,28 +1,10 @@
-const express = require("express");
-
-const {
-    getProfile,
-    updateProfile
-} = require("../controllers/profileController");
-
-const {
-    authMiddleware
-} = require("../middleware/authMiddleware");
+﻿const express = require("express");
+const { authMiddleware } = require("../middleware/authMiddleware");
+const profile = require("../controllers/profileController");
 
 const router = express.Router();
-
 router.use(authMiddleware);
-
-// Buscar perfil do usuário logado
-router.get(
-    "/",
-    getProfile
-);
-
-// Atualizar perfil do usuário logado
-router.put(
-    "/",
-    updateProfile
-);
+router.get("/", profile.getProfile);
+router.put("/", profile.updateProfile);
 
 module.exports = router;

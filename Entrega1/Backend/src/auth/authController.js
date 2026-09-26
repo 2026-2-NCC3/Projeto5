@@ -1,4 +1,4 @@
-const crypto = require("crypto");
+﻿const crypto = require("crypto");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const db = require("../config/database");
@@ -22,7 +22,7 @@ function register(req, res) {
         if (!["admin", "student"].includes(role)) {
             return res.status(400).json({
                 success: false,
-                message: "Cargo inválido."
+                message: "Cargo invÃ¡lido."
             });
         }
 
@@ -35,7 +35,7 @@ function register(req, res) {
         if (existingUser) {
             return res.status(409).json({
                 success: false,
-                message: "Usuário já existe."
+                message: "Usuário já existente."
             });
         }
 
@@ -70,7 +70,7 @@ function register(req, res) {
 
         return res.status(201).json({
             success: true,
-            message: "Usuário criado com sucesso.",
+            message: "UsuÃ¡rio criado com sucesso.",
             data: { id, full_name, role }
         });
 
@@ -111,7 +111,7 @@ function login(req, res) {
         if (!user) {
             return res.status(401).json({
                 success: false,
-                message: "Usuário ou senha inválidos."
+                message: "Usuário ou senha invÃ¡lidos."
             });
         }
 
@@ -127,13 +127,14 @@ function login(req, res) {
         if (!passwordCorrect) {
             return res.status(401).json({
                 success: false,
-                message: "Usuário ou senha inválidos."
+                message: "Usuário ou senha invÃ¡lidos."
             });
         }
+        const secret = process.env.JWT_SECRET;
+        if (!secret) {
+            return res.status(500).json({ success: false, message: 'JWT_SECRET não configurado.' });
+        }
 
-        // Adicionado fallback no secret para evitar quebra caso o .env não carregue
-        const secret = process.env.JWT_SECRET || "1bbda348bad451fd0509169cb199da7066f6acc4c7ea74d85f63c5332d79de6a";
-        
         const token = jwt.sign(
             {
                 id: user.id,

@@ -96,10 +96,7 @@ export async function register(
     );
 }
 
-
-// ======================================================
 // DASHBOARD
-// ======================================================
 
 export async function getDashboard() {
 
@@ -108,10 +105,7 @@ export async function getDashboard() {
     );
 }
 
-
-// ======================================================
 // USUÁRIOS
-// ======================================================
 
 export async function getUsers() {
 
@@ -152,10 +146,7 @@ export async function blockUser(
     );
 }
 
-
-// ======================================================
 // ALUNOS
-// ======================================================
 
 export async function getStudents() {
 
@@ -174,10 +165,7 @@ export async function getStudent(
     );
 }
 
-
-// ======================================================
 // CURSOS
-// ======================================================
 
 export async function getCourses() {
 
@@ -238,10 +226,7 @@ export async function deleteCourse(
     );
 }
 
-
-// ======================================================
 // UNIVERSIDADES
-// ======================================================
 
 export async function getUniversities() {
 
@@ -292,10 +277,7 @@ export async function deleteUniversity(
     );
 }
 
-
-// ======================================================
 // INSCRIÇÕES
-// ======================================================
 
 export async function getEnrollments() {
 
@@ -346,10 +328,7 @@ export async function deleteEnrollment(
     );
 }
 
-
-// ======================================================
 // PRESENÇAS
-// ======================================================
 
 export async function getAttendance() {
 
@@ -373,10 +352,7 @@ export async function updateAttendance(
     );
 }
 
-
-// ======================================================
 // CERTIFICADOS
-// ======================================================
 
 export async function getCertificates() {
 
@@ -427,10 +403,7 @@ export async function deleteCertificate(
     );
 }
 
-
-// ======================================================
 // BADGES
-// ======================================================
 
 export async function getBadges() {
 
@@ -481,10 +454,7 @@ export async function deleteBadge(
     );
 }
 
-
-// ======================================================
 // TESTES
-// ======================================================
 
 export async function getTestResults() {
 
@@ -516,10 +486,7 @@ export async function deleteTestResult(
     );
 }
 
-
-// ======================================================
 // NOTÍCIAS
-// ======================================================
 
 export async function getNews() {
 
@@ -580,10 +547,7 @@ export async function deleteNews(
     );
 }
 
-
-// ======================================================
 // COMENTÁRIOS
-// ======================================================
 
 export async function getNewsComments(
     id
@@ -608,10 +572,7 @@ export async function deleteNewsComment(
     );
 }
 
-
-// ======================================================
 // VÍDEOS
-// ======================================================
 
 export async function getVideos() {
 
@@ -662,10 +623,7 @@ export async function deleteVideo(
     );
 }
 
-
-// ======================================================
 // NOTIFICAÇÕES
-// ======================================================
 
 export async function getNotifications() {
 
@@ -688,10 +646,7 @@ export async function createNotification(
     );
 }
 
-
-// ======================================================
 // LOGOUT
-// ======================================================
 
 export function logout() {
 

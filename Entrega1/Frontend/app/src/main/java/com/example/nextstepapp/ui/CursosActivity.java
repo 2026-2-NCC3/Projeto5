@@ -20,8 +20,11 @@ import com.example.nextstepapp.R;
 import com.example.nextstepapp.model.ApiResponse;
 import com.example.nextstepapp.model.Curso;
 import com.example.nextstepapp.network.ApiClient;
+import com.example.nextstepapp.network.OfflineManager;
 import com.example.nextstepapp.session.SessionManager;
+import com.google.gson.Gson;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -113,7 +116,19 @@ public class CursosActivity extends AppCompatActivity {
     }
 
     private void carregarCursos() {
-        progressCursos.setVisibility(View.VISIBLE);
+
+        if (OfflineManager.isOffline(this)) {
+            carregarCursosOffline();
+        } else {
+            carregarCursosOnline();
+        }
+    }
+
+    private void carregarCursosOnline() {
+
+        progressCursos.setVisibility(
+                View.VISIBLE
+        );
 
         textInfo.setText(
                 "Carregando cursos..."
@@ -132,6 +147,7 @@ public class CursosActivity extends AppCompatActivity {
                                     Call<ApiResponse<List<Curso>>> call,
                                     Response<ApiResponse<List<Curso>>> response
                             ) {
+
                                 progressCursos.setVisibility(
                                         View.GONE
                                 );
@@ -171,6 +187,7 @@ public class CursosActivity extends AppCompatActivity {
                                     Call<ApiResponse<List<Curso>>> call,
                                     Throwable throwable
                             ) {
+
                                 progressCursos.setVisibility(
                                         View.GONE
                                 );
@@ -183,10 +200,91 @@ public class CursosActivity extends AppCompatActivity {
                 );
     }
 
-    private void exibirCursos(List<Curso> cursos) {
+    private void carregarCursosOffline() {
+
+        progressCursos.setVisibility(
+                View.GONE
+        );
+
+        containerCursos.removeAllViews();
+
+        textInfo.setText(
+                "Cursos disponíveis — modo offline"
+        );
+
+        String jsonCursos =
+                "["
+                        + "{"
+                        + "\"id\":\"1\","
+                        + "\"title\":\"Introdução à Programação\","
+                        + "\"description\":\"Curso de introdução aos conceitos de programação.\","
+                        + "\"location\":\"FECAP\","
+                        + "\"course_date\":\"2026-09-26T19:00:00.000Z\","
+                        + "\"course_time_end\":\"21:00\","
+                        + "\"total_spots\":30,"
+                        + "\"available_spots\":18,"
+                        + "\"points_awarded\":50,"
+                        + "\"has_certificate\":1,"
+                        + "\"category\":\"Tecnologia\""
+                        + "},"
+                        + "{"
+                        + "\"id\":\"2\","
+                        + "\"title\":\"Banco de Dados\","
+                        + "\"description\":\"Aprendizado de conceitos básicos de banco de dados.\","
+                        + "\"location\":\"Laboratório de Informática\","
+                        + "\"course_date\":\"2026-09-27T14:00:00.000Z\","
+                        + "\"course_time_end\":\"16:00\","
+                        + "\"total_spots\":25,"
+                        + "\"available_spots\":12,"
+                        + "\"points_awarded\":40,"
+                        + "\"has_certificate\":1,"
+                        + "\"category\":\"Banco de Dados\""
+                        + "}"
+                        + "]";
+
+        try {
+
+            Gson gson = new Gson();
+
+            Curso[] cursosArray =
+                    gson.fromJson(
+                            jsonCursos,
+                            Curso[].class
+                    );
+
+            List<Curso> cursos =
+                    new ArrayList<>();
+
+            if (cursosArray != null) {
+
+                for (Curso curso : cursosArray) {
+                    cursos.add(curso);
+                }
+            }
+
+            textInfo.setText(
+                    cursos.size()
+                            + " curso(s) disponível(is) — modo offline"
+            );
+
+            exibirCursos(cursos);
+
+        } catch (Exception e) {
+
+            textInfo.setText(
+                    "Erro ao carregar cursos offline."
+            );
+        }
+    }
+
+    private void exibirCursos(
+            List<Curso> cursos
+    ) {
+
         containerCursos.removeAllViews();
 
         if (cursos == null || cursos.isEmpty()) {
+
             TextView mensagem = criarTexto(
                     "Nenhum curso disponível.",
                     16,
@@ -198,92 +296,118 @@ public class CursosActivity extends AppCompatActivity {
                     View.TEXT_ALIGNMENT_CENTER
             );
 
-            containerCursos.addView(mensagem);
+            containerCursos.addView(
+                    mensagem
+            );
 
             return;
         }
 
         for (Curso curso : cursos) {
+
             LinearLayout cardCurso =
                     criarCardCurso();
 
-            TextView titulo = criarTexto(
-                    valorOuPadrao(
-                            curso.getTitle(),
-                            "Curso sem título"
-                    ),
-                    18,
-                    true,
-                    "#3F3745"
+            TextView titulo =
+                    criarTexto(
+                            valorOuPadrao(
+                                    curso.getTitle(),
+                                    "Curso sem título"
+                            ),
+                            18,
+                            true,
+                            "#3F3745"
+                    );
+
+            TextView descricao =
+                    criarTexto(
+                            valorOuPadrao(
+                                    curso.getDescription(),
+                                    "Sem descrição."
+                            ),
+                            14,
+                            false,
+                            "#3F3745"
+                    );
+
+            TextView data =
+                    criarTexto(
+                            "Início: "
+                                    + formatarDataHora(
+                                    curso.getCourseDate()
+                            ),
+                            14,
+                            true,
+                            "#3F3745"
+                    );
+
+            TextView local =
+                    criarTexto(
+                            "Local: "
+                                    + valorOuPadrao(
+                                    curso.getLocation(),
+                                    "Não informado"
+                            ),
+                            14,
+                            false,
+                            "#3F3745"
+                    );
+
+            TextView vagas =
+                    criarTexto(
+                            "Vagas disponíveis: "
+                                    + curso.getAvailableSpots(),
+                            14,
+                            false,
+                            "#6741C1"
+                    );
+
+            TextView pontos =
+                    criarTexto(
+                            "Pontos: "
+                                    + curso.getPointsAwarded(),
+                            14,
+                            false,
+                            "#6741C1"
+                    );
+
+            cardCurso.addView(
+                    titulo
             );
 
-            TextView descricao = criarTexto(
-                    valorOuPadrao(
-                            curso.getDescription(),
-                            "Sem descrição."
-                    ),
-                    14,
-                    false,
-                    "#3F3745"
+            cardCurso.addView(
+                    descricao
             );
 
-            TextView data = criarTexto(
-                    "Início: "
-                            + formatarDataHora(
-                            curso.getCourseDate()
-                    ),
-                    14,
-                    true,
-                    "#3F3745"
+            cardCurso.addView(
+                    data
             );
 
-            TextView local = criarTexto(
-                    "Local: "
-                            + valorOuPadrao(
-                            curso.getLocation(),
-                            "Não informado"
-                    ),
-                    14,
-                    false,
-                    "#3F3745"
+            cardCurso.addView(
+                    local
             );
 
-            TextView vagas = criarTexto(
-                    "Vagas disponíveis: "
-                            + curso.getAvailableSpots(),
-                    14,
-                    false,
-                    "#6741C1"
+            cardCurso.addView(
+                    vagas
             );
 
-            TextView pontos = criarTexto(
-                    "Pontos: "
-                            + curso.getPointsAwarded(),
-                    14,
-                    false,
-                    "#6741C1"
+            cardCurso.addView(
+                    pontos
             );
 
-            cardCurso.addView(titulo);
-            cardCurso.addView(descricao);
-            cardCurso.addView(data);
-            cardCurso.addView(local);
-            cardCurso.addView(vagas);
-            cardCurso.addView(pontos);
-
-            // Esta linha é essencial.
-            // Ela adiciona cada card à tela.
-            containerCursos.addView(cardCurso);
+            containerCursos.addView(
+                    cardCurso
+            );
         }
 
         containerCursos.requestLayout();
         containerCursos.invalidate();
 
         scrollCursos.post(() -> {
+
             scrollCursos.requestLayout();
             scrollCursos.invalidate();
 
-            // Mantém a tela inicialmente no topo.
             scrollCursos.fullScroll(
                     View.FOCUS_UP
             );
@@ -291,6 +415,7 @@ public class CursosActivity extends AppCompatActivity {
     }
 
     private LinearLayout criarCardCurso() {
+
         LinearLayout cardCurso =
                 new LinearLayout(this);
 
@@ -321,7 +446,9 @@ public class CursosActivity extends AppCompatActivity {
                 Color.parseColor("#D8C9EA")
         );
 
-        cardCurso.setBackground(fundo);
+        cardCurso.setBackground(
+                fundo
+        );
 
         LinearLayout.LayoutParams parametros =
                 new LinearLayout.LayoutParams(
@@ -336,7 +463,9 @@ public class CursosActivity extends AppCompatActivity {
                 dp(12)
         );
 
-        cardCurso.setLayoutParams(parametros);
+        cardCurso.setLayoutParams(
+                parametros
+        );
 
         return cardCurso;
     }
@@ -347,10 +476,13 @@ public class CursosActivity extends AppCompatActivity {
             boolean negrito,
             String cor
     ) {
+
         TextView textView =
                 new TextView(this);
 
-        textView.setText(texto);
+        textView.setText(
+                texto
+        );
 
         textView.setTextSize(
                 TypedValue.COMPLEX_UNIT_SP,
@@ -362,6 +494,7 @@ public class CursosActivity extends AppCompatActivity {
         );
 
         if (negrito) {
+
             textView.setTypeface(
                     null,
                     Typeface.BOLD
@@ -381,7 +514,9 @@ public class CursosActivity extends AppCompatActivity {
                 dp(6)
         );
 
-        textView.setLayoutParams(parametros);
+        textView.setLayoutParams(
+                parametros
+        );
 
         return textView;
     }
@@ -390,6 +525,7 @@ public class CursosActivity extends AppCompatActivity {
             String valor,
             String padrao
     ) {
+
         if (valor == null
                 || valor.trim().isEmpty()) {
 
@@ -402,6 +538,7 @@ public class CursosActivity extends AppCompatActivity {
     private String formatarDataHora(
             String valor
     ) {
+
         if (valor == null
                 || valor.isEmpty()) {
 
@@ -413,7 +550,10 @@ public class CursosActivity extends AppCompatActivity {
                 .replace(".000Z", "");
     }
 
-    private int dp(int valor) {
+    private int dp(
+            int valor
+    ) {
+
         return Math.round(
                 valor
                         * getResources()

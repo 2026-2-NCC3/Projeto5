@@ -1,5 +1,7 @@
 const API_URL = "https://projeto5-7yqt.onrender.com/api";
 
+console.log("API DO FRONTEND:", API_URL);
+
 
 async function request(
     path,

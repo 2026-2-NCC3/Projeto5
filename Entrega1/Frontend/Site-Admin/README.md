@@ -1,7 +1,6 @@
 # Atlas Admin
 
-Interface administrativa responsiva construída exclusivamente no frontend com React e Vite. Os dados são simulados localmente, sem backend ou API.
-
+Interface administrativa responsiva construída exclusivamente no frontend com React e Vite. Parte dos dados são fakes!!!
 ## Requisitos
 
 - Node.js 18 ou superior

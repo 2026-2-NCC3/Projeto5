@@ -18,9 +18,9 @@ import retrofit2.http.Path;
 
 public interface ApiService {
 
-// =====================================================
+
 // AUTENTICAÇÃO
-// =====================================================
+
 
     @POST("api/auth/login")
     Call<ApiResponse<LoginData>> login(
@@ -33,17 +33,17 @@ public interface ApiService {
     );
 
 
-// =====================================================
+
 // CURSOS
-// =====================================================
+
 
     @GET("api/courses")
     Call<ApiResponse<List<Curso>>> getCursos();
 
 
-// =====================================================
+
 // AGENDA
-// =====================================================
+
 
     @GET("api/courses/schedule")
     Call<ApiResponse<List<Curso>>> getAgenda(
@@ -51,9 +51,8 @@ public interface ApiService {
     );
 
 
-// =====================================================
+
 // PERFIL
-// =====================================================
 
     @GET("api/profile")
     Call<ApiResponse<Object>> getProfile(
@@ -67,9 +66,9 @@ public interface ApiService {
     );
 
 
-// =====================================================
+
 // CERTIFICADOS
-// =====================================================
+
 
     @GET("api/certificates")
     Call<ApiResponse<List<Object>>> getCertificates(
@@ -77,9 +76,9 @@ public interface ApiService {
     );
 
 
-// =====================================================
+
 // CONQUISTAS
-// =====================================================
+
 
     @GET("api/badges")
     Call<ApiResponse<List<Object>>> getBadges(
@@ -87,9 +86,9 @@ public interface ApiService {
     );
 
 
-// =====================================================
+
 // TESTES
-// =====================================================
+
 
     @GET("api/tests")
     Call<ApiResponse<List<Object>>> getTests();
@@ -106,9 +105,9 @@ public interface ApiService {
     );
 
 
-// =====================================================
+
 // NOTÍCIAS
-// =====================================================
+
 
     @GET("api/news")
     Call<ApiResponse<List<Object>>> getNews();
@@ -119,9 +118,9 @@ public interface ApiService {
     );
 
 
-// =====================================================
+
 // COMENTÁRIOS
-// =====================================================
+
 
     @GET("api/news/{id}/comments")
     Call<ApiResponse<List<Object>>> getNewsComments(
@@ -136,9 +135,9 @@ public interface ApiService {
     );
 
 
-// =====================================================
+
 // VÍDEOS / PODCASTS
-// =====================================================
+
 
     @GET("api/videos")
     Call<ApiResponse<List<Object>>> getVideos();
@@ -149,9 +148,9 @@ public interface ApiService {
     );
 
 
-// =====================================================
+
 // NOTIFICAÇÕES
-// =====================================================
+
 
     @GET("api/notifications")
     Call<ApiResponse<List<Object>>> getNotifications(

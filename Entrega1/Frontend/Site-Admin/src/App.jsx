@@ -23,7 +23,12 @@ export default function App() {
     );
   });
 
-  function login() {
+  function login(token) {
+    localStorage.setItem(
+      'proxima-etapa:token',
+      token
+    );
+
     localStorage.setItem(
       'proxima-etapa:session',
       'active'
@@ -35,6 +40,10 @@ export default function App() {
   function logout() {
     localStorage.removeItem(
       'proxima-etapa:session'
+    );
+
+    localStorage.removeItem(
+      'proxima-etapa:token'
     );
 
     setAuthenticated(false);

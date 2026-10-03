@@ -1,664 +1,503 @@
-const API_URL = "https://projeto5-7yqt.onrender.com/api";
+const API_URL =
+  import.meta.env.VITE_API_URL ||
+  "https://projeto5-7yqt.onrender.com/api";
 
 console.log("API DO FRONTEND:", API_URL);
 
+async function request(path, options = {}) {
+  const token = localStorage.getItem(
+    "proxima-etapa:token"
+  );
 
-async function request(
-    path,
-    options = {}
-) {
+  const response = await fetch(
+    `${API_URL}${path}`,
+    {
+      ...options,
 
-    const token =
-        localStorage.getItem(
-            "proxima-etapa:token"
-        );
+      headers: {
+        "Content-Type": "application/json",
 
-    const response = await fetch(
-        `${API_URL}${path}`,
-        {
-            ...options,
-
-            headers: {
-                "Content-Type": "application/json",
-
-                ...(token
-                    ? {
-                        Authorization:
-                            `Bearer ${token}`
-                    }
-                    : {}),
-
-                ...(options.headers || {})
+        ...(token
+          ? {
+              Authorization: `Bearer ${token}`,
             }
-        }
+          : {}),
+
+        ...(options.headers || {}),
+      },
+    }
+  );
+
+  const data = await response
+    .json()
+    .catch(() => ({}));
+
+  if (!response.ok) {
+    const error = new Error(
+      data.message ||
+        `Erro na requisição. Status: ${response.status}`
     );
 
-    const data =
-        await response
-            .json()
-            .catch(() => ({}));
+    error.status = response.status;
+    error.data = data;
 
+    if (response.status === 401) {
+      localStorage.removeItem(
+        "proxima-etapa:token"
+      );
 
-    if (!response.ok) {
+      localStorage.removeItem(
+        "proxima-etapa:session"
+      );
 
-        const error =
-            new Error(
-                data.message ||
-                "Erro na requisição."
-            );
-
-        error.status =
-            response.status;
-
-        error.data =
-            data;
-
-        throw error;
+      localStorage.removeItem(
+        "proxima-etapa:user"
+      );
     }
 
+    throw error;
+  }
 
-    return data;
+  return data;
 }
 
+/*  AUTENTICAÇÃO */
 
-// AUTENTICAÇÃO
+export async function login(id, password) {
+  return request("/auth/login", {
+    method: "POST",
 
-export async function login(
-    id,
-    password
-) {
-
-    return request(
-        "/auth/login",
-        {
-            method: "POST",
-
-            body: JSON.stringify({
-                id,
-                password
-            })
-        }
-    );
+    body: JSON.stringify({
+      id,
+      password,
+    }),
+  });
 }
 
+export async function register(data) {
+  return request("/auth/register", {
+    method: "POST",
 
-export async function register(
-    data
-) {
-
-    return request(
-        "/auth/register",
-        {
-            method: "POST",
-
-            body: JSON.stringify(data)
-        }
-    );
+    body: JSON.stringify(data),
+  });
 }
 
-// DASHBOARD
+/*
+   DASHBOARD
+*/
 
 export async function getDashboard() {
-
-    return request(
-        "/admin/dashboard"
-    );
+  return request("/admin/dashboard");
 }
 
-// USUÁRIOS
+/* 
+   USUÁRIOS
+ */
 
 export async function getUsers() {
-
-    return request(
-        "/admin/users"
-    );
+  return request("/admin/users");
 }
 
+export async function createUser(data) {
+  return request("/admin/users", {
+    method: "POST",
 
-export async function createUser(
-    data
-) {
-
-    return request(
-        "/admin/users",
-        {
-            method: "POST",
-            body: JSON.stringify(data)
-        }
-    );
+    body: JSON.stringify(data),
+  });
 }
-
 
 export async function blockUser(
-    id,
-    isBlocked
+  id,
+  isBlocked
 ) {
+  return request(
+    `/admin/users/${encodeURIComponent(id)}/block`,
+    {
+      method: "PATCH",
 
-    return request(
-        `/admin/users/${encodeURIComponent(id)}/block`,
-        {
-            method: "PATCH",
-
-            body: JSON.stringify({
-                is_blocked: isBlocked
-            })
-        }
-    );
+      body: JSON.stringify({
+        is_blocked: isBlocked,
+      }),
+    }
+  );
 }
 
-// ALUNOS
+/*  ALUNOS */
 
 export async function getStudents() {
-
-    return request(
-        "/admin/students"
-    );
+  return request("/admin/students");
 }
 
-
-export async function getStudent(
-    id
-) {
-
-    return request(
-        `/admin/students/${encodeURIComponent(id)}`
-    );
+export async function getStudent(id) {
+  return request(
+    `/admin/students/${encodeURIComponent(id)}`
+  );
 }
 
-// CURSOS
+/*CURSOS*/
 
 export async function getCourses() {
-
-    return request(
-        "/admin/courses"
-    );
+  return request("/admin/courses");
 }
 
-
-export async function getCourse(
-    id
-) {
-
-    return request(
-        `/admin/courses/${encodeURIComponent(id)}`
-    );
+export async function getCourse(id) {
+  return request(
+    `/admin/courses/${encodeURIComponent(id)}`
+  );
 }
 
+export async function createCourse(data) {
+  return request("/admin/courses", {
+    method: "POST",
 
-export async function createCourse(
-    data
-) {
-
-    return request(
-        "/admin/courses",
-        {
-            method: "POST",
-            body: JSON.stringify(data)
-        }
-    );
+    body: JSON.stringify(data),
+  });
 }
-
 
 export async function updateCourse(
-    id,
-    data
+  id,
+  data
 ) {
+  return request(
+    `/admin/courses/${encodeURIComponent(id)}`,
+    {
+      method: "PUT",
 
-    return request(
-        `/admin/courses/${encodeURIComponent(id)}`,
-        {
-            method: "PUT",
-            body: JSON.stringify(data)
-        }
-    );
+      body: JSON.stringify(data),
+    }
+  );
 }
 
-
-export async function deleteCourse(
-    id
-) {
-
-    return request(
-        `/admin/courses/${encodeURIComponent(id)}`,
-        {
-            method: "DELETE"
-        }
-    );
+export async function deleteCourse(id) {
+  return request(
+    `/admin/courses/${encodeURIComponent(id)}`,
+    {
+      method: "DELETE",
+    }
+  );
 }
 
-// UNIVERSIDADES
+/* UNIVERSIDADES */
 
 export async function getUniversities() {
-
-    return request(
-        "/admin/universities"
-    );
+  return request("/admin/universities");
 }
 
+export async function createUniversity(data) {
+  return request("/admin/universities", {
+    method: "POST",
 
-export async function createUniversity(
-    data
-) {
-
-    return request(
-        "/admin/universities",
-        {
-            method: "POST",
-            body: JSON.stringify(data)
-        }
-    );
+    body: JSON.stringify(data),
+  });
 }
-
 
 export async function updateUniversity(
-    id,
-    data
+  id,
+  data
 ) {
+  return request(
+    `/admin/universities/${encodeURIComponent(id)}`,
+    {
+      method: "PUT",
 
-    return request(
-        `/admin/universities/${encodeURIComponent(id)}`,
-        {
-            method: "PUT",
-            body: JSON.stringify(data)
-        }
-    );
+      body: JSON.stringify(data),
+    }
+  );
 }
 
-
-export async function deleteUniversity(
-    id
-) {
-
-    return request(
-        `/admin/universities/${encodeURIComponent(id)}`,
-        {
-            method: "DELETE"
-        }
-    );
+export async function deleteUniversity(id) {
+  return request(
+    `/admin/universities/${encodeURIComponent(id)}`,
+    {
+      method: "DELETE",
+    }
+  );
 }
 
-// INSCRIÇÕES
+/* INSCRIÇÕES*/
 
 export async function getEnrollments() {
-
-    return request(
-        "/admin/enrollments"
-    );
+  return request("/admin/enrollments");
 }
 
+export async function createEnrollment(data) {
+  return request("/admin/enrollments", {
+    method: "POST",
 
-export async function createEnrollment(
-    data
-) {
-
-    return request(
-        "/admin/enrollments",
-        {
-            method: "POST",
-            body: JSON.stringify(data)
-        }
-    );
+    body: JSON.stringify(data),
+  });
 }
-
 
 export async function updateEnrollment(
-    id,
-    data
+  id,
+  data
 ) {
+  return request(
+    `/admin/enrollments/${encodeURIComponent(id)}`,
+    {
+      method: "PUT",
 
-    return request(
-        `/admin/enrollments/${encodeURIComponent(id)}`,
-        {
-            method: "PUT",
-            body: JSON.stringify(data)
-        }
-    );
+      body: JSON.stringify(data),
+    }
+  );
 }
 
-
-export async function deleteEnrollment(
-    id
-) {
-
-    return request(
-        `/admin/enrollments/${encodeURIComponent(id)}`,
-        {
-            method: "DELETE"
-        }
-    );
+export async function deleteEnrollment(id) {
+  return request(
+    `/admin/enrollments/${encodeURIComponent(id)}`,
+    {
+      method: "DELETE",
+    }
+  );
 }
 
-// PRESENÇAS
+/* PRESENÇAS*/
 
 export async function getAttendance() {
-
-    return request(
-        "/admin/attendance"
-    );
+  return request("/admin/attendance");
 }
-
 
 export async function updateAttendance(
-    id,
-    data
+  id,
+  data
 ) {
+  return request(
+    `/admin/attendance/${encodeURIComponent(id)}`,
+    {
+      method: "PATCH",
 
-    return request(
-        `/admin/attendance/${encodeURIComponent(id)}`,
-        {
-            method: "PATCH",
-            body: JSON.stringify(data)
-        }
-    );
+      body: JSON.stringify(data),
+    }
+  );
 }
 
-// CERTIFICADOS
+/* CERTIFICADOS*/
 
 export async function getCertificates() {
-
-    return request(
-        "/admin/certificates"
-    );
+  return request("/admin/certificates");
 }
 
+export async function createCertificate(data) {
+  return request("/admin/certificates", {
+    method: "POST",
 
-export async function createCertificate(
-    data
-) {
-
-    return request(
-        "/admin/certificates",
-        {
-            method: "POST",
-            body: JSON.stringify(data)
-        }
-    );
+    body: JSON.stringify(data),
+  });
 }
-
 
 export async function updateCertificate(
-    id,
-    data
+  id,
+  data
 ) {
+  return request(
+    `/admin/certificates/${encodeURIComponent(id)}`,
+    {
+      method: "PUT",
 
-    return request(
-        `/admin/certificates/${encodeURIComponent(id)}`,
-        {
-            method: "PUT",
-            body: JSON.stringify(data)
-        }
-    );
+      body: JSON.stringify(data),
+    }
+  );
 }
 
-
-export async function deleteCertificate(
-    id
-) {
-
-    return request(
-        `/admin/certificates/${encodeURIComponent(id)}`,
-        {
-            method: "DELETE"
-        }
-    );
+export async function deleteCertificate(id) {
+  return request(
+    `/admin/certificates/${encodeURIComponent(id)}`,
+    {
+      method: "DELETE",
+    }
+  );
 }
 
-// BADGES
+/* BADGES*/
 
 export async function getBadges() {
-
-    return request(
-        "/admin/badges"
-    );
+  return request("/admin/badges");
 }
 
+export async function createBadge(data) {
+  return request("/admin/badges", {
+    method: "POST",
 
-export async function createBadge(
-    data
-) {
-
-    return request(
-        "/admin/badges",
-        {
-            method: "POST",
-            body: JSON.stringify(data)
-        }
-    );
+    body: JSON.stringify(data),
+  });
 }
-
 
 export async function updateBadge(
-    id,
-    data
+  id,
+  data
 ) {
+  return request(
+    `/admin/badges/${encodeURIComponent(id)}`,
+    {
+      method: "PUT",
 
-    return request(
-        `/admin/badges/${encodeURIComponent(id)}`,
-        {
-            method: "PUT",
-            body: JSON.stringify(data)
-        }
-    );
+      body: JSON.stringify(data),
+    }
+  );
 }
 
-
-export async function deleteBadge(
-    id
-) {
-
-    return request(
-        `/admin/badges/${encodeURIComponent(id)}`,
-        {
-            method: "DELETE"
-        }
-    );
+export async function deleteBadge(id) {
+  return request(
+    `/admin/badges/${encodeURIComponent(id)}`,
+    {
+      method: "DELETE",
+    }
+  );
 }
 
-// TESTES
+/* TESTES */
 
 export async function getTestResults() {
-
-    return request(
-        "/admin/test-results"
-    );
+  return request("/admin/test-results");
 }
 
-
-export async function getTestResult(
-    id
-) {
-
-    return request(
-        `/admin/test-results/${encodeURIComponent(id)}`
-    );
+export async function getTestResult(id) {
+  return request(
+    `/admin/test-results/${encodeURIComponent(id)}`
+  );
 }
 
-
-export async function deleteTestResult(
-    id
-) {
-
-    return request(
-        `/admin/test-results/${encodeURIComponent(id)}`,
-        {
-            method: "DELETE"
-        }
-    );
+export async function deleteTestResult(id) {
+  return request(
+    `/admin/test-results/${encodeURIComponent(id)}`,
+    {
+      method: "DELETE",
+    }
+  );
 }
 
-// NOTÍCIAS
+/*NOTÍCIAS */
 
 export async function getNews() {
-
-    return request(
-        "/admin/news"
-    );
+  return request("/admin/news");
 }
 
-
-export async function getNewsPost(
-    id
-) {
-
-    return request(
-        `/admin/news/${encodeURIComponent(id)}`
-    );
+export async function getNewsPost(id) {
+  return request(
+    `/admin/news/${encodeURIComponent(id)}`
+  );
 }
 
+export async function createNews(data) {
+  return request("/admin/news", {
+    method: "POST",
 
-export async function createNews(
-    data
-) {
-
-    return request(
-        "/admin/news",
-        {
-            method: "POST",
-            body: JSON.stringify(data)
-        }
-    );
+    body: JSON.stringify(data),
+  });
 }
-
 
 export async function updateNews(
-    id,
-    data
+  id,
+  data
 ) {
+  return request(
+    `/admin/news/${encodeURIComponent(id)}`,
+    {
+      method: "PUT",
 
-    return request(
-        `/admin/news/${encodeURIComponent(id)}`,
-        {
-            method: "PUT",
-            body: JSON.stringify(data)
-        }
-    );
+      body: JSON.stringify(data),
+    }
+  );
 }
 
-
-export async function deleteNews(
-    id
-) {
-
-    return request(
-        `/admin/news/${encodeURIComponent(id)}`,
-        {
-            method: "DELETE"
-        }
-    );
+export async function deleteNews(id) {
+  return request(
+    `/admin/news/${encodeURIComponent(id)}`,
+    {
+      method: "DELETE",
+    }
+  );
 }
 
-// COMENTÁRIOS
+/* COMENTÁRIOS*/
 
-export async function getNewsComments(
-    id
-) {
-
-    return request(
-        `/admin/news/${encodeURIComponent(id)}/comments`
-    );
+export async function getNewsComments(id) {
+  return request(
+    `/admin/news/${encodeURIComponent(id)}/comments`
+  );
 }
-
 
 export async function deleteNewsComment(
-    newsId,
-    commentId
+  newsId,
+  commentId
 ) {
-
-    return request(
-        `/admin/news/${encodeURIComponent(newsId)}/comments/${encodeURIComponent(commentId)}`,
-        {
-            method: "DELETE"
-        }
-    );
+  return request(
+    `/admin/news/${encodeURIComponent(
+      newsId
+    )}/comments/${encodeURIComponent(
+      commentId
+    )}`,
+    {
+      method: "DELETE",
+    }
+  );
 }
 
-// VÍDEOS
+/*  VÍDEOS*/
 
 export async function getVideos() {
-
-    return request(
-        "/admin/videos"
-    );
+  return request("/admin/videos");
 }
 
+export async function createVideo(data) {
+  return request("/admin/videos", {
+    method: "POST",
 
-export async function createVideo(
-    data
-) {
-
-    return request(
-        "/admin/videos",
-        {
-            method: "POST",
-            body: JSON.stringify(data)
-        }
-    );
+    body: JSON.stringify(data),
+  });
 }
-
 
 export async function updateVideo(
-    id,
-    data
+  id,
+  data
 ) {
+  return request(
+    `/admin/videos/${encodeURIComponent(id)}`,
+    {
+      method: "PUT",
 
-    return request(
-        `/admin/videos/${encodeURIComponent(id)}`,
-        {
-            method: "PUT",
-            body: JSON.stringify(data)
-        }
-    );
+      body: JSON.stringify(data),
+    }
+  );
 }
 
-
-export async function deleteVideo(
-    id
-) {
-
-    return request(
-        `/admin/videos/${encodeURIComponent(id)}`,
-        {
-            method: "DELETE"
-        }
-    );
+export async function deleteVideo(id) {
+  return request(
+    `/admin/videos/${encodeURIComponent(id)}`,
+    {
+      method: "DELETE",
+    }
+  );
 }
 
-// NOTIFICAÇÕES
+/* NOTIFICAÇÕES */
 
 export async function getNotifications() {
-
-    return request(
-        "/admin/notifications"
-    );
+  return request("/admin/notifications");
 }
-
 
 export async function createNotification(
-    data
+  data
 ) {
+  return request("/admin/notifications", {
+    method: "POST",
 
-    return request(
-        "/admin/notifications",
-        {
-            method: "POST",
-            body: JSON.stringify(data)
-        }
-    );
+    body: JSON.stringify(data),
+  });
 }
 
-// LOGOUT
+/*LOGOUT*/
 
 export function logout() {
+  localStorage.removeItem(
+    "proxima-etapa:token"
+  );
 
-    localStorage.removeItem(
-        "proxima-etapa:token"
-    );
+  localStorage.removeItem(
+    "proxima-etapa:user"
+  );
 
-    localStorage.removeItem(
-        "proxima-etapa:user"
-    );
-
-    localStorage.removeItem(
-        "proxima-etapa:session"
-    );
+  localStorage.removeItem(
+    "proxima-etapa:session"
+  );
 }

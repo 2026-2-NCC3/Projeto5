@@ -1,5 +1,6 @@
 ﻿import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { login as apiLogin } from '../../services/api';
 
 import logo from '../../Logo Next Step Solutions.png';
 
@@ -103,29 +104,46 @@ export default function Login({ onLogin }) {
 
   const [notice, setNotice] = useState('');
 
+  const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
 
-  function submit(event) {
+  async function submit(event) {
     event.preventDefault();
 
+    setError('');
     setNotice('');
+    setLoading(true);
 
-    if (
-      email === 'admin@proximaetapa.org.br' &&
-      password === '123456'
-    ) {
-      setError('');
+    try {
+      const response = await apiLogin(
+        email,
+        password
+      );
 
-      onLogin();
+      if (
+        response.success &&
+        response.data?.token
+      ) {
+        onLogin(response.data.token);
 
-      navigate('/dashboard');
+        navigate('/dashboard');
 
-      return;
+        return;
+      }
+
+      setError(
+        response.message ||
+        'Não foi possível realizar o login.'
+      );
+    } catch (error) {
+      setError(
+        error.message ||
+        'Erro ao conectar com o servidor.'
+      );
+    } finally {
+      setLoading(false);
     }
-
-    setError(
-      'Use as credenciais de demonstração informadas abaixo.'
-    );
   }
 
   function showNotice(message) {
@@ -330,13 +348,18 @@ export default function Login({ onLogin }) {
           <button
             type="submit"
             className="login-submit"
+            disabled={loading}
           >
-            Entrar
+            {loading
+              ? 'Entrando...'
+              : 'Entrar'}
 
-            <Icon
-              name="arrow"
-              size={21}
-            />
+            {!loading && (
+              <Icon
+                name="arrow"
+                size={21}
+              />
+            )}
           </button>
 
           <div className="login-divider">

@@ -5,4 +5,6 @@
     <color name="red">#E60909</color>
     <color name="green">#69E609</color>
     <color name="blue">#0932E6</color>
+    <color name="purple_primary">#8A52F2</color>
+    <color name="beige_button">#E1E2B0</color>
 </resources>

@@ -7,4 +7,10 @@
     <color name="blue">#0932E6</color>
     <color name="purple_primary">#8A52F2</color>
     <color name="beige_button">#E1E2B0</color>
+    <color name="green_button">#468266</color>
+    <color name="gray_text">#666666</color>
+    <color name="light_purple_bg">#F3E5F5</color>
+    <color name="light_green_bg">#E8F5E9</color>
+    <color name="light_yellow_bg">#FFF9C4</color>
+    <color name="divider_gray">#EEEEEE</color>
 </resources>

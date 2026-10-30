@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardCursoItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="4dp"
+    android:layout_marginVertical="8dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="2dp"
+    app:strokeColor="#E0D6F3"
+    app:strokeWidth="1dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp">
+
+        <!-- Ícone Redondo à Esquerda -->
+        <View
+            android:id="@+id/iconBackground"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/light_purple_circle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/ivIconCurso"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/ic_courses"
+            app:layout_constraintBottom_toBottomOf="@id/iconBackground"
+            app:layout_constraintEnd_toEndOf="@id/iconBackground"
+            app:layout_constraintStart_toStartOf="@id/iconBackground"
+            app:layout_constraintTop_toTopOf="@id/iconBackground"
+            app:tint="@color/purple_primary" />
+
+        <!-- Título e Descrição -->
+        <TextView
+            android:id="@+id/tvNomeCurso"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="8dp"
+            android:text="Introdução à Programação Mobile"
+            android:textColor="#3F3745"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/tvBadgeStatus"
+            app:layout_constraintStart_toEndOf="@id/iconBackground"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvDescricaoCurso"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Aprenda os conceitos básicos de desenvolvimento mobile e crie seu primeiro aplicativo."
+            android:textColor="#666666"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toStartOf="@+id/ivChevron"
+            app:layout_constraintStart_toStartOf="@id/tvNomeCurso"
+            app:layout_constraintTop_toBottomOf="@id/tvNomeCurso" />
+
+        <!-- Badge de Status -->
+        <TextView
+            android:id="@+id/tvBadgeStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/light_green_circle"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp"
+            android:text="Inscrições abertas"
+            android:textColor="#2E7D32"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Seta Lateral -->
+        <ImageView
+            android:id="@+id/ivChevron"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_chevron_right"
+            app:layout_constraintBottom_toBottomOf="@id/tvDescricaoCurso"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvNomeCurso"
+            app:tint="#2E7D32" />
+
+        <!-- Divisor Interno -->
+        <View
+            android:id="@+id/innerDivider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="12dp"
+            android:background="#F0F0F0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvDescricaoCurso" />
+
+        <!-- Rodapé com Info (Data, Local, Vagas) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/innerDivider">
+
+            <!-- Data -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <ImageView android:layout_width="32dp" android:layout_height="32dp" android:src="@drawable/ic_calendar" android:background="@drawable/light_purple_circle" android:padding="8dp" app:tint="@color/purple_primary"/>
+                <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginStart="6dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="DATA" android:textSize="9sp" android:textColor="#8E8E8E"/>
+                    <TextView android:id="@+id/tvDataCurso" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="25 de Abril" android:textSize="12sp" android:textStyle="bold" android:textColor="#3F3745"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Local -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.2"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <ImageView android:layout_width="32dp" android:layout_height="32dp" android:src="@drawable/ic_presence" android:background="@drawable/light_green_circle" android:padding="8dp" app:tint="#2E7D32"/>
+                <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginStart="6dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="LOCAL" android:textSize="9sp" android:textColor="#8E8E8E"/>
+                    <TextView android:id="@+id/tvLocalCurso" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="USP - Butantã" android:textSize="12sp" android:textStyle="bold" android:textColor="#3F3745"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Vagas -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.8"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <ImageView android:layout_width="32dp" android:layout_height="32dp" android:src="@drawable/ic_home" android:background="@drawable/light_yellow_circle" android:padding="8dp" app:tint="#FBC02D"/>
+                <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginStart="6dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="VAGAS" android:textSize="9sp" android:textColor="#8E8E8E"/>
+                    <TextView android:id="@+id/tvVagasCurso" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="25/30" android:textSize="12sp" android:textStyle="bold" android:textColor="#3F3745"/>
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

@@ -1,0 +1,28 @@
+.entity-page 
+.table-toolbar { 
+    gap: 12px; flex-wrap: wrap; }
+
+.filter-select { 
+    border: 1px solid #d0d5dd; 
+    color: #344054; 
+    border-radius: 7px; 
+    padding: 8px 9px; 
+    background: #fff; 
+    font-size: 12px;}
+
+.entity-notice { 
+    margin: 12px 21px 0; 
+    color: #027a48; 
+    font-size: 13px; 
+    font-weight: 500;}
+
+.danger-link { 
+    border: 0; 
+    background: transparent; 
+    color: #d92d20; 
+    font-size: 12px; 
+    font-weight: 600;}
+
+.danger-link:hover { 
+    text-decoration: underline; 
+}

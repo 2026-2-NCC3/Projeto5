@@ -1,0 +1,559 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".ui.AgendaActivity">
+
+    <!-- Barra Superior -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:paddingHorizontal="16dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:padding="4dp"
+            android:src="@drawable/ic_back"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="#555555" />
+
+        <ImageView
+            android:id="@+id/logoDetails"
+            android:layout_width="110dp"
+            android:layout_height="45dp"
+            android:src="@drawable/logoproximaetapa"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/btnNotification"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="12dp"
+            android:src="@drawable/ic_notifications"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btnProfile"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="#555555" />
+
+        <ImageView
+            android:id="@+id/btnProfile"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_launcher_foreground"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:id="@+id/scrollAgenda"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
+        app:layout_constraintTop_toBottomOf="@id/topBar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="24dp">
+
+            <!-- Detalhe Roxo Decorativo -->
+            <View
+                android:id="@+id/purpleDecoration"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_marginStart="-60dp"
+                android:layout_marginTop="-20dp"
+                android:alpha="0.8"
+                android:background="@drawable/bg_home_header"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvHeaderTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:text="Minha Agenda"
+                android:textColor="#555555"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/titleUnderline"
+                android:layout_width="80dp"
+                android:layout_height="3dp"
+                android:layout_marginTop="4dp"
+                android:background="#4CAF50"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvHeaderTitle" />
+
+            <!-- Seletor de Dias Horizontal -->
+            <HorizontalScrollView
+                android:id="@+id/daysScroll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:scrollbars="none"
+                app:layout_constraintTop_toBottomOf="@id/titleUnderline">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="16dp"
+                    android:gravity="center_vertical">
+
+                    <!-- Seg 20 -->
+                    <LinearLayout android:layout_width="50dp" android:layout_height="65dp" android:gravity="center" android:orientation="vertical">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Seg" android:textColor="#BDBDBD" android:textSize="12sp" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="20" android:textColor="#555555" android:textSize="18sp" android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Ter 21 -->
+                    <LinearLayout android:layout_width="50dp" android:layout_height="65dp" android:gravity="center" android:orientation="vertical">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Ter" android:textColor="#BDBDBD" android:textSize="12sp" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="21" android:textColor="#555555" android:textSize="18sp" android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Qua 22 -->
+                    <LinearLayout android:layout_width="50dp" android:layout_height="65dp" android:gravity="center" android:orientation="vertical">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Qua" android:textColor="#BDBDBD" android:textSize="12sp" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="22" android:textColor="#555555" android:textSize="18sp" android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Qui 23 -->
+                    <LinearLayout android:layout_width="50dp" android:layout_height="65dp" android:gravity="center" android:orientation="vertical">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Qui" android:textColor="#BDBDBD" android:textSize="12sp" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="23" android:textColor="#555555" android:textSize="18sp" android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Sex 24 -->
+                    <LinearLayout android:layout_width="50dp" android:layout_height="65dp" android:gravity="center" android:orientation="vertical">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Sex" android:textColor="#BDBDBD" android:textSize="12sp" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="24" android:textColor="#555555" android:textSize="18sp" android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Sáb 25 (Selecionado) -->
+                    <LinearLayout android:layout_width="60dp" android:layout_height="75dp" android:background="@drawable/bg_day_selected" android:gravity="center" android:orientation="vertical">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Sáb" android:textColor="@color/white" android:textSize="12sp" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="25" android:textColor="@color/white" android:textSize="22sp" android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Dom 26 -->
+                    <LinearLayout android:layout_width="50dp" android:layout_height="65dp" android:gravity="center" android:orientation="vertical">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Dom" android:textColor="#BDBDBD" android:textSize="12sp" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="26" android:textColor="#555555" android:textSize="18sp" android:textStyle="bold" />
+                    </LinearLayout>
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <TextView
+                android:id="@+id/tvSelectedDateFull"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="32dp"
+                android:text="Sábado, 25 de Abril de 2026"
+                android:textColor="@color/purple_primary"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/daysScroll" />
+
+            <!-- Card Evento 1 -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardEvento1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="20dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                app:layout_constraintTop_toBottomOf="@id/tvSelectedDateFull"
+                app:strokeColor="#F0F0F0"
+                app:strokeWidth="1dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp">
+
+                    <View
+                        android:layout_width="4dp"
+                        android:layout_height="0dp"
+                        android:background="@color/purple_primary"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/bgIcon1"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="12dp"
+                        android:background="@drawable/light_purple_circle"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_laptop"
+                        app:layout_constraintBottom_toBottomOf="@id/bgIcon1"
+                        app:layout_constraintEnd_toEndOf="@id/bgIcon1"
+                        app:layout_constraintStart_toStartOf="@id/bgIcon1"
+                        app:layout_constraintTop_toTopOf="@id/bgIcon1"
+                        app:tint="@color/purple_primary" />
+
+                    <TextView
+                        android:id="@+id/tvHora1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="10:00 — 11:00"
+                        android:textColor="@color/purple_primary"
+                        android:textSize="13sp"
+                        app:layout_constraintStart_toEndOf="@id/bgIcon1"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvTitulo1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Introdução à Programação Mobile"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toStartOf="@+id/ivArrow1"
+                        app:layout_constraintStart_toStartOf="@id/tvHora1"
+                        app:layout_constraintTop_toBottomOf="@id/tvHora1" />
+
+                    <ImageView
+                        android:id="@+id/icPin1"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/ic_presence"
+                        app:layout_constraintStart_toStartOf="@id/tvTitulo1"
+                        app:layout_constraintTop_toBottomOf="@id/tvTitulo1"
+                        app:tint="#4CAF50" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:text="USP – Butantã"
+                        android:textColor="#555555"
+                        android:textSize="13sp"
+                        app:layout_constraintBottom_toBottomOf="@id/icPin1"
+                        app:layout_constraintStart_toEndOf="@id/icPin1"
+                        app:layout_constraintTop_toTopOf="@id/icPin1" />
+
+                    <ImageView
+                        android:id="@+id/ivArrow1"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_chevron_right"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="#555555" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Card Evento 2 -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardEvento2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                app:layout_constraintTop_toBottomOf="@id/cardEvento1"
+                app:strokeColor="#F0F0F0"
+                app:strokeWidth="1dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp">
+
+                    <View
+                        android:layout_width="4dp"
+                        android:layout_height="0dp"
+                        android:background="#FFC107"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/bgIcon2"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="12dp"
+                        android:background="@drawable/light_yellow_circle"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_lightbulb"
+                        app:layout_constraintBottom_toBottomOf="@id/bgIcon2"
+                        app:layout_constraintEnd_toEndOf="@id/bgIcon2"
+                        app:layout_constraintStart_toStartOf="@id/bgIcon2"
+                        app:layout_constraintTop_toTopOf="@id/bgIcon2"
+                        app:tint="#FBC02D" />
+
+                    <TextView
+                        android:id="@+id/tvHora2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="14:00 — 16:00"
+                        android:textColor="#555555"
+                        android:textSize="13sp"
+                        app:layout_constraintStart_toEndOf="@id/bgIcon2"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvTitulo2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Inovação e Empreendedorismo"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toStartOf="@+id/ivArrow2"
+                        app:layout_constraintStart_toStartOf="@id/tvHora2"
+                        app:layout_constraintTop_toBottomOf="@id/tvHora2" />
+
+                    <ImageView
+                        android:id="@+id/icPin2"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/ic_presence"
+                        app:layout_constraintStart_toStartOf="@id/tvTitulo2"
+                        app:layout_constraintTop_toBottomOf="@id/tvTitulo2"
+                        app:tint="#4CAF50" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:text="USP – Butantã"
+                        android:textColor="#555555"
+                        android:textSize="13sp"
+                        app:layout_constraintBottom_toBottomOf="@id/icPin2"
+                        app:layout_constraintStart_toEndOf="@id/icPin2"
+                        app:layout_constraintTop_toTopOf="@id/icPin2" />
+
+                    <ImageView
+                        android:id="@+id/ivArrow2"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_chevron_right"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="#555555" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Card Evento 3 -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardEvento3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                app:layout_constraintTop_toBottomOf="@id/cardEvento2"
+                app:strokeColor="#F0F0F0"
+                app:strokeWidth="1dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp">
+
+                    <View
+                        android:layout_width="4dp"
+                        android:layout_height="0dp"
+                        android:background="#2E7D32"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/bgIcon3"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="12dp"
+                        android:background="@drawable/light_green_circle"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_people"
+                        app:layout_constraintBottom_toBottomOf="@id/bgIcon3"
+                        app:layout_constraintEnd_toEndOf="@id/bgIcon3"
+                        app:layout_constraintStart_toStartOf="@id/bgIcon3"
+                        app:layout_constraintTop_toTopOf="@id/bgIcon3"
+                        app:tint="#2E7D32" />
+
+                    <TextView
+                        android:id="@+id/tvHora3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="18:00 — 19:00"
+                        android:textColor="#555555"
+                        android:textSize="13sp"
+                        app:layout_constraintStart_toEndOf="@id/bgIcon3"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvTitulo3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Habilidades Profissionais"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toStartOf="@+id/ivArrow3"
+                        app:layout_constraintStart_toStartOf="@id/tvHora3"
+                        app:layout_constraintTop_toBottomOf="@id/tvHora3" />
+
+                    <ImageView
+                        android:id="@+id/icPin3"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/ic_presence"
+                        app:layout_constraintStart_toStartOf="@id/tvTitulo3"
+                        app:layout_constraintTop_toBottomOf="@id/tvTitulo3"
+                        app:tint="#4CAF50" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:text="USP – Butantã"
+                        android:textColor="#555555"
+                        android:textSize="13sp"
+                        app:layout_constraintBottom_toBottomOf="@id/icPin3"
+                        app:layout_constraintStart_toEndOf="@id/icPin3"
+                        app:layout_constraintTop_toTopOf="@id/icPin3" />
+
+                    <ImageView
+                        android:id="@+id/ivArrow3"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_chevron_right"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="#555555" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <!-- Barra de Navegação Inferior -->
+    <LinearLayout
+        android:id="@+id/bottomNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="#E1E2B0"
+        android:elevation="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:id="@+id/nav_inicio"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:orientation="vertical">
+            <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_home" app:tint="@color/black" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Início" android:textColor="@color/black" android:textSize="11sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/nav_agenda"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:orientation="vertical">
+            <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_calendar" app:tint="@color/purple_primary" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Agenda" android:textColor="@color/purple_primary" android:textSize="11sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/nav_evolucao"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:orientation="vertical">
+            <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_presence" app:tint="@color/black" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Evolução" android:textColor="@color/black" android:textSize="11sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/nav_mensagens"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:orientation="vertical">
+            <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_notifications" app:tint="@color/black" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Mensagens" android:textColor="@color/black" android:textSize="11sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

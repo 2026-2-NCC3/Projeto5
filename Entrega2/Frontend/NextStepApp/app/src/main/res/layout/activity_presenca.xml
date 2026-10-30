@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:gravity="center_horizontal">
+
+    <!-- Logo da aplicação -->
+    <ImageView
+        android:id="@+id/imgLogoPresenca"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="Logo do NextStepApp"
+        android:src="@drawable/logoproximaetapa" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Controle de Presença"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Apresente este QR Code para o professor registrar sua presença na aula."
+        android:textSize="14sp"
+        android:gravity="center"
+        android:layout_marginBottom="24dp" />
+
+    <!-- Container/Moldura para o QR Code -->
+    <ImageView
+        android:id="@+id/imgQrCode"
+        android:layout_width="220dp"
+        android:layout_height="220dp"
+        android:layout_marginBottom="24dp"
+        android:contentDescription="QR Code do Aluno"
+        android:src="@mipmap/ic_launcher" />
+
+    <!-- Botão de simulação de registro de presença -->
+    <Button
+        android:id="@+id/btnRegistrarPresenca"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Confirmar Presença Manual"
+        android:layout_marginBottom="12dp" />
+
+    <Button
+        android:id="@+id/btnVoltarPresenca"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Voltar" />
+
+</LinearLayout>

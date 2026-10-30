@@ -1,0 +1,7 @@
+.metrics-grid { 
+    margin-bottom: 20px; 
+}
+
+.chart-card .bar { 
+    background: linear-gradient(180deg, #7bdb90, #cad18b); 
+}

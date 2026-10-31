@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public final class ApiClient {
 
     private static final String BASE_URL =
-            "http://10.0.2.2:3000/";
+            "https://projeto5-7yqt.onrender.com/";
 
     private static ApiService apiService;
 

@@ -109,7 +109,7 @@
         android:id="@+id/btnEntrar"
         android:layout_width="0dp"
         android:layout_height="56dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:backgroundTint="@color/beige_button"
         android:fontFamily="sans-serif-medium"
         android:text="Entrar"
@@ -119,23 +119,41 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/etSenha"
-        app:layout_constraintWidth_percent="0.5" />
+        app:layout_constraintWidth_percent="0.6" />
+
+    <!-- Botão Modo Offline (Teste) -->
+    <Button
+        android:id="@+id/btnModoOffline"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="Entrar no Modo Offline (Teste)"
+        android:textColor="@color/purple_primary"
+        android:textSize="14sp"
+        app:strokeColor="@color/purple_primary"
+        app:strokeWidth="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnEntrar"
+        app:layout_constraintWidth_percent="0.75" />
 
     <ProgressBar
         android:id="@+id/progressLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnEntrar" />
+        app:layout_constraintTop_toBottomOf="@id/btnModoOffline" />
 
     <TextView
         android:id="@+id/tvErro"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         android:gravity="center"
         android:text=""
         android:textColor="@color/red"

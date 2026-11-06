@@ -21,7 +21,46 @@ public class HomeActivity extends AppCompatActivity {
         sessionManager = new SessionManager(this);
         scrollViewHome = findViewById(R.id.scrollViewHome);
 
-        // Botão Ver Detalhes do Próximo Evento
+        // Card do Grid: Agenda
+        View cardAgenda = findViewById(R.id.cardAgenda);
+        if (cardAgenda != null) {
+            cardAgenda.setOnClickListener(v -> {
+                startActivity(new Intent(this, AgendaActivity.class));
+            });
+        }
+
+        // Card do Grid: Cursos
+        View cardCursos = findViewById(R.id.cardCursos);
+        if (cardCursos != null) {
+            cardCursos.setOnClickListener(v -> {
+                startActivity(new Intent(this, CursosActivity.class));
+            });
+        }
+
+        // Card do Grid: Certificados
+        View cardCertificados = findViewById(R.id.cardCertificados);
+        if (cardCertificados != null) {
+            cardCertificados.setOnClickListener(v -> {
+                startActivity(new Intent(this, CursosActivity.class));
+            });
+        }
+
+        // Card do Grid: Notificações
+        View cardNotificacoesGrid = findViewById(R.id.cardNotificacoesGrid);
+        if (cardNotificacoesGrid != null) {
+            cardNotificacoesGrid.setOnClickListener(v -> {
+                startActivity(new Intent(this, NotificacoesActivity.class));
+            });
+        }
+
+        // Card do Próximo Evento (Inteiro e Botão Ver Detalhes)
+        View cardEvent = findViewById(R.id.cardEvent);
+        if (cardEvent != null) {
+            cardEvent.setOnClickListener(v -> {
+                startActivity(new Intent(this, DetalhesEventoActivity.class));
+            });
+        }
+
         View btnVerDetalhes = findViewById(R.id.btnVerDetalhes);
         if (btnVerDetalhes != null) {
             btnVerDetalhes.setOnClickListener(v -> {
@@ -29,49 +68,50 @@ public class HomeActivity extends AppCompatActivity {
             });
         }
 
-        // Configuração dos botões do grid
-        findViewById(R.id.cardAgenda).setOnClickListener(v -> {
-            startActivity(new Intent(this, AgendaActivity.class));
-        });
-
-        findViewById(R.id.cardCursos).setOnClickListener(v -> {
-            startActivity(new Intent(this, CursosActivity.class));
-        });
-
-        // Botão Certificados (Exemplo de navegação, ajuste se houver a activity)
-        View cardCertificados = findViewById(R.id.cardCertificados);
-        if (cardCertificados != null) {
-            cardCertificados.setOnClickListener(v -> {
-                // startActivity(new Intent(this, CertificadosActivity.class));
+        // Card e Botão Dúvidas Frequentes (Abre o Chat com IA)
+        View cardFAQ = findViewById(R.id.cardFAQ);
+        if (cardFAQ != null) {
+            cardFAQ.setOnClickListener(v -> {
+                startActivity(new Intent(this, ChatIAActivity.class));
             });
         }
 
-        // Botão Notificações no Grid
-        View cardNotificacoes = findViewById(R.id.cardNotificacoesGrid);
-        if (cardNotificacoes != null) {
-            cardNotificacoes.setOnClickListener(v -> {
-                // startActivity(new Intent(this, NotificacoesActivity.class));
+        View btnFAQ = findViewById(R.id.btnFAQ);
+        if (btnFAQ != null) {
+            btnFAQ.setOnClickListener(v -> {
+                startActivity(new Intent(this, ChatIAActivity.class));
             });
         }
 
-        // Configuração da Bottom Navigation
-        findViewById(R.id.nav_agenda).setOnClickListener(v -> {
-            startActivity(new Intent(this, AgendaActivity.class));
-        });
+        // Bottom Navigation
+        View navInicio = findViewById(R.id.nav_inicio);
+        if (navInicio != null) {
+            navInicio.setOnClickListener(v -> {
+                if (scrollViewHome != null) {
+                    scrollViewHome.smoothScrollTo(0, 0);
+                }
+            });
+        }
 
-        findViewById(R.id.nav_presencas).setOnClickListener(v -> {
-            startActivity(new Intent(this, PresencaActivity.class));
-        });
+        View navAgenda = findViewById(R.id.nav_agenda);
+        if (navAgenda != null) {
+            navAgenda.setOnClickListener(v -> {
+                startActivity(new Intent(this, AgendaActivity.class));
+            });
+        }
 
-        findViewById(R.id.nav_notificacoes).setOnClickListener(v -> {
-            // startActivity(new Intent(this, NotificacoesActivity.class));
-        });
+        View navPresencas = findViewById(R.id.nav_presencas);
+        if (navPresencas != null) {
+            navPresencas.setOnClickListener(v -> {
+                startActivity(new Intent(this, PresencaActivity.class));
+            });
+        }
 
-        findViewById(R.id.nav_inicio).setOnClickListener(v -> {
-            // Volta para o topo da tela inicial
-            if (scrollViewHome != null) {
-                scrollViewHome.smoothScrollTo(0, 0);
-            }
-        });
+        View navNotificacoes = findViewById(R.id.nav_notificacoes);
+        if (navNotificacoes != null) {
+            navNotificacoes.setOnClickListener(v -> {
+                startActivity(new Intent(this, NotificacoesActivity.class));
+            });
+        }
     }
 }

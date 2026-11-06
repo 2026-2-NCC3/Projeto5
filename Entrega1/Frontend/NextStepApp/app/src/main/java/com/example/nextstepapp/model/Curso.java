@@ -16,6 +16,23 @@ public class Curso {
     private String enrollment_id;
     private String enrollment_status;
 
+    public Curso() {
+    }
+
+    public Curso(String id, String title, String description, String location, String course_date, String course_time_end, int total_spots, int available_spots, int points_awarded, int has_certificate, String category) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.location = location;
+        this.course_date = course_date;
+        this.course_time_end = course_time_end;
+        this.total_spots = total_spots;
+        this.available_spots = available_spots;
+        this.points_awarded = points_awarded;
+        this.has_certificate = has_certificate;
+        this.category = category;
+    }
+
     public String getId() {
         return id;
     }

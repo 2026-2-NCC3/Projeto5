@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -45,11 +46,51 @@ public class CursosActivity extends AppCompatActivity {
         // Configurar Filtros
         setupFilters();
 
-        // Botão Voltar e Navegação
-        findViewById(R.id.btnBack).setOnClickListener(v -> finish());
-        findViewById(R.id.nav_inicio).setOnClickListener(v -> finish());
+        // Botão Voltar e Top Bar
+        View btnBack = findViewById(R.id.btnBack);
+        if (btnBack != null) {
+            btnBack.setOnClickListener(v -> finish());
+        }
 
-        // Carregar Dados Mockados (Igual à imagem)
+        View btnNotification = findViewById(R.id.btnNotification);
+        if (btnNotification != null) {
+            btnNotification.setOnClickListener(v -> {
+                startActivity(new Intent(this, NotificacoesActivity.class));
+            });
+        }
+
+        // Bottom Navigation
+        View navInicio = findViewById(R.id.nav_inicio);
+        if (navInicio != null) {
+            navInicio.setOnClickListener(v -> {
+                Intent intent = new Intent(this, HomeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+            });
+        }
+
+        View navAgenda = findViewById(R.id.nav_agenda);
+        if (navAgenda != null) {
+            navAgenda.setOnClickListener(v -> {
+                startActivity(new Intent(this, AgendaActivity.class));
+            });
+        }
+
+        View navEvolucao = findViewById(R.id.nav_evolucao);
+        if (navEvolucao != null) {
+            navEvolucao.setOnClickListener(v -> {
+                startActivity(new Intent(this, PresencaActivity.class));
+            });
+        }
+
+        View navMensagens = findViewById(R.id.nav_mensagens);
+        if (navMensagens != null) {
+            navMensagens.setOnClickListener(v -> {
+                Toast.makeText(this, "Nenhuma mensagem recente.", Toast.LENGTH_SHORT).show();
+            });
+        }
+
+        // Carregar Dados Mockados
         carregarDadosExemplo();
     }
 
@@ -59,7 +100,9 @@ public class CursosActivity extends AppCompatActivity {
             TextView tv = (TextView) v;
             tv.setBackgroundResource(R.drawable.bg_filter_selected);
             tv.setTextColor(ContextCompat.getColor(this, R.color.white));
-            // Aqui você poderia filtrar a lista baseada na categoria
+
+            String categoria = tv.getText().toString();
+            filtrarLista(categoria);
         };
 
         filterTodos.setOnClickListener(filterClick);
@@ -76,25 +119,40 @@ public class CursosActivity extends AppCompatActivity {
         }
     }
 
+    private void filtrarLista(String categoria) {
+        if (categoria.equalsIgnoreCase("Todos")) {
+            adapter.atualizarCursos(listaCompleta);
+            return;
+        }
+
+        List<Curso> filtrados = new ArrayList<>();
+        for (Curso c : listaCompleta) {
+            if (c.getCategory() != null && c.getCategory().equalsIgnoreCase(categoria)) {
+                filtrados.add(c);
+            }
+        }
+        adapter.atualizarCursos(filtrados);
+    }
+
     private void carregarDadosExemplo() {
-        List<Curso> cursos = new ArrayList<>();
+        listaCompleta.clear();
         
-        cursos.add(new Curso("1", "Introdução à Programação Mobile", 
+        listaCompleta.add(new Curso("1", "Introdução à Programação Mobile",
             "Aprenda os conceitos básicos de desenvolvimento mobile e crie seu primeiro aplicativo.", 
             "USP - Butantã", "2026-04-25T10:00:00", "11:00", 30, 25, 50, 1, "Tecnologia"));
 
-        cursos.add(new Curso("2", "Análise de Dados", 
+        listaCompleta.add(new Curso("2", "Análise de Dados",
             "Descubra como transformar dados em decisões com ferramentas práticas e projetos reais.", 
             "USP - Butantã", "2026-05-10T14:00:00", "16:00", 25, 18, 40, 1, "Tecnologia"));
 
-        cursos.add(new Curso("3", "Habilidades Profissionais", 
+        listaCompleta.add(new Curso("3", "Habilidades Profissionais",
             "Desenvolva sua comunicação, trabalho em equipe e inteligência emocional.", 
             "USP - Butantã", "2026-05-17T09:00:00", "12:00", 30, 20, 30, 1, "Soft Skills"));
 
-        cursos.add(new Curso("4", "Inovação e Empreendedorismo", 
+        listaCompleta.add(new Curso("4", "Inovação e Empreendedorismo",
             "Aprenda a criar soluções inovadoras e a transformar ideias em projetos reais.", 
             "USP - Butantã", "2026-05-24T18:00:00", "20:00", 20, 5, 60, 1, "Negócios"));
 
-        adapter.atualizarCursos(cursos);
+        adapter.atualizarCursos(listaCompleta);
     }
 }

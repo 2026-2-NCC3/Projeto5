@@ -26,11 +26,23 @@
             android:exported="false" />
 
         <activity
+            android:name=".ui.AgendaSemanalActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".ui.CursosActivity"
             android:exported="false" />
 
         <activity
             android:name=".ui.DetalhesEventoActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.NotificacoesActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.ChatIAActivity"
             android:exported="false" />
 
         <activity

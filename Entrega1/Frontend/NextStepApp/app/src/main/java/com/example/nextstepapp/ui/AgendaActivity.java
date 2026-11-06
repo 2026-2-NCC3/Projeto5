@@ -1,67 +1,306 @@
 package com.example.nextstepapp.ui;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
-import android.widget.CalendarView;
+import android.widget.FrameLayout;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import com.example.nextstepapp.R;
-import com.google.android.material.button.MaterialButton;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 public class AgendaActivity extends AppCompatActivity {
+
+    private TextView tvMonthYear;
+    private GridLayout gridCalendarDays;
+    private TextView tvDateSelectedSubtitle;
+    private View cardEventoDia1;
+    private View cardEventoDia2;
+    private TextView tvEmptyEvents;
+    private TextView tvHoraDia1, tvTituloDia1, tvHoraDia2, tvTituloDia2;
+
+    private Calendar calendarAtual;
+    private int diaSelecionado = 25;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agenda);
 
-        // Botão Voltar (Barra Superior)
+        tvMonthYear = findViewById(R.id.tvMonthYear);
+        gridCalendarDays = findViewById(R.id.gridCalendarDays);
+        tvDateSelectedSubtitle = findViewById(R.id.tvDateSelectedSubtitle);
+        cardEventoDia1 = findViewById(R.id.cardEventoDia1);
+        cardEventoDia2 = findViewById(R.id.cardEventoDia2);
+        tvEmptyEvents = findViewById(R.id.tvEmptyEvents);
+        tvHoraDia1 = findViewById(R.id.tvHoraDia1);
+        tvTituloDia1 = findViewById(R.id.tvTituloDia1);
+        tvHoraDia2 = findViewById(R.id.tvHoraDia2);
+        tvTituloDia2 = findViewById(R.id.tvTituloDia2);
+
+        // Inicializar Calendário no mês de Abril de 2026
+        calendarAtual = Calendar.getInstance();
+        calendarAtual.set(Calendar.YEAR, 2026);
+        calendarAtual.set(Calendar.MONTH, Calendar.APRIL);
+        calendarAtual.set(Calendar.DAY_OF_MONTH, 1);
+
+        // Botão Voltar
         ImageView btnBack = findViewById(R.id.btnBack);
         if (btnBack != null) {
             btnBack.setOnClickListener(v -> finish());
         }
 
-        // Botão Ver Todos os Cursos (Botão Roxo)
-        MaterialButton btnVerTodosCursos = findViewById(R.id.btnVerTodosCursos);
-        if (btnVerTodosCursos != null) {
-            btnVerTodosCursos.setOnClickListener(v -> {
-                startActivity(new Intent(this, CursosActivity.class));
+        View btnNotification = findViewById(R.id.btnNotification);
+        if (btnNotification != null) {
+            btnNotification.setOnClickListener(v -> {
+                startActivity(new Intent(this, NotificacoesActivity.class));
             });
         }
 
-        // Cards de Eventos (Levam para Detalhes)
-        View cardEvento1 = findViewById(R.id.cardEvento1);
-        if (cardEvento1 != null) {
-            cardEvento1.setOnClickListener(v -> {
+        // Navegação de Mês (< e >)
+        View btnPrevMonth = findViewById(R.id.btnPrevMonth);
+        if (btnPrevMonth != null) {
+            btnPrevMonth.setOnClickListener(v -> {
+                calendarAtual.add(Calendar.MONTH, -1);
+                diaSelecionado = 1;
+                atualizarCalendario();
+            });
+        }
+
+        View btnNextMonth = findViewById(R.id.btnNextMonth);
+        if (btnNextMonth != null) {
+            btnNextMonth.setOnClickListener(v -> {
+                calendarAtual.add(Calendar.MONTH, 1);
+                diaSelecionado = 1;
+                atualizarCalendario();
+            });
+        }
+
+        // Clicar nos cards de eventos do dia vai para Detalhes do Evento
+        if (cardEventoDia1 != null) {
+            cardEventoDia1.setOnClickListener(v -> {
                 startActivity(new Intent(this, DetalhesEventoActivity.class));
             });
         }
 
-        View cardEvento2 = findViewById(R.id.cardEvento2);
-        if (cardEvento2 != null) {
-            cardEvento2.setOnClickListener(v -> {
+        if (cardEventoDia2 != null) {
+            cardEventoDia2.setOnClickListener(v -> {
                 startActivity(new Intent(this, DetalhesEventoActivity.class));
             });
         }
 
-        // Configuração da Bottom Navigation
-        findViewById(R.id.nav_inicio).setOnClickListener(v -> {
-            // Volta para a Home e limpa a pilha
-            Intent intent = new Intent(this, HomeActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            startActivity(intent);
-        });
+        // Botão "Ver Agenda dos Eventos"
+        View btnAbrirAgendaSemanal = findViewById(R.id.btnAbrirAgendaSemanal);
+        if (btnAbrirAgendaSemanal != null) {
+            btnAbrirAgendaSemanal.setOnClickListener(v -> {
+                startActivity(new Intent(this, AgendaSemanalActivity.class));
+            });
+        }
 
-        // Configuração do Calendário (Opcional: lógica de seleção de data)
-        CalendarView calendarView = findViewById(R.id.calendarView);
-        TextView tvDataSelecionada = findViewById(R.id.tvDataSelecionada);
-        if (calendarView != null && tvDataSelecionada != null) {
-            calendarView.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
-                String data = dayOfMonth + "/" + (month + 1) + "/" + year;
-                // Apenas exemplo visual
-                tvDataSelecionada.setText("Data selecionada: " + data);
+        // Bottom Navigation
+        setupBottomNavigation();
+
+        // Renderizar Calendário Inicial
+        atualizarCalendario();
+    }
+
+    private void atualizarCalendario() {
+        // Atualizar título do Mês (ex: Abril de 2026)
+        SimpleDateFormat sdf = new SimpleDateFormat("MMMM 'de' yyyy", new Locale("pt", "BR"));
+        String mesAno = sdf.format(calendarAtual.getTime());
+        // Capitalizar primeira letra do mês
+        mesAno = mesAno.substring(0, 1).toUpperCase() + mesAno.substring(1);
+        tvMonthYear.setText(mesAno);
+
+        // Limpar a grade de dias
+        gridCalendarDays.removeAllViews();
+
+        Calendar cal = (Calendar) calendarAtual.clone();
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+
+        // Obter dia da semana do 1º dia do mês (Domingo = 1, Segunda = 2, ...)
+        int firstDayOfWeek = cal.get(Calendar.DAY_OF_WEEK) - 1; // 0 para Dom, 1 para Seg...
+        int daysInMonth = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+        // Obter número de dias do mês anterior para preenchimento
+        Calendar prevCal = (Calendar) cal.clone();
+        prevCal.add(Calendar.MONTH, -1);
+        int prevMonthDays = prevCal.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+        int totalCells = firstDayOfWeek + daysInMonth;
+        int rows = (int) Math.ceil((double) totalCells / 7.0);
+
+        int screenWidth = getResources().getDisplayMetrics().widthPixels;
+        int cellWidth = (screenWidth - 80) / 7; // Ajuste proporcional
+
+        // Preencher células do mês anterior
+        for (int i = 0; i < firstDayOfWeek; i++) {
+            int dayNum = prevMonthDays - firstDayOfWeek + 1 + i;
+            TextView tv = criarTextViewDia(String.valueOf(dayNum), false, false, false);
+            gridCalendarDays.addView(tv, new GridLayout.LayoutParams());
+        }
+
+        // Preencher dias do mês atual
+        for (int day = 1; day <= daysInMonth; day++) {
+            final int diaAtual = day;
+            boolean isSelected = (day == diaSelecionado);
+            boolean isMarked = (day == 24 || day == 25 || day == 21); // dias com eventos marcados
+
+            View cellView = criarCellView(day, isSelected, isMarked);
+            cellView.setOnClickListener(v -> {
+                diaSelecionado = diaAtual;
+                atualizarCalendario();
+                atualizarEventosDoDia(diaAtual);
+            });
+
+            gridCalendarDays.addView(cellView);
+        }
+
+        // Preencher células do próximo mês para completar a última linha
+        int remainingCells = (rows * 7) - totalCells;
+        for (int i = 1; i <= remainingCells; i++) {
+            TextView tv = criarTextViewDia(String.valueOf(i), false, false, false);
+            gridCalendarDays.addView(tv, new GridLayout.LayoutParams());
+        }
+
+        // Atualizar lista de eventos para o dia selecionado
+        atualizarEventosDoDia(diaSelecionado);
+    }
+
+    private View criarCellView(int dia, boolean isSelected, boolean isMarked) {
+        FrameLayout frameLayout = new FrameLayout(this);
+        int cellWidth = (getResources().getDisplayMetrics().widthPixels - 80) / 7;
+        FrameLayout.LayoutParams frameParams = new FrameLayout.LayoutParams(cellWidth, 115);
+        frameLayout.setLayoutParams(frameParams);
+
+        TextView tv = new TextView(this);
+        int size = 95;
+        FrameLayout.LayoutParams tvParams = new FrameLayout.LayoutParams(size, size);
+        tvParams.gravity = Gravity.CENTER;
+        tv.setLayoutParams(tvParams);
+        tv.setGravity(Gravity.CENTER);
+        tv.setText(String.valueOf(dia));
+        tv.setTextSize(14);
+
+        if (isSelected) {
+            tv.setBackgroundResource(R.drawable.bg_calendar_day_selected);
+            tv.setTextColor(Color.WHITE);
+            tv.setTypeface(null, Typeface.BOLD);
+        } else if (isMarked) {
+            tv.setBackgroundResource(R.drawable.bg_calendar_day_marked);
+            tv.setTextColor(Color.parseColor("#5C33E6"));
+            tv.setTypeface(null, Typeface.BOLD);
+        } else {
+            tv.setTextColor(Color.parseColor("#333333"));
+        }
+
+        frameLayout.addView(tv);
+
+        // Se for dia marcado com ponto (ex: dia 24)
+        if (isMarked && !isSelected) {
+            View dot = new View(this);
+            FrameLayout.LayoutParams dotParams = new FrameLayout.LayoutParams(10, 10);
+            dotParams.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
+            dotParams.bottomMargin = 8;
+            dot.setLayoutParams(dotParams);
+            dot.setBackgroundColor(Color.parseColor("#5C33E6"));
+            frameLayout.addView(dot);
+        }
+
+        return frameLayout;
+    }
+
+    private TextView criarTextViewDia(String text, boolean isCurrentMonth, boolean isSelected, boolean isMarked) {
+        TextView tv = new TextView(this);
+        int cellWidth = (getResources().getDisplayMetrics().widthPixels - 80) / 7;
+        GridLayout.LayoutParams params = new GridLayout.LayoutParams();
+        params.width = cellWidth;
+        params.height = 115;
+        tv.setLayoutParams(params);
+        tv.setGravity(Gravity.CENTER);
+        tv.setText(text);
+        tv.setTextSize(14);
+        tv.setTextColor(Color.parseColor("#CCCCCC"));
+        return tv;
+    }
+
+    private void atualizarEventosDoDia(int dia) {
+        // Atualizar subtítulo da data selecionada
+        Calendar calSel = (Calendar) calendarAtual.clone();
+        calSel.set(Calendar.DAY_OF_MONTH, dia);
+
+        SimpleDateFormat sdfFull = new SimpleDateFormat("EEEE, d 'de' MMMM", new Locale("pt", "BR"));
+        String dataFormatada = sdfFull.format(calSel.getTime());
+        dataFormatada = dataFormatada.substring(0, 1).toUpperCase() + dataFormatada.substring(1);
+        tvDateSelectedSubtitle.setText(dataFormatada);
+
+        // Atualizar eventos conforme o dia
+        if (dia == 25) {
+            cardEventoDia1.setVisibility(View.VISIBLE);
+            cardEventoDia2.setVisibility(View.VISIBLE);
+            tvEmptyEvents.setVisibility(View.GONE);
+
+            tvHoraDia1.setText("10:00 — 11:00");
+            tvTituloDia1.setText("Introdução à Programação Mobile");
+
+            tvHoraDia2.setText("14:00 — 16:00");
+            tvTituloDia2.setText("Inovação e Empreendedorismo");
+
+        } else if (dia == 24) {
+            cardEventoDia1.setVisibility(View.VISIBLE);
+            cardEventoDia2.setVisibility(View.GONE);
+            tvEmptyEvents.setVisibility(View.GONE);
+
+            tvHoraDia1.setText("18:00 — 19:00");
+            tvTituloDia1.setText("Habilidades Profissionais");
+
+        } else if (dia == 21) {
+            cardEventoDia1.setVisibility(View.VISIBLE);
+            cardEventoDia2.setVisibility(View.GONE);
+            tvEmptyEvents.setVisibility(View.GONE);
+
+            tvHoraDia1.setText("10:00 — 14:00");
+            tvTituloDia1.setText("Visita Técnica - IFBP");
+
+        } else {
+            // Dias sem evento
+            cardEventoDia1.setVisibility(View.GONE);
+            cardEventoDia2.setVisibility(View.GONE);
+            tvEmptyEvents.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void setupBottomNavigation() {
+        View navInicio = findViewById(R.id.nav_inicio);
+        if (navInicio != null) {
+            navInicio.setOnClickListener(v -> {
+                Intent intent = new Intent(this, HomeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+            });
+        }
+
+        View navEvolucao = findViewById(R.id.nav_evolucao);
+        if (navEvolucao != null) {
+            navEvolucao.setOnClickListener(v -> {
+                startActivity(new Intent(this, PresencaActivity.class));
+            });
+        }
+
+        View navMensagens = findViewById(R.id.nav_mensagens);
+        if (navMensagens != null) {
+            navMensagens.setOnClickListener(v -> {
+                Toast.makeText(this, "Nenhuma mensagem nova.", Toast.LENGTH_SHORT).show();
             });
         }
     }

@@ -1,10 +1,11 @@
 package com.example.nextstepapp.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.nextstepapp.R;
 
 public class PresencaActivity extends AppCompatActivity {
@@ -14,15 +15,54 @@ public class PresencaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_presenca);
 
-        Button btnRegistrarPresenca = findViewById(R.id.btnRegistrarPresenca);
-        Button btnVoltarPresenca = findViewById(R.id.btnVoltarPresenca);
+        ImageView btnBack = findViewById(R.id.btnBack);
+        if (btnBack != null) {
+            btnBack.setOnClickListener(v -> finish());
+        }
 
-        // Ação do botão para simular a validação de presença no servidor
-        btnRegistrarPresenca.setOnClickListener(v -> {
-            Toast.makeText(PresencaActivity.this, "Simulação de presença registrada.", Toast.LENGTH_LONG).show();
-        });
+        View btnNotification = findViewById(R.id.btnNotification);
+        if (btnNotification != null) {
+            btnNotification.setOnClickListener(v -> {
+                startActivity(new Intent(this, NotificacoesActivity.class));
+            });
+        }
 
-        // Retorna à tela anterior
-        btnVoltarPresenca.setOnClickListener(v -> finish());
+        View btnRegistrarPresencaCard = findViewById(R.id.btnRegistrarPresencaCard);
+        if (btnRegistrarPresencaCard != null) {
+            btnRegistrarPresencaCard.setOnClickListener(v -> {
+                Toast.makeText(this, "Presença confirmada com sucesso!", Toast.LENGTH_LONG).show();
+            });
+        }
+
+        // Bottom Navigation
+        View navInicio = findViewById(R.id.nav_inicio);
+        if (navInicio != null) {
+            navInicio.setOnClickListener(v -> {
+                Intent intent = new Intent(this, HomeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+            });
+        }
+
+        View navAgenda = findViewById(R.id.nav_agenda);
+        if (navAgenda != null) {
+            navAgenda.setOnClickListener(v -> {
+                startActivity(new Intent(this, AgendaActivity.class));
+            });
+        }
+
+        View navEvolucao = findViewById(R.id.nav_evolucao);
+        if (navEvolucao != null) {
+            navEvolucao.setOnClickListener(v -> {
+                // Já está na tela de evolução/presença
+            });
+        }
+
+        View navMensagens = findViewById(R.id.nav_mensagens);
+        if (navMensagens != null) {
+            navMensagens.setOnClickListener(v -> {
+                startActivity(new Intent(this, NotificacoesActivity.class));
+            });
+        }
     }
 }

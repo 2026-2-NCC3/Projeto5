@@ -71,12 +71,13 @@
 
             <!-- Detalhe Roxo no Canto -->
             <View
+                android:id="@+id/purpleDecoration"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_marginStart="-60dp"
                 android:layout_marginTop="-20dp"
-                android:background="@drawable/bg_home_header"
                 android:alpha="0.8"
+                android:background="@drawable/bg_home_header"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -84,10 +85,11 @@
                 android:id="@+id/tvHeaderTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:text="Detalhes do Evento"
-                android:textColor="#555555"
+                android:layout_marginTop="32dp"
+                android:text="Detalhes do Curso"
+                android:textColor="#3E2768"
                 android:textSize="24sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -102,313 +104,731 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvHeaderTitle" />
 
-            <!-- Card de Data e Hora -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cardDateTime"
+            <!-- Card Principal com Informações do Curso -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardMainHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="32dp"
-                android:layout_marginTop="40dp"
-                android:background="@drawable/bg_event_card"
-                android:padding="20dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="24dp"
+                app:cardBackgroundColor="#F5F2FE"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:strokeColor="#EBE5FC"
+                app:strokeWidth="1dp"
                 app:layout_constraintTop_toBottomOf="@id/titleUnderline">
 
-                <ImageView
-                    android:id="@+id/icCalendar"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:background="@drawable/light_purple_circle"
-                    android:padding="12dp"
-                    android:src="@drawable/ic_calendar"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@color/purple_primary" />
-
-                <TextView
-                    android:id="@+id/tvDayOfWeek"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="QUARTA-FEIRA"
-                    android:textColor="#8E8E8E"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@id/icCalendar"
-                    app:layout_constraintTop_toTopOf="@id/icCalendar" />
-
-                <TextView
-                    android:id="@+id/tvFullDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="25 de Abril"
-                    android:textColor="@color/purple_primary"
-                    android:textSize="22sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="@id/tvDayOfWeek"
-                    app:layout_constraintTop_toBottomOf="@id/tvDayOfWeek" />
-
-                <View
-                    android:id="@+id/cardDivider"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="16dp"
-                    android:background="#F0F0F0"
-                    app:layout_constraintTop_toBottomOf="@id/tvFullDate" />
-
-                <ImageView
-                    android:id="@+id/icClock"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="16dp"
-                    android:background="@drawable/light_green_circle"
-                    android:padding="12dp"
-                    android:src="@drawable/ic_presence"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cardDivider"
-                    app:tint="#2E7D32" />
-
-                <TextView
-                    android:id="@+id/tvTimeLabel"
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="HORÁRIO"
-                    android:textColor="#2E7D32"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@id/icClock"
-                    app:layout_constraintTop_toTopOf="@id/icClock" />
+                    android:padding="16dp">
 
-                <TextView
-                    android:id="@+id/tvTimeRange"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="10:00 — 11:00"
-                    android:textColor="#2E7D32"
-                    android:textSize="22sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="@id/tvTimeLabel"
-                    app:layout_constraintTop_toBottomOf="@id/tvTimeLabel" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <!-- Ícone Laptop -->
+                    <View
+                        android:id="@+id/bgIconMain"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:background="@drawable/light_purple_circle"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-            <!-- Seção: Visita Técnica -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/sectionVisita"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="24dp"
-                android:layout_marginTop="32dp"
-                app:layout_constraintTop_toBottomOf="@id/cardDateTime">
+                    <ImageView
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:src="@drawable/ic_laptop"
+                        app:layout_constraintBottom_toBottomOf="@id/bgIconMain"
+                        app:layout_constraintEnd_toEndOf="@id/bgIconMain"
+                        app:layout_constraintStart_toStartOf="@id/bgIconMain"
+                        app:layout_constraintTop_toTopOf="@id/bgIconMain"
+                        app:tint="#5C33E6" />
 
-                <ImageView
-                    android:id="@+id/icVisita"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:background="@drawable/light_purple_circle"
-                    android:padding="12dp"
-                    android:src="@drawable/ic_courses"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@color/purple_primary" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:orientation="vertical"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/icVisita"
-                    app:layout_constraintTop_toTopOf="parent">
-
+                    <!-- Tag Inscrições Abertas -->
                     <TextView
+                        android:id="@+id/tvTagInscricoes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="VISITA TÉCNICA"
-                        android:textColor="@color/purple_primary"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Visita à Universidade de São Paulo (USP) – Campus Butantã."
-                        android:textColor="@color/black"
-                        android:textSize="15sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="• Conhecer os laboratórios, a estrutura dos cursos e conversar com estudantes da USP."
-                        android:textColor="#555555"
-                        android:textSize="14sp" />
-                </LinearLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <View
-                android:id="@+id/div1"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginHorizontal="24dp"
-                android:layout_marginTop="16dp"
-                android:background="#F0F0F0"
-                app:layout_constraintTop_toBottomOf="@id/sectionVisita" />
-
-            <!-- Seção: Endereço -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/sectionAddress"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="24dp"
-                android:layout_marginTop="16dp"
-                app:layout_constraintTop_toBottomOf="@id/div1">
-
-                <ImageView
-                    android:id="@+id/icPin"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:background="@drawable/light_green_circle"
-                    android:padding="12dp"
-                    android:src="@drawable/ic_presence"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:tint="#2E7D32" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:orientation="vertical"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/arrowAddress"
-                    app:layout_constraintStart_toEndOf="@id/icPin"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="ENDEREÇO"
+                        android:background="@drawable/bg_tag_open"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="6dp"
+                        android:text="Inscrições abertas"
                         android:textColor="#2E7D32"
                         android:textSize="12sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
+                    <!-- Título do Curso -->
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:id="@+id/tvCourseTitle"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Av. Prof. Luciano Gualberto, 374\nButantã – São Paulo/SP"
-                        android:textColor="#555555"
-                        android:textSize="14sp" />
-                </LinearLayout>
+                        android:layout_marginTop="16dp"
+                        android:text="Introdução à Programação Mobile"
+                        android:textColor="#3E2768"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/bgIconMain" />
 
-                <ImageView
-                    android:id="@+id/arrowAddress"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_send"
-                    android:rotation="0"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:tint="#2E7D32" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <!-- Subtítulo / Descrição Resumida -->
+                    <TextView
+                        android:id="@+id/tvCourseSubtitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:text="Aprenda os conceitos básicos de desenvolvimento mobile e crie seu primeiro aplicativo."
+                        android:textColor="#5E4B8B"
+                        android:textSize="13sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvCourseTitle" />
 
-            <View
-                android:id="@+id/div2"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginHorizontal="24dp"
-                android:layout_marginTop="16dp"
-                android:background="#F0F0F0"
-                app:layout_constraintTop_toBottomOf="@id/sectionAddress" />
+                    <!-- Grid 2x2 com Detalhes (Data, Horário, Local, Vagas) -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/gridDetails"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        app:layout_constraintTop_toBottomOf="@id/tvCourseSubtitle">
 
-            <!-- Seção: O Que Levar -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/sectionBring"
+                        <!-- Item DATA -->
+                        <LinearLayout
+                            android:id="@+id/itemData"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            app:layout_constraintEnd_toStartOf="@id/itemHorario"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <View
+                                android:id="@+id/bgIconData"
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:background="@drawable/light_purple_circle" />
+
+                            <ImageView
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:layout_marginStart="-27dp"
+                                android:src="@drawable/ic_calendar"
+                                app:tint="#5C33E6" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="18dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="DATA"
+                                    android:textColor="#8E8E8E"
+                                    android:textSize="10sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="25 de Abril"
+                                    android:textColor="#3E2768"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <!-- Item HORÁRIO -->
+                        <LinearLayout
+                            android:id="@+id/itemHorario"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/itemData"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <View
+                                android:id="@+id/bgIconHora"
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:background="@drawable/light_green_circle" />
+
+                            <ImageView
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:layout_marginStart="-27dp"
+                                android:src="@drawable/ic_clock"
+                                app:tint="#2E7D32" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="18dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="HORÁRIO"
+                                    android:textColor="#8E8E8E"
+                                    android:textSize="10sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="10:00 — 11:00"
+                                    android:textColor="#3E2768"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <!-- Item LOCAL -->
+                        <LinearLayout
+                            android:id="@+id/itemLocal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            app:layout_constraintEnd_toStartOf="@id/itemVagas"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/itemData">
+
+                            <View
+                                android:id="@+id/bgIconLocal"
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:background="@drawable/light_green_circle" />
+
+                            <ImageView
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:layout_marginStart="-27dp"
+                                android:src="@drawable/ic_location"
+                                app:tint="#2E7D32" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="18dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="LOCAL"
+                                    android:textColor="#8E8E8E"
+                                    android:textSize="10sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="USP – Butantã"
+                                    android:textColor="#3E2768"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <!-- Item VAGAS -->
+                        <LinearLayout
+                            android:id="@+id/itemVagas"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/itemLocal"
+                            app:layout_constraintTop_toBottomOf="@id/itemHorario">
+
+                            <View
+                                android:id="@+id/bgIconVagas"
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:background="@drawable/light_yellow_circle" />
+
+                            <ImageView
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:layout_marginStart="-27dp"
+                                android:src="@drawable/ic_people"
+                                app:tint="#FBC02D" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="18dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="VAGAS"
+                                    android:textColor="#8E8E8E"
+                                    android:textSize="10sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="25/30"
+                                    android:textColor="#3E2768"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Card 1: Descrição -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardDescricao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="24dp"
+                android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="16dp"
-                app:layout_constraintTop_toBottomOf="@id/div2">
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                app:cardCornerRadius="14dp"
+                app:cardElevation="0dp"
+                app:strokeColor="#ECEFF1"
+                app:strokeWidth="1dp"
+                app:layout_constraintTop_toBottomOf="@id/cardMainHeader">
 
-                <ImageView
-                    android:id="@+id/icBackpack"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:background="@drawable/light_yellow_circle"
-                    android:padding="12dp"
-                    android:src="@drawable/ic_courses"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:tint="#FBC02D" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:orientation="vertical"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/arrowBring"
-                    app:layout_constraintStart_toEndOf="@id/icBackpack"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:padding="14dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <View
+                        android:id="@+id/bgIconDesc"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:background="@drawable/light_purple_circle"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:src="@drawable/ic_description"
+                        app:layout_constraintBottom_toBottomOf="@id/bgIconDesc"
+                        app:layout_constraintEnd_toEndOf="@id/bgIconDesc"
+                        app:layout_constraintStart_toStartOf="@id/bgIconDesc"
+                        app:layout_constraintTop_toTopOf="@id/bgIconDesc"
+                        app:tint="#5C33E6" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="O QUE LEVAR"
-                        android:textColor="#FBC02D"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
+                        android:layout_marginStart="14dp"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/ivArrowDesc"
+                        app:layout_constraintStart_toEndOf="@id/bgIconDesc"
+                        app:layout_constraintTop_toTopOf="parent">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="• Documento de identidade com foto\n• Caderno e caneta\n• Água e lanche (opcional)"
-                        android:textColor="#555555"
-                        android:textSize="14sp" />
-                </LinearLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Descrição"
+                            android:textColor="#2D155A"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
 
-                <ImageView
-                    android:id="@+id/arrowBring"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_send"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:tint="#FBC02D" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="Sobre o curso e o que você vai aprender"
+                            android:textColor="#757575"
+                            android:textSize="12sp" />
+                    </LinearLayout>
 
-            <!-- Botões de Ação -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnVerMais"
+                    <ImageView
+                        android:id="@+id/ivArrowDesc"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:src="@drawable/ic_chevron_right"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="#2E7D32" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Card 2: Conteúdo Programático -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardConteudo"
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:layout_marginHorizontal="32dp"
-                android:layout_marginTop="32dp"
-                android:backgroundTint="@color/green_button"
-                android:text="VER MAIS INFORMAÇÕES"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                app:cornerRadius="28dp"
-                app:layout_constraintTop_toBottomOf="@id/sectionBring" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnTirarDuvidas"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:layout_marginHorizontal="32dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="12dp"
-                android:text="TIRAR DÚVIDAS"
-                android:textAllCaps="true"
-                android:textColor="@color/purple_primary"
-                android:textSize="16sp"
-                app:cornerRadius="28dp"
-                app:layout_constraintTop_toBottomOf="@id/btnVerMais"
-                app:strokeColor="@color/purple_primary"
-                app:strokeWidth="2dp" />
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                app:cardCornerRadius="14dp"
+                app:cardElevation="0dp"
+                app:strokeColor="#ECEFF1"
+                app:strokeWidth="1dp"
+                app:layout_constraintTop_toBottomOf="@id/cardDescricao">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="14dp">
+
+                    <View
+                        android:id="@+id/bgIconCont"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:background="@drawable/light_purple_circle"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:src="@drawable/ic_book"
+                        app:layout_constraintBottom_toBottomOf="@id/bgIconCont"
+                        app:layout_constraintEnd_toEndOf="@id/bgIconCont"
+                        app:layout_constraintStart_toStartOf="@id/bgIconCont"
+                        app:layout_constraintTop_toTopOf="@id/bgIconCont"
+                        app:tint="#5C33E6" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/ivArrowCont"
+                        app:layout_constraintStart_toEndOf="@id/bgIconCont"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Conteúdo Programático"
+                            android:textColor="#2D155A"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="Temas que serão abordados"
+                            android:textColor="#757575"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/ivArrowCont"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:src="@drawable/ic_chevron_right"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="#2E7D32" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Card 3: Público-alvo -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardPublico"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="12dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                app:cardCornerRadius="14dp"
+                app:cardElevation="0dp"
+                app:strokeColor="#ECEFF1"
+                app:strokeWidth="1dp"
+                app:layout_constraintTop_toBottomOf="@id/cardConteudo">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="14dp">
+
+                    <View
+                        android:id="@+id/bgIconPub"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:background="@drawable/light_purple_circle"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:src="@drawable/ic_people"
+                        app:layout_constraintBottom_toBottomOf="@id/bgIconPub"
+                        app:layout_constraintEnd_toEndOf="@id/bgIconPub"
+                        app:layout_constraintStart_toStartOf="@id/bgIconPub"
+                        app:layout_constraintTop_toTopOf="@id/bgIconPub"
+                        app:tint="#5C33E6" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/ivArrowPub"
+                        app:layout_constraintStart_toEndOf="@id/bgIconPub"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Público-alvo"
+                            android:textColor="#2D155A"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="Para quem este curso é indicado"
+                            android:textColor="#757575"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/ivArrowPub"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:src="@drawable/ic_chevron_right"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="#2E7D32" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Card 4: Pontos -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardPontos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="12dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                app:cardCornerRadius="14dp"
+                app:cardElevation="0dp"
+                app:strokeColor="#ECEFF1"
+                app:strokeWidth="1dp"
+                app:layout_constraintTop_toBottomOf="@id/cardPublico">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="14dp">
+
+                    <View
+                        android:id="@+id/bgIconPontos"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:background="@drawable/light_purple_circle"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:src="@drawable/ic_badge"
+                        app:layout_constraintBottom_toBottomOf="@id/bgIconPontos"
+                        app:layout_constraintEnd_toEndOf="@id/bgIconPontos"
+                        app:layout_constraintStart_toStartOf="@id/bgIconPontos"
+                        app:layout_constraintTop_toTopOf="@id/bgIconPontos"
+                        app:tint="#5C33E6" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/ivArrowPontos"
+                        app:layout_constraintStart_toEndOf="@id/bgIconPontos"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Pontos"
+                            android:textColor="#2D155A"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="Pontos que você ganha ao participar"
+                            android:textColor="#757575"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/ivArrowPontos"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:src="@drawable/ic_chevron_right"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="#2E7D32" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Card 5: Certificado -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardCertificado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="12dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                app:cardCornerRadius="14dp"
+                app:cardElevation="0dp"
+                app:strokeColor="#ECEFF1"
+                app:strokeWidth="1dp"
+                app:layout_constraintTop_toBottomOf="@id/cardPontos">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="14dp">
+
+                    <View
+                        android:id="@+id/bgIconCert"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:background="@drawable/light_purple_circle"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:src="@drawable/ic_certificates"
+                        app:layout_constraintBottom_toBottomOf="@id/bgIconCert"
+                        app:layout_constraintEnd_toEndOf="@id/bgIconCert"
+                        app:layout_constraintStart_toStartOf="@id/bgIconCert"
+                        app:layout_constraintTop_toTopOf="@id/bgIconCert"
+                        app:tint="#5C33E6" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/ivArrowCert"
+                        app:layout_constraintStart_toEndOf="@id/bgIconCert"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Certificado"
+                            android:textColor="#2D155A"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="Informações sobre o certificado"
+                            android:textColor="#757575"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/ivArrowCert"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:src="@drawable/ic_chevron_right"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="#2E7D32" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Botão Inscrever-se no Curso (Verde) -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/btnInscrever"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="24dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                app:cardBackgroundColor="#227C4F"
+                app:cardCornerRadius="28dp"
+                app:cardElevation="4dp"
+                app:layout_constraintTop_toBottomOf="@id/cardCertificado">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:paddingHorizontal="24dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="INSCREVER-SE NO CURSO"
+                        android:textColor="@color/white"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/ivBtnArrow"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/ivBtnArrow"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_chevron_right"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/white" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
@@ -424,9 +844,13 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
+            android:id="@+id/nav_inicio"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
             android:gravity="center"
             android:orientation="vertical">
             <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_home" app:tint="@color/black" />
@@ -434,19 +858,27 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/nav_agenda"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
             android:gravity="center"
             android:orientation="vertical">
-            <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_calendar" app:tint="@color/black" />
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Agenda" android:textColor="@color/black" android:textSize="11sp" />
+            <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_calendar" app:tint="@color/purple_primary" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Agenda" android:textColor="@color/purple_primary" android:textSize="11sp" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/nav_evolucao"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
             android:gravity="center"
             android:orientation="vertical">
             <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_presence" app:tint="@color/black" />
@@ -454,9 +886,13 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/nav_mensagens"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
             android:gravity="center"
             android:orientation="vertical">
             <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_notifications" app:tint="@color/black" />

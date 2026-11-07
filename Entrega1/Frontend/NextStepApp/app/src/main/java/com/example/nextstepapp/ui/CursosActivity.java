@@ -5,14 +5,23 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.nextstepapp.R;
+import com.example.nextstepapp.model.ApiResponse;
 import com.example.nextstepapp.model.Curso;
+import com.example.nextstepapp.network.ApiClient;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CursosActivity extends AppCompatActivity {
 
@@ -38,12 +47,14 @@ public class CursosActivity extends AppCompatActivity {
         adapter = new CursoAdapter();
         rvCursos.setAdapter(adapter);
 
-        // Configurar Clique no Curso (Abre Detalhes)
+        // Clique no curso abre os detalhes (envia o id para a próxima tela)
         adapter.setOnCursoClickListener(curso -> {
-            startActivity(new Intent(this, DetalhesEventoActivity.class));
+            Intent intent = new Intent(this, DetalhesEventoActivity.class);
+            intent.putExtra("course_id", curso.getId());
+            startActivity(intent);
         });
 
-        // Configurar Filtros
+        // Filtros
         setupFilters();
 
         // Botão Voltar e Top Bar
@@ -52,11 +63,11 @@ public class CursosActivity extends AppCompatActivity {
             btnBack.setOnClickListener(v -> finish());
         }
 
+        // A tela de notificações não existe na Entrega2 (ver NotificacoesActivity na Entrega1)
         View btnNotification = findViewById(R.id.btnNotification);
         if (btnNotification != null) {
-            btnNotification.setOnClickListener(v -> {
-                startActivity(new Intent(this, NotificacoesActivity.class));
-            });
+            btnNotification.setOnClickListener(v ->
+                    Toast.makeText(this, "Notificações em breve.", Toast.LENGTH_SHORT).show());
         }
 
         // Bottom Navigation
@@ -71,27 +82,51 @@ public class CursosActivity extends AppCompatActivity {
 
         View navAgenda = findViewById(R.id.nav_agenda);
         if (navAgenda != null) {
-            navAgenda.setOnClickListener(v -> {
-                startActivity(new Intent(this, AgendaActivity.class));
-            });
+            navAgenda.setOnClickListener(v ->
+                    startActivity(new Intent(this, AgendaActivity.class)));
         }
 
         View navEvolucao = findViewById(R.id.nav_evolucao);
         if (navEvolucao != null) {
-            navEvolucao.setOnClickListener(v -> {
-                startActivity(new Intent(this, PresencaActivity.class));
-            });
+            navEvolucao.setOnClickListener(v ->
+                    startActivity(new Intent(this, PresencaActivity.class)));
         }
 
         View navMensagens = findViewById(R.id.nav_mensagens);
         if (navMensagens != null) {
-            navMensagens.setOnClickListener(v -> {
-                Toast.makeText(this, "Nenhuma mensagem recente.", Toast.LENGTH_SHORT).show();
-            });
+            navMensagens.setOnClickListener(v ->
+                    Toast.makeText(this, "Nenhuma mensagem recente.", Toast.LENGTH_SHORT).show());
         }
 
-        // Carregar Dados Mockados
-        carregarDadosExemplo();
+        // Dados reais do servidor
+        carregarCursos();
+    }
+
+    private void carregarCursos() {
+        ApiClient.getApiService().getCursos().enqueue(new Callback<ApiResponse<List<Curso>>>() {
+            @Override
+            public void onResponse(Call<ApiResponse<List<Curso>>> call,
+                                   Response<ApiResponse<List<Curso>>> response) {
+                ApiResponse<List<Curso>> body = response.body();
+
+                if (response.isSuccessful() && body != null
+                        && body.isSuccess() && body.getData() != null) {
+                    listaCompleta = body.getData();
+                    adapter.atualizarCursos(listaCompleta);
+                } else {
+                    Toast.makeText(CursosActivity.this,
+                            "Não foi possível carregar os cursos.",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ApiResponse<List<Curso>>> call, Throwable t) {
+                Toast.makeText(CursosActivity.this,
+                        "Erro de conexão. Tente novamente.",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void setupFilters() {
@@ -101,8 +136,7 @@ public class CursosActivity extends AppCompatActivity {
             tv.setBackgroundResource(R.drawable.bg_filter_selected);
             tv.setTextColor(ContextCompat.getColor(this, R.color.white));
 
-            String categoria = tv.getText().toString();
-            filtrarLista(categoria);
+            filtrarLista(tv.getText().toString());
         };
 
         filterTodos.setOnClickListener(filterClick);
@@ -132,27 +166,5 @@ public class CursosActivity extends AppCompatActivity {
             }
         }
         adapter.atualizarCursos(filtrados);
-    }
-
-    private void carregarDadosExemplo() {
-        listaCompleta.clear();
-        
-        listaCompleta.add(new Curso("1", "Introdução à Programação Mobile",
-            "Aprenda os conceitos básicos de desenvolvimento mobile e crie seu primeiro aplicativo.", 
-            "USP - Butantã", "2026-04-25T10:00:00", "11:00", 30, 25, 50, 1, "Tecnologia"));
-
-        listaCompleta.add(new Curso("2", "Análise de Dados",
-            "Descubra como transformar dados em decisões com ferramentas práticas e projetos reais.", 
-            "USP - Butantã", "2026-05-10T14:00:00", "16:00", 25, 18, 40, 1, "Tecnologia"));
-
-        listaCompleta.add(new Curso("3", "Habilidades Profissionais",
-            "Desenvolva sua comunicação, trabalho em equipe e inteligência emocional.", 
-            "USP - Butantã", "2026-05-17T09:00:00", "12:00", 30, 20, 30, 1, "Soft Skills"));
-
-        listaCompleta.add(new Curso("4", "Inovação e Empreendedorismo",
-            "Aprenda a criar soluções inovadoras e a transformar ideias em projetos reais.", 
-            "USP - Butantã", "2026-05-24T18:00:00", "20:00", 20, 5, 60, 1, "Negócios"));
-
-        adapter.atualizarCursos(listaCompleta);
     }
 }

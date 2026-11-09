@@ -10,12 +10,14 @@
 # Grupo: `Next Step`
 
 ## Integrantes
-Claudia Dias Calado Bovenzo
-Fernanda Figueiredo Simões
-Arthur DaherFranceschelli
-Katiê Prado Godoy
+
+- Claudia Dias Calado Bovenzo
+- Fernanda Figueiredo Simões
+- Arthur Daher Franceschelli
+- Katiê Prado Godoy
 
 ## Professores
+
 - Katia Milani Lara Bossi
 - Marco Aurelio Lima Barbosa
 - Rodrigo da Rosa
@@ -51,6 +53,7 @@ Nosso projeto consiste na criação de um aplicativo mobile integrado à API e a
 
 ## Estrutura de pastas
 
+```text
 📂 Projeto5/
 │
 ├── 📄 README.md
@@ -119,23 +122,57 @@ Nosso projeto consiste na criação de um aplicativo mobile integrado à API e a
 │       │
 │       ├── 📂 Frontend/
 │       │   ├── 📂 app/
+│       │   │   ├── 📄 build.gradle.kts
 │       │   │   └── 📂 src/
 │       │   │       └── 📂 main/
+│       │   │           ├── 📄 AndroidManifest.xml
 │       │   │           ├── 📂 java/
+│       │   │           │   └── 📂 com/example/projetopi/
+│       │   │           │       ├── 📄 MainActivity.java
+│       │   │           │       ├── 📄 CadastroActivity.java
+│       │   │           │       ├── 📄 TelaInicial.java
+│       │   │           │       ├── 📄 ApiConfig.java
+│       │   │           │       └── 📄 VolleySingleton.java
 │       │   │           └── 📂 res/
 │       │   │               ├── 📂 drawable/
 │       │   │               ├── 📂 layout/
+│       │   │               ├── 📂 mipmap-*/
 │       │   │               └── 📂 values/
 │       │   │
-│       │   └── 📂 gradle/
+│       │   ├── 📂 gradle/
+│       │   ├── 📄 build.gradle.kts
+│       │   ├── 📄 settings.gradle.kts
+│       │   ├── 📄 gradlew
+│       │   └── 📄 gradlew.bat
 │       │
 │       └── 📂 Backend/
 │           ├── 📂 database/
-│           └── 📂 src/
-│               ├── 📂 config/
-│               ├── 📂 controllers/
-│               ├── 📂 models/
-│               └── 📂 routes/
+│           │   ├── 📄 database.js
+│           │   ├── 📄 schema.sql
+│           │   └── 📄 proxima_etapa.db
+│           │
+│           ├── 📂 src/
+│           │   ├── 📂 config/
+│           │   │   └── 📄 migrate.js
+│           │   │
+│           │   ├── 📂 controllers/
+│           │   │   ├── 📄 profilesController.js
+│           │   │   ├── 📄 universidadesController.js
+│           │   │   └── 📄 cursosController.js
+│           │   │
+│           │   ├── 📂 models/
+│           │   │   ├── 📄 profilesModel.js
+│           │   │   ├── 📄 universidadesModel.js
+│           │   │   └── 📄 cursosModel.js
+│           │   │
+│           │   └── 📂 routes/
+│           │       ├── 📄 profilesRoutes.js
+│           │       ├── 📄 universidadesRoutes.js
+│           │       └── 📄 cursosRoutes.js
+│           │
+│           ├── 📄 server.js
+│           ├── 📄 package.json
+│           └── 📄 package-lock.json
 │
 ├── 📂 documentos/
 │   ├── 📄 MODELO_BANNER_FECAP_2026_1.pptx
@@ -144,7 +181,6 @@ Nosso projeto consiste na criação de um aplicativo mobile integrado à API e a
 │
 └── 📂 imagens/
     └── 📄 Bootstrap_5.0_Screenshot.png
-
 ```
 
 ---
@@ -155,6 +191,7 @@ Nosso projeto consiste na criação de um aplicativo mobile integrado à API e a
 |-------|-----------|
 | `src/` | Contém os códigos-fonte do projeto, organizados por entregas. |
 | `Entrega 1/` | Contém a primeira entrega do projeto interdisciplinar. |
+| `Entrega 2/` | Contém os arquivos e materiais referentes à segunda entrega do projeto. |
 | `Frontend/` | Contém o aplicativo Android desenvolvido em Java. |
 | `Backend/` | Contém a API REST desenvolvida com Node.js e Express. |
 | `database/` | Contém os arquivos de configuração e estrutura do banco de dados SQLite. |
@@ -162,8 +199,7 @@ Nosso projeto consiste na criação de um aplicativo mobile integrado à API e a
 | `models/` | Contém os modelos responsáveis pela manipulação dos dados. |
 | `routes/` | Contém as rotas utilizadas para comunicação com a API. |
 | `config/` | Contém arquivos de configuração e migração do sistema. |
-| `documentos/` | Armazena a documentação e os materiais acadêmicos do projeto. |
-| `Entrega 2/` | Contém materiais referentes à segunda entrega do projeto. |
+| `documentos/` | Armazena o banner, o documento do projeto de extensão e a ficha de declaração do uso de IA. |
 | `imagens/` | Armazena imagens e recursos visuais utilizados no projeto. |
 
 ---

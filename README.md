@@ -1,226 +1,312 @@
+
 # FECAP - Fundação de Comércio Álvares Penteado
 
 <p align="center">
-<a href= "https://www.fecap.br/"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhZPrRa89Kma0ZZogxm0pi-tCn_TLKeHGVxywp-LXAFGR3B1DPouAJYHgKZGV0XTEf4AE&usqp=CAU" alt="FECAP - Fundação de Comércio Álvares Penteado" border="0"></a> </p>
-
+  <a href="https://www.fecap.br/">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhZPrRa89Kma0ZZogxm0pi-tCn_TLKeHGVxywp-LXAFGR3B1DPouAJYHgKZGV0XTEf4AE&usqp=CAU" alt="FECAP" width="240">
+  </a>
+</p>
 
 # Grupo: `Next Step`
 
-## Integrantes: Claudia Dias, Fernanda Simões, Arthur Daher e Katie Prado
+## Integrantes
+Claudia Dias, Fernanda Simões, Arthur Daher e Katie Prado
 
-## Professores: <a href="https://www.linkedin.com/in/katia-bossi/">Katia Milani Lara Bossi</a>, <a href="https://www.linkedin.com/in/marco-aurelio-lima-barbosa/">Marco Aurelio Lima Barbosa</a>, <a href="https://www.linkedin.com/in/rodrigo-da-rosa-phd/">Rodrigo da Rosa</a>, <a href="https://www.linkedin.com/in/victorbarq/">Victor Bruno Alexander Rosetti de Quiroz</a>
-<br>
-
+## Professores
+- Katia Milani Lara Bossi
+- Marco Aurelio Lima Barbosa
+- Rodrigo da Rosa
+- Victor Bruno Alexander Rosetti de Quiroz
 
 # Projeto - `Próxima Etapa`
+
 <p align="center">
   <img src="https://proximaetapa.org.br/assets/logo-proxima-etapa-D8depET2.png" alt="Logo Próxima Etapa" width="240">
 </p>
 
 ## Descrição
-A <a href="https://proximaetapa.org.br/">Próxima Etapa</a> A Próxima Etapa é uma ONG cuja missão é ampliar o acesso de estudantes da rede pública a oportunidades de educação e orientação profissional. Seu propósito é apoiar jovens que enfrentam dificuldades na escolha de uma graduação, curso técnico ou carreira, oferecendo recursos que contribuam para decisões mais conscientes sobre seu futuro.
+
+A [Próxima Etapa](https://proximaetapa.org.br/) é uma ONG cuja missão é ampliar o acesso de estudantes da rede pública a oportunidades de educação e orientação profissional.
+
+Seu propósito é apoiar jovens que enfrentam dificuldades na escolha de uma graduação, curso técnico ou carreira, oferecendo recursos que contribuam para decisões mais conscientes sobre seu futuro.
 
 Com o objetivo de fortalecer o vínculo entre a instituição e seus participantes, a organização idealizou uma plataforma digital voltada para aprimorar a experiência dos estudantes e acompanhar sua jornada de desenvolvimento acadêmico e profissional.
 
-Diante desse desafio, nós, da equipe **Next Step**, desenvolvemos uma solução para transformar essa visão em realidade. Nosso projeto consiste na criação de um aplicativo mobile integrado à API e ao banco de dados fornecidos pela ONG, disponibilizando funcionalidades que auxiliam os alunos em diferentes etapas de sua trajetória, tais como:
+Diante desse desafio, nós, da equipe **Next Step**, desenvolvemos uma solução para transformar essa visão em realidade.
 
-acesso a cursos e conteúdos educacionais;
-realização de testes vocacionais e de habilidades;
-emissão de cartão digital do participante;
-consulta e gerenciamento de certificados;
-acompanhamento do progresso acadêmico;
-além de outras funcionalidades voltadas ao desenvolvimento estudantil e profissional.
+Nosso projeto consiste na criação de um aplicativo mobile integrado à API e ao banco de dados, disponibilizando funcionalidades como:
+
+- Acesso a cursos e conteúdos educacionais;
+- Realização de testes vocacionais e de habilidades;
+- Emissão de cartão digital do participante;
+- Consulta e gerenciamento de certificados;
+- Acompanhamento do progresso acadêmico;
+- Visualização da agenda de cursos e eventos;
+- Outras funcionalidades voltadas ao desenvolvimento estudantil e profissional.
+
+---
 
 ## Estrutura de pastas
-📂 Projeto5/
+
+```text
+Projeto5/
 │
-├── 📄 README.md
-├── 📄 LICENSE
-├── 📄 .gitignore
+├── README.md
+├── LICENSE
+├── .gitignore
 │
-├── 📂 src/
-│   └── 📂 Entrega 1/
-│       ├── 📂 Frontend/                 # Aplicativo Android
-│       │   ├── 📂 app/
-│       │   │   ├── 📄 build.gradle.kts
-│       │   │   └── 📂 src/main/
-│       │   │       ├── 📄 AndroidManifest.xml
-│       │   │       ├── 📂 java/com/example/projetopi/
-│       │   │       │   ├── 📄 MainActivity.java
-│       │   │       │   ├── 📄 CadastroActivity.java
-│       │   │       │   ├── 📄 TelaInicial.java
-│       │   │       │   ├── 📄 ApiConfig.java
-│       │   │       │   └── 📄 VolleySingleton.java
-│       │   │       └── 📂 res/
-│       │   │           ├── 📂 drawable/
-│       │   │           ├── 📂 layout/
-│       │   │           ├── 📂 mipmap-*/
-│       │   │           └── 📂 values/
-│       │   ├── 📂 gradle/
-│       │   ├── 📄 build.gradle.kts
-│       │   ├── 📄 settings.gradle.kts
-│       │   ├── 📄 gradlew
-│       │   └── 📄 gradlew.bat
+├── src/
+│   └── Entrega 1/
 │       │
-│       └── 📂 Backend/                  # API Node.js + Express + SQLite
-│           ├── 📂 database/
-│           │   ├── 📄 database.js
-│           │   ├── 📄 schema.sql
-│           │   └── 📄 proxima_etapa.db
+│       ├── Frontend/
+│       │   ├── app/
+│       │   │   ├── build.gradle.kts
+│       │   │   └── src/
+│       │   │       └── main/
+│       │   │           ├── AndroidManifest.xml
+│       │   │           ├── java/
+│       │   │           │   └── com/example/projetopi/
+│       │   │           │       ├── MainActivity.java
+│       │   │           │       ├── CadastroActivity.java
+│       │   │           │       ├── TelaInicial.java
+│       │   │           │       ├── ApiConfig.java
+│       │   │           │       └── VolleySingleton.java
+│       │   │           └── res/
+│       │   │               ├── drawable/
+│       │   │               ├── layout/
+│       │   │               ├── mipmap-*/
+│       │   │               └── values/
+│       │   │
+│       │   ├── gradle/
+│       │   ├── build.gradle.kts
+│       │   ├── settings.gradle.kts
+│       │   ├── gradlew
+│       │   └── gradlew.bat
+│       │
+│       └── Backend/
+│           ├── database/
+│           │   ├── database.js
+│           │   ├── schema.sql
+│           │   └── proxima_etapa.db
 │           │
-│           ├── 📂 src/
-│           │   ├── 📂 config/
-│           │   │   └── 📄 migrate.js
+│           ├── src/
+│           │   ├── config/
+│           │   │   └── migrate.js
 │           │   │
-│           │   ├── 📂 controllers/
-│           │   │   ├── 📄 profilesController.js
-│           │   │   ├── 📄 universidadesController.js
-│           │   │   └── 📄 cursosController.js
+│           │   ├── controllers/
+│           │   │   ├── profilesController.js
+│           │   │   ├── universidadesController.js
+│           │   │   └── cursosController.js
 │           │   │
-│           │   ├── 📂 models/
-│           │   │   ├── 📄 profilesModel.js
-│           │   │   ├── 📄 universidadesModel.js
-│           │   │   └── 📄 cursosModel.js
+│           │   ├── models/
+│           │   │   ├── profilesModel.js
+│           │   │   ├── universidadesModel.js
+│           │   │   └── cursosModel.js
 │           │   │
-│           │   └── 📂 routes/
-│           │       ├── 📄 profilesRoutes.js
-│           │       ├── 📄 universidadesRoutes.js
-│           │       └── 📄 cursosRoutes.js
+│           │   └── routes/
+│           │       ├── profilesRoutes.js
+│           │       ├── universidadesRoutes.js
+│           │       └── cursosRoutes.js
 │           │
-│           ├── 📄 server.js
-│           ├── 📄 package.json
-│           └── 📄 package-lock.json
+│           ├── server.js
+│           ├── package.json
+│           └── package-lock.json
 │
-├── 📂 documentos/
-│   ├── 📂 Entrega 1/
-│   ├── 📂 Entrega 2/
-│   ├── 📄 Documento - Projeto de Extensão - COM Empresa - 2026_1.docx
-│   └── 📄 MODELO_BANNER_FECAP_2026_1.pptx
+├── documentos/
+│   ├── Entrega 1/
+│   ├── Entrega 2/
+│   ├── Documento - Projeto de Extensão - COM Empresa - 2026_1.docx
+│   └── MODELO_BANNER_FECAP_2026_1.pptx
 │
-└── 📂 imagens/
-    └── 📄 Bootstrap_5.0_Screenshot.png
+└── imagens/
+    └── Bootstrap_5.0_Screenshot.png
+```
+
+---
 
 ## Descrição das pastas
 
-- **`documentos/`**: Documentação do projeto
-- ** 'Entrega1 e Entrega2/'**: São as entregas principais que contém as disciplinas e o projeto.  
-- **`imagens/`**: Imagens do projeto, sendo presentes dentro dele ou referenciadas
-- **`src/`**: Código do projeto, organizada por entregas, FrontEnd e BackEnd
-- **`Backend/`**: Código-fonte da API REST (Node.js + Express)
-- **`Frontend`**: Interface do usuário
-
-## Tecnologias utilizadas
-| Tecnologia | Detalhamento |
-|------------|---------------|
-| **Android Studio** | FrontEnd do aplicativo |
-| **Visual Studio Code** | Java, JavaScript, .Node |
-| **MySql Workbench 8.0 CE** | SQL - Banco de Dados |
-| **PostMan** | Teste de Rota 
-
-## Windows
-
-1. **Acesse o repositório no GitHub**
-   Abra o navegador e acesse a página do repositório do projeto:
-   `https://github.com/2026-2-NCC3/Projeto5`
-
-2. **Copie a URL HTTPS do repositório**
-   Na página do repositório, clique no botão verde **"Code"**. Na aba **"Local"**, certifique-se de que a opção **HTTPS** esteja selecionada e clique no ícone de copiar ao lado da URL (algo como `https://github.com/2026-2-NCC3/Projeto5.git`).
-
-3. **Abra o Android Studio**
-   Inicie o Android Studio no seu computador. Se ainda não tiver instalado, veja a seção [Testando no PC](#testando-no-pc) abaixo antes de continuar.
-
-4. **Selecione "Clone Repository"**
-   Na tela inicial do Android Studio (Welcome Screen), clique no botão **"Clone Repository"**, localizado ao lado de "New Project" e "Open".
-
-5. **Cole a URL do GitHub**
-   Na janela "Clone Repository", cole a URL copiada no passo 2 no campo **URL**.
-
-6. **Escolha a pasta de destino**
-   No campo **Directory**, escolha (ou digite) o caminho onde o projeto será salvo no seu computador — por exemplo: `C:\Users\SeuUsuario\Desktop\Projeto5`. Você pode usar o ícone de pasta ao lado do campo para navegar visualmente até o local desejado.
-
-7. **Conclua o clone**
-   Clique em **"Clone"**. O Android Studio irá baixar todos os arquivos do repositório para a pasta escolhida. Aguarde a barra de progresso finalizar.
-
-8. **Aguarde o Gradle sincronizar**
-   Após o clone, o Android Studio inicia automaticamente o processo de sincronização do Gradle (aparece uma barra de progresso na parte inferior da tela, geralmente com o texto "Gradle Sync" ou similar). Esse processo baixa as dependências do projeto e pode levar alguns minutos, dependendo da velocidade da internet — **não feche o Android Studio durante esse processo**.
-
-9. **Resolva dependências faltantes**
-   Caso apareçam avisos em vermelho ou uma barra amarela no topo do editor informando dependências ausentes (ex: "SDK não instalado" ou "Gradle version incompatível"), clique nos links de correção sugeridos pelo próprio Android Studio (geralmente "Install missing SDK(s)" ou "Update Gradle"). O Android Studio resolve a maioria desses problemas automaticamente com um clique.
-
-10. **Abra o Device Manager**
-    No menu superior, vá em **View → Tool Windows → Device Manager**, ou clique no ícone de celular na barra lateral direita.
-
-11. **Crie um emulador Android (caso não exista nenhum)**
-    Dentro do Device Manager, clique em **"Create Device"**. Escolha um modelo de celular (recomendado: **Pixel 6** ou similar), clique em **Next**, selecione uma imagem de sistema (recomendado: a versão mais recente com o ícone de download, caso ainda não esteja baixada) e clique em **Finish**.
-
-12. **Inicie o emulador**
-    Com o emulador criado, clique no ícone de **play (▶)** ao lado dele na lista do Device Manager. Aguarde a tela do emulador carregar completamente (pode levar 1-2 minutos na primeira vez).
-
-13. **Selecione o dispositivo**
-    No topo do Android Studio, verifique se o emulador criado está selecionado na lista suspensa de dispositivos (ao lado do botão de "Run").
-
-14. **Compile o projeto**
-    Clique no ícone de **martelo (Build)** na barra de ferramentas, ou vá em **Build → Make Project**, para verificar se o código compila sem erros.
-
-15. **Execute o aplicativo**
-    Clique no botão verde de **play (▶ Run 'app')** no topo do Android Studio. O aplicativo será instalado e aberto automaticamente no emulador selecionado.
-
-16. **Verifique erros no Logcat**
-    Caso o app feche sozinho ou apresente comportamento inesperado, abra a aba **Logcat** (geralmente na parte inferior do Android Studio). Filtre por **"Error"** no menu suspenso de nível de log para visualizar mensagens de erro detalhadas, que ajudam a identificar a causa do problema.
-
-> **Observação para iniciantes:** é normal que a primeira sincronização do Gradle demore bastante — isso acontece porque o Android Studio está baixando todas as bibliotecas necessárias pela primeira vez. Da segunda vez em diante, o processo é bem mais rápido.
+| Pasta | Descrição |
+|-------|-----------|
+| `src/` | Contém os códigos-fonte do projeto, organizados por entregas. |
+| `Entrega 1/` | Contém a primeira entrega do projeto interdisciplinar. |
+| `Frontend/` | Contém o aplicativo Android desenvolvido em Java. |
+| `Backend/` | Contém a API REST desenvolvida com Node.js e Express. |
+| `database/` | Contém os arquivos de configuração e estrutura do banco de dados SQLite. |
+| `controllers/` | Contém os controladores responsáveis pelas requisições da API. |
+| `models/` | Contém os modelos responsáveis pela manipulação dos dados. |
+| `routes/` | Contém as rotas utilizadas para comunicação com a API. |
+| `config/` | Contém arquivos de configuração e migração do sistema. |
+| `documentos/` | Armazena a documentação e os materiais acadêmicos do projeto. |
+| `Entrega 2/` | Contém materiais referentes à segunda entrega do projeto. |
+| `imagens/` | Armazena imagens e recursos visuais utilizados no projeto. |
 
 ---
 
-# Testando no PC
+## Tecnologias utilizadas
+
+| Tecnologia | Detalhamento |
+|------------|--------------|
+| **Android Studio** | Desenvolvimento do aplicativo Android. |
+| **Java** | Linguagem utilizada no aplicativo mobile. |
+| **XML** | Criação das interfaces do aplicativo. |
+| **Visual Studio Code** | Desenvolvimento e edição do código-fonte. |
+| **Node.js** | Ambiente de execução do backend. |
+| **Express.js** | Framework utilizado na criação da API REST. |
+| **SQLite** | Banco de dados utilizado no projeto. |
+| **Postman** | Testes das rotas e requisições da API. |
+| **GitHub** | Versionamento e armazenamento do código-fonte. |
+
+---
+
+## Como executar o projeto
+
+### Windows
+
+#### 1. Acesse o repositório no GitHub
+
+Abra o navegador e acesse:
+
+https://github.com/2026-2-NCC3/Projeto5
+
+#### 2. Copie a URL HTTPS do repositório
+
+Clique no botão verde **Code**, selecione **HTTPS** e copie:
+
+```bash
+https://github.com/2026-2-NCC3/Projeto5.git
+```
+
+#### 3. Abra o Android Studio
+
+Inicie o Android Studio no computador.
+
+#### 4. Clone o repositório
+
+Na tela inicial, selecione **Clone Repository**.
+
+Cole a URL do repositório e escolha a pasta de destino.
+
+Clique em **Clone**.
+
+#### 5. Abra o projeto Android
+
+Após o download, abra a pasta:
+
+```text
+Projeto5/src/Entrega 1/Frontend/
+```
+
+#### 6. Aguarde a sincronização do Gradle
+
+O Android Studio realizará a sincronização das dependências do projeto.
+
+Aguarde a conclusão antes de executar o aplicativo.
+
+#### 7. Configure um emulador Android
+
+Acesse:
+
+**View → Tool Windows → Device Manager**
+
+Clique em **Create Device** e escolha um dispositivo virtual, como o Pixel 6.
+
+Selecione uma imagem do sistema Android e finalize a configuração.
+
+#### 8. Execute o aplicativo
+
+Selecione o dispositivo virtual criado.
+
+Clique no botão **Run (▶)** para compilar e executar o aplicativo.
+
+#### 9. Verifique possíveis erros
+
+Caso ocorram problemas, abra a aba **Logcat** no Android Studio para identificar mensagens de erro.
+
+---
+
+## Executando o Backend
+
+O backend é responsável pela comunicação entre o aplicativo e o banco de dados.
+
+### 1. Abra o Visual Studio Code
+
+Abra a pasta:
+
+```text
+Projeto5/src/Entrega 1/Backend/
+```
+
+### 2. Instale as dependências
+
+No terminal do Visual Studio Code, execute:
+
+```bash
+npm install
+```
+
+### 3. Inicie o servidor
+
+Execute:
+
+```bash
+node server.js
+```
+
+### 4. Teste as rotas
+
+Utilize o Postman para testar as requisições HTTP disponibilizadas pela API.
+
+O backend possui rotas relacionadas a:
+
+- Perfis de usuários;
+- Universidades;
+- Cursos.
+
+**Observação:** o endereço e a porta do servidor devem ser consultados no arquivo `server.js`.
+
+---
+
+## Testando no PC
 
 Este tutorial é indicado para quem nunca utilizou o Android Studio.
 
-1. **Instale o Android Studio**
-   Baixe o instalador oficial em [developer.android.com/studio](https://developer.android.com/studio) e siga o assistente de instalação, mantendo as opções padrão marcadas (isso já instala o SDK do Android e o emulador).
-
-2. **Clone o projeto**
-   Siga os passos 1 a 7 da seção **Windows** acima para clonar o repositório usando a opção "Clone Repository" do Android Studio.
-
-3. **Abra o projeto**
-   Se o Android Studio não abrir o projeto automaticamente após o clone, vá em **File → Open** e selecione a pasta onde o projeto foi salvo.
-
-4. **Aguarde a sincronização**
-   Espere a barra de progresso do **Gradle Sync** finalizar na parte inferior da tela. Isso pode demorar alguns minutos na primeira vez.
-
-5. **Crie um emulador Android**
-   Siga os passos 10 e 11 da seção **Windows** acima para criar um dispositivo virtual, caso ainda não tenha um.
-
-6. **Execute o app**
-   Clique no botão verde **Run (▶)** no topo do Android Studio para compilar e abrir o aplicativo no emulador.
-
-7. **Teste as funcionalidades**
-   Navegue pelas telas do aplicativo (login, dashboard, cursos, agenda, carteirinha) para verificar se tudo está funcionando conforme esperado.
-
-8. **Leia mensagens de erro no Logcat**
-   Se algo não funcionar como esperado, abra a aba **Logcat** na parte inferior do Android Studio. Ali aparecem mensagens detalhadas sobre erros e exceções (crashes), que ajudam a identificar exatamente onde e por que o app falhou.
+1. Instale o Android Studio pelo site oficial: https://developer.android.com/studio
+2. Clone o repositório do GitHub.
+3. Abra a pasta `Frontend/` no Android Studio.
+4. Aguarde a sincronização do Gradle.
+5. Crie um dispositivo virtual no Device Manager.
+6. Execute o aplicativo pelo botão **Run**.
+7. Navegue pelas telas para verificar as funcionalidades.
+8. Consulte o Logcat caso ocorram erros.
 
 ---
 
-# Testando no Celular
+## Testando no Celular
 
-## Em breve
+### Em breve
 
 A versão para testes diretamente em dispositivos móveis será disponibilizada futuramente.
 
-## 📋 Licença/License
-Este projeto está licenciado sob a licença MIT — veja o arquivo 
-[LICENSE](./LICENSE) para o texto completo.
+---
 
-O nome, o logotipo e a identidade visual da ONG Próxima Etapa são de 
-propriedade da organização e não estão cobertos por esta licença, 
-sendo utilizados neste projeto acadêmico com fins de identificação 
-do parceiro institucional.
-## 🔗 Referências e Materiais de Apoio
+## Licença / License
 
-### 📚 Acadêmicas e Técnicas (Material da Disciplina)
-1. **Documentação Oficial Android** – [developer.android.com](https://developer.android.com/) [1, 2].
-2. **DEITEL, Paul.** *Android: Como Programar*. Bookman, 2ª Ed, 2015 [1, 2].
-3. **DEITEL, Paul et al.** *Android para Programadores: Uma Abordagem Baseada em Aplicativos*. Bookman, 2ª Ed, 2015 [1, 2].
-4. **Roteiro do Projeto Interdisciplinar** – *Próxima Etapa – App do Aluno* (Versão FINAL 2026) [3].
-5. **Inventário de Dados e API** – Documentação técnica do banco de dados PostgreSQL/Supabase e endpoints REST [4, 5].
+Este projeto está licenciado sob a licença MIT.
+
+Consulte o arquivo [LICENSE](./LICENSE) para mais informações.
+
+O nome, o logotipo e a identidade visual da ONG Próxima Etapa são de propriedade da organização e não estão cobertos por esta licença, sendo utilizados neste projeto acadêmico com fins de identificação do parceiro institucional.
+
+---
+
+## Referências e Materiais de Apoio
+
+### Acadêmicas e Técnicas
+
+1. **Documentação Oficial Android** – [developer.android.com](https://developer.android.com/).
+2. **DEITEL, Paul.** *Android: Como Programar*. Bookman, 2ª edição, 2015.
+3. **DEITEL, Paul et al.** *Android para Programadores: Uma Abordagem Baseada em Aplicativos*. Bookman, 2ª edição, 2015.
+4. **Roteiro do Projeto Interdisciplinar** – Próxima Etapa – App do Aluno (Versão FINAL 2026).
+5. **Inventário de Dados e API** – Documentação técnica do banco de dados PostgreSQL/Supabase e endpoints REST.
+

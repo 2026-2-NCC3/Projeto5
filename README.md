@@ -18,16 +18,18 @@
 </p>
 
 ## Descrição
-A <a href="https://proximaetapa.org.br/">Próxima Etapa</a> é uma ONG onde sua missão é facilitar o acesso de estudantes de escolas públicas a uma educação e orientação profissional para alunos que tem dificuldades em encontrar uma faculdade, curso e profissão que querem seguir; A organização propõe uma plataforma que tem o objetivo de aprimorar a experiência do aluno e ampliar seu relacionamento entre a ONG e seus participantes.
-<br>
-  Nós do grupo **Next Step** recebemos com gratidão o desafio de tornar totalmente funcional essa visão que foi apresentada pela **Próxima Etapa**. Em nosso projeto temos o objetivo de criar um aplicativo *mobile*, com integração a uma API e ao banco de dados disponibilizado pela ONG, oferecendo serviços relacionados a jornada do estudante como:
-- cursos;
-- realizações de testes;
-- card digital;
-- consulta de certificados;
-- e muitas outras funcionalidades.
+A <a href="https://proximaetapa.org.br/">Próxima Etapa</a> A Próxima Etapa é uma ONG cuja missão é ampliar o acesso de estudantes da rede pública a oportunidades de educação e orientação profissional. Seu propósito é apoiar jovens que enfrentam dificuldades na escolha de uma graduação, curso técnico ou carreira, oferecendo recursos que contribuam para decisões mais conscientes sobre seu futuro.
 
+Com o objetivo de fortalecer o vínculo entre a instituição e seus participantes, a organização idealizou uma plataforma digital voltada para aprimorar a experiência dos estudantes e acompanhar sua jornada de desenvolvimento acadêmico e profissional.
 
+Diante desse desafio, nós, da equipe **Next Step**, desenvolvemos uma solução para transformar essa visão em realidade. Nosso projeto consiste na criação de um aplicativo mobile integrado à API e ao banco de dados fornecidos pela ONG, disponibilizando funcionalidades que auxiliam os alunos em diferentes etapas de sua trajetória, tais como:
+
+acesso a cursos e conteúdos educacionais;
+realização de testes vocacionais e de habilidades;
+emissão de cartão digital do participante;
+consulta e gerenciamento de certificados;
+acompanhamento do progresso acadêmico;
+além de outras funcionalidades voltadas ao desenvolvimento estudantil e profissional.
 
 ## Estrutura de pastas
 📂 Projeto5/
@@ -64,22 +66,27 @@ A <a href="https://proximaetapa.org.br/">Próxima Etapa</a> é uma ONG onde sua 
 │           ├── 📂 database/
 │           │   ├── 📄 database.js
 │           │   ├── 📄 schema.sql
-│           │   └── 📄 proxima_etapa.db  # Gerado pela migration
+│           │   └── 📄 proxima_etapa.db
+│           │
 │           ├── 📂 src/
 │           │   ├── 📂 config/
 │           │   │   └── 📄 migrate.js
+│           │   │
 │           │   ├── 📂 controllers/
 │           │   │   ├── 📄 profilesController.js
 │           │   │   ├── 📄 universidadesController.js
 │           │   │   └── 📄 cursosController.js
+│           │   │
 │           │   ├── 📂 models/
 │           │   │   ├── 📄 profilesModel.js
 │           │   │   ├── 📄 universidadesModel.js
 │           │   │   └── 📄 cursosModel.js
+│           │   │
 │           │   └── 📂 routes/
 │           │       ├── 📄 profilesRoutes.js
 │           │       ├── 📄 universidadesRoutes.js
 │           │       └── 📄 cursosRoutes.js
+│           │
 │           ├── 📄 server.js
 │           ├── 📄 package.json
 │           └── 📄 package-lock.json
@@ -90,9 +97,8 @@ A <a href="https://proximaetapa.org.br/">Próxima Etapa</a> é uma ONG onde sua 
 │   ├── 📄 Documento - Projeto de Extensão - COM Empresa - 2026_1.docx
 │   └── 📄 MODELO_BANNER_FECAP_2026_1.pptx
 │
-├── 📂 imagens/
-│   └── 📄 Bootstrap_5.0_Screenshot.png
-```
+└── 📂 imagens/
+    └── 📄 Bootstrap_5.0_Screenshot.png
 
 ## Descrição das pastas
 

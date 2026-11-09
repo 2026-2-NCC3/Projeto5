@@ -389,7 +389,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/nav_evolucao"
+            android:id="@+id/nav_presencas"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -399,11 +399,11 @@
             android:gravity="center"
             android:orientation="vertical">
             <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_presence" app:tint="@color/black" />
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Evolução" android:textColor="@color/black" android:textSize="11sp" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Presenças" android:textColor="@color/black" android:textSize="11sp" />
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/nav_mensagens"
+            android:id="@+id/nav_notificacoes"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -413,7 +413,7 @@
             android:gravity="center"
             android:orientation="vertical">
             <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_notifications" app:tint="@color/purple_primary" />
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Mensagens" android:textColor="@color/purple_primary" android:textSize="11sp" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Notificações" android:textColor="@color/purple_primary" android:textSize="11sp" />
         </LinearLayout>
     </LinearLayout>
 

@@ -27,6 +27,13 @@ public class PresencaActivity extends AppCompatActivity {
             });
         }
 
+        View btnProfile = findViewById(R.id.btnProfile);
+        if (btnProfile != null) {
+            btnProfile.setOnClickListener(v -> {
+                startActivity(new Intent(this, PerfilActivity.class));
+            });
+        }
+
         View btnRegistrarPresencaCard = findViewById(R.id.btnRegistrarPresencaCard);
         if (btnRegistrarPresencaCard != null) {
             btnRegistrarPresencaCard.setOnClickListener(v -> {
@@ -51,16 +58,16 @@ public class PresencaActivity extends AppCompatActivity {
             });
         }
 
-        View navEvolucao = findViewById(R.id.nav_evolucao);
-        if (navEvolucao != null) {
-            navEvolucao.setOnClickListener(v -> {
-                // Já está na tela de evolução/presença
+        View navPresencas = findViewById(R.id.nav_presencas);
+        if (navPresencas != null) {
+            navPresencas.setOnClickListener(v -> {
+                // Já está na tela de presenças
             });
         }
 
-        View navMensagens = findViewById(R.id.nav_mensagens);
-        if (navMensagens != null) {
-            navMensagens.setOnClickListener(v -> {
+        View navNotificacoes = findViewById(R.id.nav_notificacoes);
+        if (navNotificacoes != null) {
+            navNotificacoes.setOnClickListener(v -> {
                 startActivity(new Intent(this, NotificacoesActivity.class));
             });
         }

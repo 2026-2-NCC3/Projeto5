@@ -19,6 +19,20 @@ public class NotificacoesActivity extends AppCompatActivity {
             btnBack.setOnClickListener(v -> finish());
         }
 
+        View btnNotification = findViewById(R.id.btnNotification);
+        if (btnNotification != null) {
+            btnNotification.setOnClickListener(v -> {
+                // Já está nas notificações
+            });
+        }
+
+        View btnProfile = findViewById(R.id.btnProfile);
+        if (btnProfile != null) {
+            btnProfile.setOnClickListener(v -> {
+                startActivity(new Intent(this, PerfilActivity.class));
+            });
+        }
+
         View cardNotif1 = findViewById(R.id.cardNotif1);
         if (cardNotif1 != null) {
             cardNotif1.setOnClickListener(v -> startActivity(new Intent(this, DetalhesEventoActivity.class)));
@@ -49,15 +63,15 @@ public class NotificacoesActivity extends AppCompatActivity {
             navAgenda.setOnClickListener(v -> startActivity(new Intent(this, AgendaActivity.class)));
         }
 
-        View navEvolucao = findViewById(R.id.nav_evolucao);
-        if (navEvolucao != null) {
-            navEvolucao.setOnClickListener(v -> startActivity(new Intent(this, PresencaActivity.class)));
+        View navPresencas = findViewById(R.id.nav_presencas);
+        if (navPresencas != null) {
+            navPresencas.setOnClickListener(v -> startActivity(new Intent(this, PresencaActivity.class)));
         }
 
-        View navMensagens = findViewById(R.id.nav_mensagens);
-        if (navMensagens != null) {
-            navMensagens.setOnClickListener(v -> {
-                // Já está na tela de mensagens/notificações
+        View navNotificacoes = findViewById(R.id.nav_notificacoes);
+        if (navNotificacoes != null) {
+            navNotificacoes.setOnClickListener(v -> {
+                // Já está na tela de notificações
             });
         }
     }

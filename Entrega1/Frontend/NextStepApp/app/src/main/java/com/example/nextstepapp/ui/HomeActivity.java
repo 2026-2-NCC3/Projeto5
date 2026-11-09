@@ -21,6 +21,13 @@ public class HomeActivity extends AppCompatActivity {
         sessionManager = new SessionManager(this);
         scrollViewHome = findViewById(R.id.scrollViewHome);
 
+        View btnProfile = findViewById(R.id.btnProfile);
+        if (btnProfile != null) {
+            btnProfile.setOnClickListener(v -> {
+                startActivity(new Intent(this, PerfilActivity.class));
+            });
+        }
+
         // Card do Grid: Agenda
         View cardAgenda = findViewById(R.id.cardAgenda);
         if (cardAgenda != null) {

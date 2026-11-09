@@ -67,6 +67,13 @@ public class AgendaActivity extends AppCompatActivity {
             });
         }
 
+        View btnProfile = findViewById(R.id.btnProfile);
+        if (btnProfile != null) {
+            btnProfile.setOnClickListener(v -> {
+                startActivity(new Intent(this, PerfilActivity.class));
+            });
+        }
+
         // Navegação de Mês (< e >)
         View btnPrevMonth = findViewById(R.id.btnPrevMonth);
         if (btnPrevMonth != null) {
@@ -139,15 +146,29 @@ public class AgendaActivity extends AppCompatActivity {
 
         int totalCells = firstDayOfWeek + daysInMonth;
         int rows = (int) Math.ceil((double) totalCells / 7.0);
+        int totalCellsWithPadding = rows * 7;
 
         int screenWidth = getResources().getDisplayMetrics().widthPixels;
-        int cellWidth = (screenWidth - 80) / 7; // Ajuste proporcional
+        int horizontalInsetPx = (int) (72 * getResources().getDisplayMetrics().density);
+        int cellWidth = (screenWidth - horizontalInsetPx) / 7;
+        int cellHeight = (int) (44 * getResources().getDisplayMetrics().density);
+
+        int cellIndex = 0;
 
         // Preencher células do mês anterior
         for (int i = 0; i < firstDayOfWeek; i++) {
             int dayNum = prevMonthDays - firstDayOfWeek + 1 + i;
-            TextView tv = criarTextViewDia(String.valueOf(dayNum), false, false, false);
-            gridCalendarDays.addView(tv, new GridLayout.LayoutParams());
+            TextView tv = criarTextViewDia(String.valueOf(dayNum));
+            int row = cellIndex / 7;
+            int col = cellIndex % 7;
+            GridLayout.LayoutParams params = new GridLayout.LayoutParams(
+                    GridLayout.spec(row),
+                    GridLayout.spec(col)
+            );
+            params.width = cellWidth;
+            params.height = cellHeight;
+            gridCalendarDays.addView(tv, params);
+            cellIndex++;
         }
 
         // Preencher dias do mês atual
@@ -156,35 +177,52 @@ public class AgendaActivity extends AppCompatActivity {
             boolean isSelected = (day == diaSelecionado);
             boolean isMarked = (day == 24 || day == 25 || day == 21); // dias com eventos marcados
 
-            View cellView = criarCellView(day, isSelected, isMarked);
+            View cellView = criarCellView(day, isSelected, isMarked, cellWidth, cellHeight);
             cellView.setOnClickListener(v -> {
                 diaSelecionado = diaAtual;
                 atualizarCalendario();
                 atualizarEventosDoDia(diaAtual);
             });
 
-            gridCalendarDays.addView(cellView);
+            int row = cellIndex / 7;
+            int col = cellIndex % 7;
+            GridLayout.LayoutParams params = new GridLayout.LayoutParams(
+                    GridLayout.spec(row),
+                    GridLayout.spec(col)
+            );
+            params.width = cellWidth;
+            params.height = cellHeight;
+            gridCalendarDays.addView(cellView, params);
+            cellIndex++;
         }
 
         // Preencher células do próximo mês para completar a última linha
-        int remainingCells = (rows * 7) - totalCells;
+        int remainingCells = totalCellsWithPadding - cellIndex;
         for (int i = 1; i <= remainingCells; i++) {
-            TextView tv = criarTextViewDia(String.valueOf(i), false, false, false);
-            gridCalendarDays.addView(tv, new GridLayout.LayoutParams());
+            TextView tv = criarTextViewDia(String.valueOf(i));
+            int row = cellIndex / 7;
+            int col = cellIndex % 7;
+            GridLayout.LayoutParams params = new GridLayout.LayoutParams(
+                    GridLayout.spec(row),
+                    GridLayout.spec(col)
+            );
+            params.width = cellWidth;
+            params.height = cellHeight;
+            gridCalendarDays.addView(tv, params);
+            cellIndex++;
         }
 
         // Atualizar lista de eventos para o dia selecionado
         atualizarEventosDoDia(diaSelecionado);
     }
 
-    private View criarCellView(int dia, boolean isSelected, boolean isMarked) {
+    private View criarCellView(int dia, boolean isSelected, boolean isMarked, int cellWidth, int cellHeight) {
         FrameLayout frameLayout = new FrameLayout(this);
-        int cellWidth = (getResources().getDisplayMetrics().widthPixels - 80) / 7;
-        FrameLayout.LayoutParams frameParams = new FrameLayout.LayoutParams(cellWidth, 115);
+        FrameLayout.LayoutParams frameParams = new FrameLayout.LayoutParams(cellWidth, cellHeight);
         frameLayout.setLayoutParams(frameParams);
 
         TextView tv = new TextView(this);
-        int size = 95;
+        int size = (int) (36 * getResources().getDisplayMetrics().density);
         FrameLayout.LayoutParams tvParams = new FrameLayout.LayoutParams(size, size);
         tvParams.gravity = Gravity.CENTER;
         tv.setLayoutParams(tvParams);
@@ -209,9 +247,9 @@ public class AgendaActivity extends AppCompatActivity {
         // Se for dia marcado com ponto (ex: dia 24)
         if (isMarked && !isSelected) {
             View dot = new View(this);
-            FrameLayout.LayoutParams dotParams = new FrameLayout.LayoutParams(10, 10);
+            FrameLayout.LayoutParams dotParams = new FrameLayout.LayoutParams(8, 8);
             dotParams.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
-            dotParams.bottomMargin = 8;
+            dotParams.bottomMargin = 4;
             dot.setLayoutParams(dotParams);
             dot.setBackgroundColor(Color.parseColor("#5C33E6"));
             frameLayout.addView(dot);
@@ -220,13 +258,8 @@ public class AgendaActivity extends AppCompatActivity {
         return frameLayout;
     }
 
-    private TextView criarTextViewDia(String text, boolean isCurrentMonth, boolean isSelected, boolean isMarked) {
+    private TextView criarTextViewDia(String text) {
         TextView tv = new TextView(this);
-        int cellWidth = (getResources().getDisplayMetrics().widthPixels - 80) / 7;
-        GridLayout.LayoutParams params = new GridLayout.LayoutParams();
-        params.width = cellWidth;
-        params.height = 115;
-        tv.setLayoutParams(params);
         tv.setGravity(Gravity.CENTER);
         tv.setText(text);
         tv.setTextSize(14);
@@ -290,17 +323,17 @@ public class AgendaActivity extends AppCompatActivity {
             });
         }
 
-        View navEvolucao = findViewById(R.id.nav_evolucao);
-        if (navEvolucao != null) {
-            navEvolucao.setOnClickListener(v -> {
+        View navPresencas = findViewById(R.id.nav_presencas);
+        if (navPresencas != null) {
+            navPresencas.setOnClickListener(v -> {
                 startActivity(new Intent(this, PresencaActivity.class));
             });
         }
 
-        View navMensagens = findViewById(R.id.nav_mensagens);
-        if (navMensagens != null) {
-            navMensagens.setOnClickListener(v -> {
-                Toast.makeText(this, "Nenhuma mensagem nova.", Toast.LENGTH_SHORT).show();
+        View navNotificacoes = findViewById(R.id.nav_notificacoes);
+        if (navNotificacoes != null) {
+            navNotificacoes.setOnClickListener(v -> {
+                startActivity(new Intent(this, NotificacoesActivity.class));
             });
         }
     }

@@ -54,6 +54,22 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <!-- Botão Perfil -->
+                <ImageView
+                    android:id="@+id/btnProfile"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginTop="32dp"
+                    android:background="@drawable/light_purple_circle"
+                    android:contentDescription="Perfil"
+                    android:elevation="4dp"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_people"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/white" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <!-- Saudação -->

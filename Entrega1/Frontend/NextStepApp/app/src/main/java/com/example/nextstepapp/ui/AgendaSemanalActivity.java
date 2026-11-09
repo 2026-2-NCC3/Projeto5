@@ -86,6 +86,13 @@ public class AgendaSemanalActivity extends AppCompatActivity {
             });
         }
 
+        View btnProfile = findViewById(R.id.btnProfile);
+        if (btnProfile != null) {
+            btnProfile.setOnClickListener(v -> {
+                startActivity(new Intent(this, PerfilActivity.class));
+            });
+        }
+
         // Configurar Cliques nos Dias do Seletor
         setupDayClickListeners();
 
@@ -243,17 +250,17 @@ public class AgendaSemanalActivity extends AppCompatActivity {
             });
         }
 
-        View navEvolucao = findViewById(R.id.nav_evolucao);
-        if (navEvolucao != null) {
-            navEvolucao.setOnClickListener(v -> {
+        View navPresencas = findViewById(R.id.nav_presencas);
+        if (navPresencas != null) {
+            navPresencas.setOnClickListener(v -> {
                 startActivity(new Intent(this, PresencaActivity.class));
             });
         }
 
-        View navMensagens = findViewById(R.id.nav_mensagens);
-        if (navMensagens != null) {
-            navMensagens.setOnClickListener(v -> {
-                Toast.makeText(this, "Nenhuma mensagem nova.", Toast.LENGTH_SHORT).show();
+        View navNotificacoes = findViewById(R.id.nav_notificacoes);
+        if (navNotificacoes != null) {
+            navNotificacoes.setOnClickListener(v -> {
+                startActivity(new Intent(this, NotificacoesActivity.class));
             });
         }
     }

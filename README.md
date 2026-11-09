@@ -1,42 +1,35 @@
+# FECAP - Fundação de Comércio Álvares Penteado
+
+<p align="center">
+<a href= "https://www.fecap.br/"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhZPrRa89Kma0ZZogxm0pi-tCn_TLKeHGVxywp-LXAFGR3B1DPouAJYHgKZGV0XTEf4AE&usqp=CAU" alt="FECAP - Fundação de Comércio Álvares Penteado" border="0"></a> </p>
 
 
-<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhZPrRa89Kma0ZZogxm0pi-tCn_TLKeHGVxywp-LXAFGR3B1DPouAJYHgKZGV0XTEf4AE&usqp=CAU" alt="FECAP - Fundação de Comércio Álvares Penteado" width="250">
-Próxima Etapa
-DeuBug?
-Integrantes
+# Grupo: `Next Step`
 
-Katie Prado
+## Integrantes: Claudia Dias, Fernanda Simões, Arthur Daher e Katie Prado
 
-Arthur Daher
+## Professores: <a href="https://www.linkedin.com/in/katia-bossi/">Katia Milani Lara Bossi</a>, <a href="https://www.linkedin.com/in/marco-aurelio-lima-barbosa/">Marco Aurelio Lima Barbosa</a>, <a href="https://www.linkedin.com/in/rodrigo-da-rosa-phd/">Rodrigo da Rosa</a>, <a href="https://www.linkedin.com/in/victorbarq/">Victor Bruno Alexander Rosetti de Quiroz</a>
+<br>
 
-Fernanda Simoes
 
-Claudia Dias
+# Projeto - `Próxima Etapa`
+<p align="center">
+  <img src="https://proximaetapa.org.br/assets/logo-proxima-etapa-D8depET2.png" alt="Logo Próxima Etapa" width="240">
+</p>
 
-Professores Orientadores
+## Descrição
+A <a href="https://proximaetapa.org.br/">Próxima Etapa</a> é uma ONG onde sua missão é facilitar o acesso de estudantes de escolas públicas a uma educação e orientação profissional para alunos que tem dificuldades em encontrar uma faculdade, curso e profissão que querem seguir; A organização propõe uma plataforma que tem o objetivo de aprimorar a experiência do aluno e ampliar seu relacionamento entre a ONG e seus participantes.
+<br>
+  Nós do grupo **Next Step** recebemos com gratidão o desafio de tornar totalmente funcional essa visão que foi apresentada pela **Próxima Etapa**. Em nosso projeto temos o objetivo de criar um aplicativo *mobile*, com integração a uma API e ao banco de dados disponibilizado pela ONG, oferecendo serviços relacionados a jornada do estudante como:
+- cursos;
+- realizações de testes;
+- card digital;
+- consulta de certificados;
+- e muitas outras funcionalidades.
 
-Katia Milani Lara Bossi
 
-Marco Aurelio Lima Barbosa
 
-Rodrigo da Rosa
-
-Victor Bruno Alexander Rosetti de Quiroz
-
-Descrição
-<img src="https://i.postimg.cc/TPFTYSp3/Imagem-Proxima-Etapa.png" alt="Logo Próxima Etapa" width="250">
-
-Próxima Etapa
-
-O Próxima Etapa – App do Aluno é um aplicativo Android desenvolvido no Projeto Interdisciplinar do 3º semestre do curso de Ciência da Computação da FECAP, em parceria com a organização Próxima Etapa.
-<br><br>
-A solução tem como  facilitar o acompanhamento da jornada educacional dos estudantes atendidos pela ONG, permitindo acesso a cursos, atividades, agenda, presença, certificados, mensagens e orientação profissional em um único ambiente digital.
-<br><br>
-O sistema será composto por um aplicativo mobile, uma API REST e um banco de dados integrados, possibilitando a sincronização das informações dos alunos em tempo real. Além disso, contará com recursos como registro de presença por QR Code, emissão de certificados, notificações, testes de perfil profissional e canal de comunicação entre estudantes e a organização.
-<br><br>
-
-## 🛠 Estrutura de pastas
-```
+## Estrutura de pastas
 📂 Projeto5/
 │
 ├── 📄 README.md
@@ -101,7 +94,22 @@ O sistema será composto por um aplicativo mobile, uma API REST e um banco de da
 │   └── 📄 Bootstrap_5.0_Screenshot.png
 ```
 
-# Instalação
+## Descrição das pastas
+
+- **`documentos/`**: Documentação do projeto
+- ** 'Entrega1 e Entrega2/'**: São as entregas principais que contém as disciplinas e o projeto.  
+- **`imagens/`**: Imagens do projeto, sendo presentes dentro dele ou referenciadas
+- **`src/`**: Código do projeto, organizada por entregas, FrontEnd e BackEnd
+- **`Backend/`**: Código-fonte da API REST (Node.js + Express)
+- **`Frontend`**: Interface do usuário
+
+## Tecnologias utilizadas
+| Tecnologia | Detalhamento |
+|------------|---------------|
+| **Android Studio** | FrontEnd do aplicativo |
+| **Visual Studio Code** | Java, JavaScript, .Node |
+| **MySql Workbench 8.0 CE** | SQL - Banco de Dados |
+| **PostMan** | Teste de Rota 
 
 ## Windows
 

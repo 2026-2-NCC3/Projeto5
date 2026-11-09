@@ -10,7 +10,10 @@
 # Grupo: `Next Step`
 
 ## Integrantes
-Claudia Dias, Fernanda Simões, Arthur Daher e Katie Prado
+Claudia Dias Calado Bovenzo
+Fernanda Figueiredo Simões
+Arthur DaherFranceschelli
+Katiê Prado Godoy
 
 ## Professores
 - Katia Milani Lara Bossi
@@ -48,78 +51,100 @@ Nosso projeto consiste na criação de um aplicativo mobile integrado à API e a
 
 ## Estrutura de pastas
 
-```text
-Projeto5/
+📂 Projeto5/
 │
-├── README.md
-├── LICENSE
-├── .gitignore
+├── 📄 README.md
+├── 📄 LICENSE
+├── 📄 .gitignore
 │
-├── src/
-│   └── Entrega 1/
+├── 📂 src/
+│   │
+│   ├── 📂 Entrega 1/
+│   │   │
+│   │   ├── 📂 Frontend/
+│   │   │   ├── 📂 app/
+│   │   │   │   ├── 📄 build.gradle.kts
+│   │   │   │   └── 📂 src/
+│   │   │   │       └── 📂 main/
+│   │   │   │           ├── 📄 AndroidManifest.xml
+│   │   │   │           ├── 📂 java/
+│   │   │   │           │   └── 📂 com/example/projetopi/
+│   │   │   │           │       ├── 📄 MainActivity.java
+│   │   │   │           │       ├── 📄 CadastroActivity.java
+│   │   │   │           │       ├── 📄 TelaInicial.java
+│   │   │   │           │       ├── 📄 ApiConfig.java
+│   │   │   │           │       └── 📄 VolleySingleton.java
+│   │   │   │           └── 📂 res/
+│   │   │   │               ├── 📂 drawable/
+│   │   │   │               ├── 📂 layout/
+│   │   │   │               ├── 📂 mipmap-*/
+│   │   │   │               └── 📂 values/
+│   │   │   │
+│   │   │   ├── 📂 gradle/
+│   │   │   ├── 📄 build.gradle.kts
+│   │   │   ├── 📄 settings.gradle.kts
+│   │   │   ├── 📄 gradlew
+│   │   │   └── 📄 gradlew.bat
+│   │   │
+│   │   └── 📂 Backend/
+│   │       ├── 📂 database/
+│   │       │   ├── 📄 database.js
+│   │       │   ├── 📄 schema.sql
+│   │       │   └── 📄 proxima_etapa.db
+│   │       │
+│   │       ├── 📂 src/
+│   │       │   ├── 📂 config/
+│   │       │   │   └── 📄 migrate.js
+│   │       │   │
+│   │       │   ├── 📂 controllers/
+│   │       │   │   ├── 📄 profilesController.js
+│   │       │   │   ├── 📄 universidadesController.js
+│   │       │   │   └── 📄 cursosController.js
+│   │       │   │
+│   │       │   ├── 📂 models/
+│   │       │   │   ├── 📄 profilesModel.js
+│   │       │   │   ├── 📄 universidadesModel.js
+│   │       │   │   └── 📄 cursosModel.js
+│   │       │   │
+│   │       │   └── 📂 routes/
+│   │       │       ├── 📄 profilesRoutes.js
+│   │       │       ├── 📄 universidadesRoutes.js
+│   │       │       └── 📄 cursosRoutes.js
+│   │       │
+│   │       ├── 📄 server.js
+│   │       ├── 📄 package.json
+│   │       └── 📄 package-lock.json
+│   │
+│   └── 📂 Entrega 2/
 │       │
-│       ├── Frontend/
-│       │   ├── app/
-│       │   │   ├── build.gradle.kts
-│       │   │   └── src/
-│       │   │       └── main/
-│       │   │           ├── AndroidManifest.xml
-│       │   │           ├── java/
-│       │   │           │   └── com/example/projetopi/
-│       │   │           │       ├── MainActivity.java
-│       │   │           │       ├── CadastroActivity.java
-│       │   │           │       ├── TelaInicial.java
-│       │   │           │       ├── ApiConfig.java
-│       │   │           │       └── VolleySingleton.java
-│       │   │           └── res/
-│       │   │               ├── drawable/
-│       │   │               ├── layout/
-│       │   │               ├── mipmap-*/
-│       │   │               └── values/
+│       ├── 📂 Frontend/
+│       │   ├── 📂 app/
+│       │   │   └── 📂 src/
+│       │   │       └── 📂 main/
+│       │   │           ├── 📂 java/
+│       │   │           └── 📂 res/
+│       │   │               ├── 📂 drawable/
+│       │   │               ├── 📂 layout/
+│       │   │               └── 📂 values/
 │       │   │
-│       │   ├── gradle/
-│       │   ├── build.gradle.kts
-│       │   ├── settings.gradle.kts
-│       │   ├── gradlew
-│       │   └── gradlew.bat
+│       │   └── 📂 gradle/
 │       │
-│       └── Backend/
-│           ├── database/
-│           │   ├── database.js
-│           │   ├── schema.sql
-│           │   └── proxima_etapa.db
-│           │
-│           ├── src/
-│           │   ├── config/
-│           │   │   └── migrate.js
-│           │   │
-│           │   ├── controllers/
-│           │   │   ├── profilesController.js
-│           │   │   ├── universidadesController.js
-│           │   │   └── cursosController.js
-│           │   │
-│           │   ├── models/
-│           │   │   ├── profilesModel.js
-│           │   │   ├── universidadesModel.js
-│           │   │   └── cursosModel.js
-│           │   │
-│           │   └── routes/
-│           │       ├── profilesRoutes.js
-│           │       ├── universidadesRoutes.js
-│           │       └── cursosRoutes.js
-│           │
-│           ├── server.js
-│           ├── package.json
-│           └── package-lock.json
+│       └── 📂 Backend/
+│           ├── 📂 database/
+│           └── 📂 src/
+│               ├── 📂 config/
+│               ├── 📂 controllers/
+│               ├── 📂 models/
+│               └── 📂 routes/
 │
-├── documentos/
-│   ├── Entrega 1/
-│   ├── Entrega 2/
-│   ├── Documento - Projeto de Extensão - COM Empresa - 2026_1.docx
-│   └── MODELO_BANNER_FECAP_2026_1.pptx
+├── 📂 documentos/
+│   ├── 📄 MODELO_BANNER_FECAP_2026_1.pptx
+│   ├── 📄 Documento - Projeto de Extensão - COM Empresa - 2026_1.docx
+│   └── 📄 Ficha de Declaração do Uso de IA
 │
-└── imagens/
-    └── Bootstrap_5.0_Screenshot.png
+└── 📂 imagens/
+    └── 📄 Bootstrap_5.0_Screenshot.png
+
 ```
 
 ---

@@ -34,4 +34,8 @@ router.get("/videos/:id", app.getVideoById);
 router.get("/notifications", authMiddleware, app.getNotifications);
 router.patch("/notifications/:id/read", authMiddleware, app.markNotificationRead);
 
+// CHAT ASSISTENTE VIRTUAL IA
+router.post("/chat", app.chatIA);
+router.post("/ia/chat", app.chatIA);
+
 module.exports = router;

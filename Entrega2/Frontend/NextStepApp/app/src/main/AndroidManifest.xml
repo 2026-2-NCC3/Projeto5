@@ -27,6 +27,10 @@
             android:exported="false" />
 
         <activity
+            android:name=".ui.AgendaSemanalActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".ui.CursosActivity"
             android:exported="false" />
 
@@ -40,6 +44,14 @@
 
         <activity
             android:name=".ui.CertificadosActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.PerfilActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.ChatIaActivity"
             android:exported="false" />
 
         <activity

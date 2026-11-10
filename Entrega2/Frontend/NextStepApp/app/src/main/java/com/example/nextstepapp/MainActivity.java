@@ -73,22 +73,25 @@ public class MainActivity extends AppCompatActivity {
 
                 ApiResponse<LoginData> body = response.body();
 
-                if (response.isSuccessful() && body != null && body.isSuccess() && body.getData() != null) {
+                if (response.isSuccessful() && body != null && body.isSuccess()
+                        && body.getData() != null
+                        && body.getData().getToken() != null
+                        && !body.getData().getToken().trim().isEmpty()) {
                     LoginData data = body.getData();
+                    sessionManager.limparSessao();
                     sessionManager.salvarToken(data.getToken());
 
                     if (data.getUser() != null) {
-                        if (data.getUser().getFullName() != null) {
-                            sessionManager.salvarUsuario(data.getUser().getFullName());
-                        }
-                        if (data.getUser().getId() != null) {
-                            sessionManager.salvarUserId(data.getUser().getId());
-                        }
-                        if (data.getUser().getRole() != null) {
-                            sessionManager.salvarUserRole(data.getUser().getRole());
-                        }
+                        sessionManager.salvarUsuario(data.getUser().getFullName() != null
+                                ? data.getUser().getFullName() : "Estudante");
+                        sessionManager.salvarUserId(data.getUser().getId() != null
+                                ? data.getUser().getId() : emailOuId);
+                        sessionManager.salvarUserRole(data.getUser().getRole() != null
+                                ? data.getUser().getRole() : "student");
                     } else {
+                        sessionManager.salvarUsuario("Estudante");
                         sessionManager.salvarUserId(emailOuId);
+                        sessionManager.salvarUserRole("student");
                     }
 
                     Toast.makeText(MainActivity.this, "Login efetuado com sucesso!", Toast.LENGTH_SHORT).show();
@@ -96,52 +99,18 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
 
-                // Tenta autenticação fallback local se o servidor retornar credenciais inválidas ou erro
-                verificarLoginFallback(emailOuId, senha);
+                String mensagem = body != null && body.getMessage() != null
+                        ? body.getMessage()
+                        : "Credenciais inválidas ou resposta inválida do servidor.";
+                tvErro.setText(mensagem);
             }
 
             @Override
             public void onFailure(Call<ApiResponse<LoginData>> call, Throwable throwable) {
                 mostrarCarregamento(false);
-                // Em caso de falha de conexão com a API remota, autentica localmente com os dados do banco
-                verificarLoginFallback(emailOuId, senha);
+                tvErro.setText("Não foi possível conectar ao servidor. Verifique sua conexão.");
             }
         });
-    }
-
-    private void verificarLoginFallback(String emailOuId, String senha) {
-        String cleanEmail = emailOuId.toLowerCase().trim();
-
-        // Mapeamento dos usuários cadastrados no seed.js do banco de dados
-        String nomeUsuario = null;
-        String roleUsuario = "student";
-
-        if (cleanEmail.equals("admin@proximaetapa.org.br")) {
-            nomeUsuario = "Administrador do Sistema";
-            roleUsuario = "admin";
-        } else if (cleanEmail.equals("aluno@teste.com")) {
-            nomeUsuario = "Carlos Eduardo Silva";
-        } else if (cleanEmail.equals("maria.oliveira@teste.com")) {
-            nomeUsuario = "Maria Luiza Oliveira";
-        } else if (cleanEmail.equals("joao.pedro@teste.com")) {
-            nomeUsuario = "João Pedro Santos";
-        } else if (cleanEmail.contains("@")) {
-            // Qualquer outro e-mail válido cadastrado no banco
-            String localPart = cleanEmail.split("@")[0];
-            nomeUsuario = localPart.substring(0, 1).toUpperCase() + localPart.substring(1);
-        }
-
-        if (nomeUsuario != null && !senha.trim().isEmpty()) {
-            sessionManager.salvarToken("token_local_" + System.currentTimeMillis());
-            sessionManager.salvarUsuario(nomeUsuario);
-            sessionManager.salvarUserId(cleanEmail);
-            sessionManager.salvarUserRole(roleUsuario);
-
-            Toast.makeText(this, "Bem-vindo, " + nomeUsuario + "!", Toast.LENGTH_SHORT).show();
-            irParaHome();
-        } else {
-            tvErro.setText("Credenciais inválidas. Verifique e-mail e senha.");
-        }
     }
 
     private void irParaHome() {

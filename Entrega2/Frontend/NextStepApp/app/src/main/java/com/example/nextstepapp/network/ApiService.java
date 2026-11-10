@@ -6,6 +6,7 @@ import com.example.nextstepapp.model.LoginData;
 import com.example.nextstepapp.model.LoginRequest;
 
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -16,13 +17,10 @@ import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
-import java.util.Map;
 
 public interface ApiService {
 
-
 // AUTENTICAÇÃO
-
 
     @POST("api/auth/login")
     Call<ApiResponse<LoginData>> login(
@@ -34,10 +32,7 @@ public interface ApiService {
             @Body LoginRequest request
     );
 
-
-
 // CURSOS
-
 
     @GET("api/courses")
     Call<ApiResponse<List<Curso>>> getCursos();
@@ -54,10 +49,7 @@ public interface ApiService {
             @Path("id") String courseId
     );
 
-
-
 // PRESENÇA
-
 
     @POST("api/attendance/check-in")
     Call<ApiResponse<Object>> checkIn(
@@ -65,17 +57,12 @@ public interface ApiService {
             @Body Map<String, String> body
     );
 
-
-
 // AGENDA
-
 
     @GET("api/courses/schedule")
     Call<ApiResponse<List<Curso>>> getAgenda(
             @Header("Authorization") String authorization
     );
-
-
 
 // PERFIL
 
@@ -90,30 +77,28 @@ public interface ApiService {
             @Body Object profile
     );
 
+// CHAT IA
 
+    @POST("api/chat")
+    Call<ApiResponse<Map<String, Object>>> sendChatMessage(
+            @Body Map<String, String> body
+    );
 
 // CERTIFICADOS
-
 
     @GET("api/certificates")
     Call<ApiResponse<List<Object>>> getCertificates(
             @Header("Authorization") String authorization
     );
 
-
-
 // CONQUISTAS
-
 
     @GET("api/badges")
     Call<ApiResponse<List<Object>>> getBadges(
             @Header("Authorization") String authorization
     );
 
-
-
 // TESTES
-
 
     @GET("api/tests")
     Call<ApiResponse<List<Object>>> getTests();
@@ -129,10 +114,7 @@ public interface ApiService {
             @Body Object result
     );
 
-
-
 // NOTÍCIAS
-
 
     @GET("api/news")
     Call<ApiResponse<List<Object>>> getNews();
@@ -142,10 +124,7 @@ public interface ApiService {
             @Path("id") String id
     );
 
-
-
 // COMENTÁRIOS
-
 
     @GET("api/news/{id}/comments")
     Call<ApiResponse<List<Object>>> getNewsComments(
@@ -159,10 +138,7 @@ public interface ApiService {
             @Body Object comment
     );
 
-
-
 // VÍDEOS / PODCASTS
-
 
     @GET("api/videos")
     Call<ApiResponse<List<Object>>> getVideos();
@@ -172,10 +148,7 @@ public interface ApiService {
             @Path("id") String id
     );
 
-
-
 // NOTIFICAÇÕES
-
 
     @GET("api/notifications")
     Call<ApiResponse<List<Object>>> getNotifications(

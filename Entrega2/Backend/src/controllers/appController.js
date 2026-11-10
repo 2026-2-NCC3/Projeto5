@@ -544,6 +544,33 @@ const getVideoById = handle((req) => {
     };
 });
 
+// POST /api/chat ou /api/ia/chat
+const chatIA = handle((req) => {
+    const message = (req.body?.message || req.body?.prompt || req.body?.question || "").toLowerCase().trim();
+
+    let reply = "Olá! Como posso te ajudar hoje com suas dúvidas sobre os cursos, presença, horários ou certificados do Próxima Etapa?";
+
+    if (message.includes("certificado") || message.includes("diploma")) {
+        reply = "Você pode visualizar e baixar todos os seus certificados acessando o card 'Certificados' na tela inicial!";
+    } else if (message.includes("presença") || message.includes("presenca") || message.includes("qr")) {
+        reply = "Para confirmar sua presença, acesse a aba 'Presenças' no menu inferior e apresente seu QR Code único para o professor ou clique em 'Confirmar Presença Manual'.";
+    } else if (message.includes("curso") || message.includes("materia") || message.includes("inscrição") || message.includes("inscricao")) {
+        reply = "Você pode explorar os cursos disponíveis na aba 'Cursos' e se inscrever clicando no curso desejado e em 'INSCREVER-SE NO CURSO'.";
+    } else if (message.includes("horario") || message.includes("horário") || message.includes("agenda") || message.includes("data")) {
+        reply = "Consulte os horários de suas aulas na aba 'Agenda', onde você pode navegar pelos dias da semana!";
+    } else if (message.includes("ponto") || message.includes("pontos") || message.includes("nivel") || message.includes("nível")) {
+        reply = "Você ganha pontos a cada presença confirmada e curso concluído. Confira seu saldo e nível no seu Perfil!";
+    }
+
+    return {
+        message: "Resposta gerada com sucesso.",
+        data: {
+            reply,
+            timestamp: new Date().toISOString()
+        }
+    };
+});
+
 module.exports = {
     enrollInCourse,
     cancelEnrollment,
@@ -560,5 +587,6 @@ module.exports = {
     getNewsComments,
     addNewsComment,
     getVideos,
-    getVideoById
+    getVideoById,
+    chatIA
 };

@@ -121,45 +121,95 @@
                     android:gravity="center_vertical">
 
                     <!-- Seg 20 -->
-                    <LinearLayout android:layout_width="50dp" android:layout_height="65dp" android:gravity="center" android:orientation="vertical">
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Seg" android:textColor="#BDBDBD" android:textSize="12sp" />
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="20" android:textColor="#555555" android:textSize="18sp" android:textStyle="bold" />
+                    <LinearLayout
+                        android:id="@+id/daySeg20"
+                        android:layout_width="55dp"
+                        android:layout_height="65dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:orientation="vertical">
+                        <TextView android:id="@+id/tvSegLabel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Seg" android:textColor="#BDBDBD" android:textSize="12sp" />
+                        <TextView android:id="@+id/tv20Label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="20" android:textColor="#555555" android:textSize="18sp" android:textStyle="bold" />
                     </LinearLayout>
 
                     <!-- Ter 21 -->
-                    <LinearLayout android:layout_width="50dp" android:layout_height="65dp" android:gravity="center" android:orientation="vertical">
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Ter" android:textColor="#BDBDBD" android:textSize="12sp" />
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="21" android:textColor="#555555" android:textSize="18sp" android:textStyle="bold" />
+                    <LinearLayout
+                        android:id="@+id/dayTer21"
+                        android:layout_width="55dp"
+                        android:layout_height="65dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:orientation="vertical">
+                        <TextView android:id="@+id/tvTerLabel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Ter" android:textColor="#BDBDBD" android:textSize="12sp" />
+                        <TextView android:id="@+id/tv21Label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="21" android:textColor="#555555" android:textSize="18sp" android:textStyle="bold" />
                     </LinearLayout>
 
                     <!-- Qua 22 -->
-                    <LinearLayout android:layout_width="50dp" android:layout_height="65dp" android:gravity="center" android:orientation="vertical">
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Qua" android:textColor="#BDBDBD" android:textSize="12sp" />
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="22" android:textColor="#555555" android:textSize="18sp" android:textStyle="bold" />
+                    <LinearLayout
+                        android:id="@+id/dayQua22"
+                        android:layout_width="55dp"
+                        android:layout_height="65dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:orientation="vertical">
+                        <TextView android:id="@+id/tvQuaLabel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Qua" android:textColor="#BDBDBD" android:textSize="12sp" />
+                        <TextView android:id="@+id/tv22Label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="22" android:textColor="#555555" android:textSize="18sp" android:textStyle="bold" />
                     </LinearLayout>
 
                     <!-- Qui 23 -->
-                    <LinearLayout android:layout_width="50dp" android:layout_height="65dp" android:gravity="center" android:orientation="vertical">
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Qui" android:textColor="#BDBDBD" android:textSize="12sp" />
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="23" android:textColor="#555555" android:textSize="18sp" android:textStyle="bold" />
+                    <LinearLayout
+                        android:id="@+id/dayQui23"
+                        android:layout_width="55dp"
+                        android:layout_height="65dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:orientation="vertical">
+                        <TextView android:id="@+id/tvQuiLabel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Qui" android:textColor="#BDBDBD" android:textSize="12sp" />
+                        <TextView android:id="@+id/tv23Label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="23" android:textColor="#555555" android:textSize="18sp" android:textStyle="bold" />
                     </LinearLayout>
 
                     <!-- Sex 24 -->
-                    <LinearLayout android:layout_width="50dp" android:layout_height="65dp" android:gravity="center" android:orientation="vertical">
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Sex" android:textColor="#BDBDBD" android:textSize="12sp" />
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="24" android:textColor="#555555" android:textSize="18sp" android:textStyle="bold" />
+                    <LinearLayout
+                        android:id="@+id/daySex24"
+                        android:layout_width="55dp"
+                        android:layout_height="65dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:orientation="vertical">
+                        <TextView android:id="@+id/tvSexLabel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Sex" android:textColor="#BDBDBD" android:textSize="12sp" />
+                        <TextView android:id="@+id/tv24Label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="24" android:textColor="#555555" android:textSize="18sp" android:textStyle="bold" />
                     </LinearLayout>
 
-                    <!-- Sáb 25 (Selecionado) -->
-                    <LinearLayout android:layout_width="60dp" android:layout_height="75dp" android:background="@drawable/bg_day_selected" android:gravity="center" android:orientation="vertical">
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Sáb" android:textColor="@color/white" android:textSize="12sp" />
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="25" android:textColor="@color/white" android:textSize="22sp" android:textStyle="bold" />
+                    <!-- Sáb 25 -->
+                    <LinearLayout
+                        android:id="@+id/daySab25"
+                        android:layout_width="60dp"
+                        android:layout_height="75dp"
+                        android:background="@drawable/bg_day_selected"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:orientation="vertical">
+                        <TextView android:id="@+id/tvSabLabel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Sáb" android:textColor="@color/white" android:textSize="12sp" />
+                        <TextView android:id="@+id/tv25Label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="25" android:textColor="@color/white" android:textSize="22sp" android:textStyle="bold" />
                     </LinearLayout>
 
                     <!-- Dom 26 -->
-                    <LinearLayout android:layout_width="50dp" android:layout_height="65dp" android:gravity="center" android:orientation="vertical">
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Dom" android:textColor="#BDBDBD" android:textSize="12sp" />
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="26" android:textColor="#555555" android:textSize="18sp" android:textStyle="bold" />
+                    <LinearLayout
+                        android:id="@+id/dayDom26"
+                        android:layout_width="55dp"
+                        android:layout_height="65dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:orientation="vertical">
+                        <TextView android:id="@+id/tvDomLabel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Dom" android:textColor="#BDBDBD" android:textSize="12sp" />
+                        <TextView android:id="@+id/tv26Label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="26" android:textColor="#555555" android:textSize="18sp" android:textStyle="bold" />
                     </LinearLayout>
                 </LinearLayout>
             </HorizontalScrollView>
@@ -170,7 +220,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="32dp"
-                android:text="Sábado, 25 de Abril de 2026"
+                android:text="Sábado, 25 de Outubro de 2026"
                 android:textColor="@color/purple_primary"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -230,7 +280,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:text="10:00 — 11:00"
+                        android:text="10:00 — 13:00"
                         android:textColor="@color/purple_primary"
                         android:textSize="13sp"
                         app:layout_constraintStart_toEndOf="@id/bgIcon1"
@@ -258,6 +308,7 @@
                         app:tint="#4CAF50" />
 
                     <TextView
+                        android:id="@+id/tvLocal1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
@@ -333,7 +384,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:text="14:00 — 16:00"
+                        android:text="14:00 — 17:00"
                         android:textColor="#555555"
                         android:textSize="13sp"
                         app:layout_constraintStart_toEndOf="@id/bgIcon2"
@@ -343,7 +394,7 @@
                         android:id="@+id/tvTitulo2"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Inovação e Empreendedorismo"
+                        android:text="Análise e Ciência de Dados com Python"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         android:textStyle="bold"
@@ -361,10 +412,11 @@
                         app:tint="#4CAF50" />
 
                     <TextView
+                        android:id="@+id/tvLocal2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
-                        android:text="USP – Butantã"
+                        android:text="FECAP"
                         android:textColor="#555555"
                         android:textSize="13sp"
                         app:layout_constraintBottom_toBottomOf="@id/icPin2"
@@ -436,7 +488,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:text="18:00 — 19:00"
+                        android:text="09:00 — 12:00"
                         android:textColor="#555555"
                         android:textSize="13sp"
                         app:layout_constraintStart_toEndOf="@id/bgIcon3"
@@ -464,10 +516,11 @@
                         app:tint="#4CAF50" />
 
                     <TextView
+                        android:id="@+id/tvLocal3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
-                        android:text="USP – Butantã"
+                        android:text="FECAP"
                         android:textColor="#555555"
                         android:textSize="13sp"
                         app:layout_constraintBottom_toBottomOf="@id/icPin3"
@@ -538,7 +591,7 @@
             android:gravity="center"
             android:orientation="vertical">
             <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_presence" app:tint="@color/black" />
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Evolução" android:textColor="@color/black" android:textSize="11sp" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Presenças" android:textColor="@color/black" android:textSize="11sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -552,7 +605,7 @@
             android:gravity="center"
             android:orientation="vertical">
             <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_notifications" app:tint="@color/black" />
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Mensagens" android:textColor="@color/black" android:textSize="11sp" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Notificações" android:textColor="@color/black" android:textSize="11sp" />
         </LinearLayout>
     </LinearLayout>
 

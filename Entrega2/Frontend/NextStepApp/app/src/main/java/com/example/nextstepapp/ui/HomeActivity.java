@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.nextstepapp.R;
 import com.example.nextstepapp.session.SessionManager;
@@ -30,6 +28,12 @@ public class HomeActivity extends AppCompatActivity {
             if (nome != null && !nome.trim().isEmpty()) {
                 tvGreeting.setText("Olá, " + nome + "!");
             }
+            tvGreeting.setOnClickListener(v -> startActivity(new Intent(this, PerfilActivity.class)));
+        }
+
+        View cvEventAvatar = findViewById(R.id.cvEventAvatar);
+        if (cvEventAvatar != null) {
+            cvEventAvatar.setOnClickListener(v -> startActivity(new Intent(this, PerfilActivity.class)));
         }
 
         // Botão Ver Detalhes do Próximo Evento (Introdução à Programação Mobile - curso-mobile-1)
@@ -70,10 +74,10 @@ public class HomeActivity extends AppCompatActivity {
             });
         }
 
-        // Botão Dúvidas Frequentes (FAQ)
+        // Botão Dúvidas Frequentes (IA Chat)
         View btnFAQ = findViewById(R.id.btnFAQ);
         if (btnFAQ != null) {
-            btnFAQ.setOnClickListener(v -> mostrarFaqDialog());
+            btnFAQ.setOnClickListener(v -> startActivity(new Intent(this, ChatIaActivity.class)));
         }
 
         // Configuração da Bottom Navigation
@@ -94,15 +98,5 @@ public class HomeActivity extends AppCompatActivity {
         findViewById(R.id.nav_notificacoes).setOnClickListener(v -> {
             startActivity(new Intent(this, NotificacoesActivity.class));
         });
-    }
-
-    private void mostrarFaqDialog() {
-        new AlertDialog.Builder(this)
-                .setTitle("Dúvidas Frequentes")
-                .setMessage("• Como confirmo presença?\nAcesse a aba 'Presenças' ou a página do curso na Agenda para exibir seu QR Code único.\n\n"
-                        + "• Os cursos são gratuitos?\nSim! Todos os cursos do Próxima Etapa são 100% gratuitos para estudantes de escolas públicas.\n\n"
-                        + "• Como recebo meu certificado?\nApós a confirmação de presença no evento, o certificado é emitido e fica disponível na aba 'Certificados'.")
-                .setPositiveButton("Entendi", null)
-                .show();
     }
 }

@@ -17,16 +17,16 @@ try {
     db.prepare("SELECT 1").get();
     console.log("Conexão com o banco realizada com sucesso.");
 
-    // Auto-migração e Auto-seed se o banco estiver vazio
+    // Auto-migração e garantia de seed atualizada com todos os usuários de teste
     const schemaPath = path.join(__dirname, "../database/schema.sql");
     if (fs.existsSync(schemaPath)) {
         const schemaSql = fs.readFileSync(schemaPath, "utf8");
         db.exec(schemaSql);
     }
 
-    const countUsers = db.prepare("SELECT COUNT(*) as count FROM profiles").get()?.count || 0;
-    if (countUsers === 0) {
-        console.log("Banco de dados vazio. Executando seed inicial com dados de teste...");
+    const checkMaria = db.prepare("SELECT id FROM profiles WHERE id = 'maria.oliveira@teste.com'").get();
+    if (!checkMaria) {
+        console.log("Inserindo novos usuários (Maria, João, Carlos) e dados no banco...");
         const runSeed = require("./config/seed");
         runSeed(db);
     }

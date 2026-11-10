@@ -133,7 +133,10 @@ public class MainActivity extends AppCompatActivity {
                                     Throwable throwable
                             ) {
                                 mostrarCarregamento(false);
-                                tvErro.setText("Erro de conexão.");
+                                String msg = throwable != null && throwable.getMessage() != null
+                                        ? throwable.getMessage()
+                                        : "Falha de comunicação.";
+                                tvErro.setText("Erro de conexão: " + msg);
                             }
                         }
                 );

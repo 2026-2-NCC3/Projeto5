@@ -16,6 +16,26 @@ public class Curso {
     private String enrollment_id;
     private String enrollment_status;
 
+    public Curso() {
+    }
+
+    public Curso(String id, String title, String description, String location,
+                 String course_date, String course_time_end, int total_spots,
+                 int available_spots, int points_awarded, int has_certificate,
+                 String category) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.location = location;
+        this.course_date = course_date;
+        this.course_time_end = course_time_end;
+        this.total_spots = total_spots;
+        this.available_spots = available_spots;
+        this.points_awarded = points_awarded;
+        this.has_certificate = has_certificate;
+        this.category = category;
+    }
+
     public String getId() {
         return id;
     }
@@ -55,6 +75,19 @@ public class Curso {
     public String getEnrollmentStatus() {
         return enrollment_status;
     }
+
+    public void setId(String id) { this.id = id; }
+    public void setTitle(String title) { this.title = title; }
+    public void setDescription(String description) { this.description = description; }
+    public void setLocation(String location) { this.location = location; }
+    public void setCourseDate(String course_date) { this.course_date = course_date; }
+    public void setCourseTimeEnd(String course_time_end) { this.course_time_end = course_time_end; }
+    public void setTotalSpots(int total_spots) { this.total_spots = total_spots; }
+    public void setAvailableSpots(int available_spots) { this.available_spots = available_spots; }
+    public void setPointsAwarded(int points_awarded) { this.points_awarded = points_awarded; }
+    public void setHasCertificate(int has_certificate) { this.has_certificate = has_certificate; }
+    public void setCategory(String category) { this.category = category; }
+
     public String getInfoAgenda() {
         String localSeguro = location == null ? "Não informado" : location;
         String statusSeguro = enrollment_status == null ? "Não informado" : enrollment_status;

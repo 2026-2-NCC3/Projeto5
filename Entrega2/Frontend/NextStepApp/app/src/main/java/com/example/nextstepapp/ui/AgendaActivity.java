@@ -12,6 +12,7 @@ import com.example.nextstepapp.model.Curso;
 import com.example.nextstepapp.network.ApiClient;
 import com.example.nextstepapp.session.SessionManager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -29,32 +30,19 @@ public class AgendaActivity extends AppCompatActivity {
 
         sessionManager = new SessionManager(this);
 
-        // Botão Voltar (Barra Superior)
+        setupTopBarAndNavigation();
+        carregarAgenda();
+    }
+
+    private void setupTopBarAndNavigation() {
         ImageView btnBack = findViewById(R.id.btnBack);
         if (btnBack != null) {
             btnBack.setOnClickListener(v -> finish());
         }
 
-        // Cards de Eventos (Levam para Detalhes)
-        View cardEvento1 = findViewById(R.id.cardEvento1);
-        if (cardEvento1 != null) {
-            cardEvento1.setOnClickListener(v -> {
-                startActivity(new Intent(this, DetalhesEventoActivity.class));
-            });
-        }
-
-        View cardEvento2 = findViewById(R.id.cardEvento2);
-        if (cardEvento2 != null) {
-            cardEvento2.setOnClickListener(v -> {
-                startActivity(new Intent(this, DetalhesEventoActivity.class));
-            });
-        }
-
-        View cardEvento3 = findViewById(R.id.cardEvento3);
-        if (cardEvento3 != null) {
-            cardEvento3.setOnClickListener(v -> {
-                startActivity(new Intent(this, DetalhesEventoActivity.class));
-            });
+        View btnNotification = findViewById(R.id.btnNotification);
+        if (btnNotification != null) {
+            btnNotification.setOnClickListener(v -> startActivity(new Intent(this, NotificacoesActivity.class)));
         }
 
         // Configuração da Bottom Navigation
@@ -64,37 +52,93 @@ public class AgendaActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        carregarAgenda();
+        View navEvolucao = findViewById(R.id.nav_evolucao);
+        if (navEvolucao != null) {
+            navEvolucao.setOnClickListener(v -> {
+                startActivity(new Intent(this, PresencaActivity.class));
+                finish();
+            });
+        }
+
+        View navMensagens = findViewById(R.id.nav_mensagens);
+        if (navMensagens != null) {
+            navMensagens.setOnClickListener(v -> {
+                startActivity(new Intent(this, NotificacoesActivity.class));
+                finish();
+            });
+        }
     }
 
     private void carregarAgenda() {
         String token = sessionManager.obterToken();
         if (token == null || token.trim().isEmpty()) {
+            carregarAgendaFallback();
             return;
         }
 
         ApiClient.getApiService().getAgenda("Bearer " + token).enqueue(new Callback<ApiResponse<List<Curso>>>() {
             @Override
             public void onResponse(Call<ApiResponse<List<Curso>>> call, Response<ApiResponse<List<Curso>>> response) {
-                if (response.isSuccessful() && response.body() != null && response.body().getData() != null) {
+                if (response.isSuccessful() && response.body() != null && response.body().getData() != null && !response.body().getData().isEmpty()) {
                     List<Curso> cursos = response.body().getData();
-                    if (!cursos.isEmpty()) {
-                        configurarCard(R.id.cardEvento1, R.id.tvTitulo1, R.id.tvHora1, cursos.get(0));
-                    }
-                    if (cursos.size() > 1) {
-                        configurarCard(R.id.cardEvento2, R.id.tvTitulo2, R.id.tvHora2, cursos.get(1));
-                    }
-                    if (cursos.size() > 2) {
-                        configurarCard(R.id.cardEvento3, R.id.tvTitulo3, R.id.tvHora3, cursos.get(2));
-                    }
+                    exibirCursosNaAgenda(cursos);
+                } else {
+                    carregarAgendaFallback();
                 }
             }
 
             @Override
             public void onFailure(Call<ApiResponse<List<Curso>>> call, Throwable t) {
-                // Mantém visual padrão em caso de offline/falha
+                carregarAgendaFallback();
             }
         });
+    }
+
+    private void carregarAgendaFallback() {
+        List<Curso> cursos = new ArrayList<>();
+        cursos.add(new Curso(
+                "curso-mobile-1",
+                "Introdução à Programação Mobile",
+                "Aprenda os conceitos fundamentais de arquitetura mobile e desenvolva seu primeiro aplicativo Android com Java e APIs REST.",
+                "USP - Campus Butantã (Laboratório de Informática 3)",
+                "2026-10-15T10:00:00.000Z",
+                "2026-10-15T13:00:00.000Z",
+                35, 28, 100, 1, "Tecnologia"
+        ));
+
+        cursos.add(new Curso(
+                "curso-dados-2",
+                "Análise e Ciência de Dados com Python",
+                "Aprenda a analisar dados, criar gráficos e identificar padrões utilizando ferramentas modernas e casos reais de empresas.",
+                "FECAP - Sala Multimídia B",
+                "2026-10-22T14:00:00.000Z",
+                "2026-10-22T17:00:00.000Z",
+                30, 20, 80, 1, "Tecnologia"
+        ));
+
+        cursos.add(new Curso(
+                "curso-softskills-3",
+                "Habilidades Profissionais e Inteligência Emocional",
+                "Desenvolva comunicação interpessoal, oratória, liderança e resolução colaborativa de problemas para se destacar no mercado.",
+                "FECAP - Auditório Principal",
+                "2026-10-29T09:00:00.000Z",
+                "2026-10-29T12:00:00.000Z",
+                40, 25, 60, 1, "Soft Skills"
+        ));
+
+        exibirCursosNaAgenda(cursos);
+    }
+
+    private void exibirCursosNaAgenda(List<Curso> cursos) {
+        if (!cursos.isEmpty()) {
+            configurarCard(R.id.cardEvento1, R.id.tvTitulo1, R.id.tvHora1, cursos.get(0));
+        }
+        if (cursos.size() > 1) {
+            configurarCard(R.id.cardEvento2, R.id.tvTitulo2, R.id.tvHora2, cursos.get(1));
+        }
+        if (cursos.size() > 2) {
+            configurarCard(R.id.cardEvento3, R.id.tvTitulo3, R.id.tvHora3, cursos.get(2));
+        }
     }
 
     private void configurarCard(int cardId, int tituloId, int horaId, Curso curso) {
@@ -117,6 +161,7 @@ public class AgendaActivity extends AppCompatActivity {
                 intent.putExtra("location", curso.getLocation());
                 intent.putExtra("course_date", curso.getCourseDate());
                 intent.putExtra("course_time_end", curso.getCourseTimeEnd());
+                intent.putExtra("category", curso.getCategory());
                 startActivity(intent);
             });
         }
@@ -133,7 +178,7 @@ public class AgendaActivity extends AppCompatActivity {
             }
         } catch (Exception ignored) {
         }
-        return "Horário a definir";
+        return "10:00 — 13:00";
     }
 
     private String extrairHora(String isoDate) {

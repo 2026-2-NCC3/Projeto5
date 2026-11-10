@@ -35,6 +35,14 @@
             android:exported="false" />
 
         <activity
+            android:name=".ui.NotificacoesActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.CertificadosActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

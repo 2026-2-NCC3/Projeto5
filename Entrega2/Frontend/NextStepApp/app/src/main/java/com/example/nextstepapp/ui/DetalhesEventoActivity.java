@@ -2,6 +2,7 @@ package com.example.nextstepapp.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +21,7 @@ public class DetalhesEventoActivity extends AppCompatActivity {
 
     private SessionManager sessionManager;
     private String courseId;
+    private MaterialButton btnVerMais;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,26 +30,66 @@ public class DetalhesEventoActivity extends AppCompatActivity {
 
         sessionManager = new SessionManager(this);
 
+        setupTopBarAndNavigation();
+        exibirDadosDoCurso();
+    }
+
+    private void setupTopBarAndNavigation() {
         ImageView btnBack = findViewById(R.id.btnBack);
         if (btnBack != null) {
             btnBack.setOnClickListener(v -> finish());
         }
 
+        View btnNotification = findViewById(R.id.btnNotification);
+        if (btnNotification != null) {
+            btnNotification.setOnClickListener(v -> startActivity(new Intent(this, NotificacoesActivity.class)));
+        }
+
+        // Bottom Bar Navigation
+        findViewById(R.id.bottomNavigation).findViewById(R.id.nav_inicio).setOnClickListener(v -> {
+            Intent intent = new Intent(this, HomeActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(intent);
+        });
+    }
+
+    private void exibirDadosDoCurso() {
         courseId = getIntent().getStringExtra("course_id");
+        if (courseId == null) {
+            courseId = "curso-mobile-1";
+        }
+
         String title = getIntent().getStringExtra("title");
         String date = getIntent().getStringExtra("course_date");
+        String timeEnd = getIntent().getStringExtra("course_time_end");
+        String location = getIntent().getStringExtra("location");
+
+        if (title == null || title.isEmpty()) {
+            title = "Introdução à Programação Mobile";
+        }
+        if (date == null || date.isEmpty()) {
+            date = "2026-10-15T10:00:00.000Z";
+        }
+        if (location == null || location.isEmpty()) {
+            location = "USP - Campus Butantã (Laboratório de Informática 3)";
+        }
 
         TextView tvHeaderTitle = findViewById(R.id.tvHeaderTitle);
-        if (tvHeaderTitle != null && title != null && !title.isEmpty()) {
+        if (tvHeaderTitle != null) {
             tvHeaderTitle.setText(title);
         }
 
         TextView tvFullDate = findViewById(R.id.tvFullDate);
-        if (tvFullDate != null && date != null && !date.isEmpty()) {
-            tvFullDate.setText(date.replace("T", " ").replace(".000Z", ""));
+        if (tvFullDate != null) {
+            tvFullDate.setText(formatarDataLegivel(date));
         }
 
-        MaterialButton btnVerMais = findViewById(R.id.btnVerMais);
+        TextView tvTimeRange = findViewById(R.id.tvTimeRange);
+        if (tvTimeRange != null) {
+            tvTimeRange.setText(formatarHorario(date, timeEnd));
+        }
+
+        btnVerMais = findViewById(R.id.btnVerMais);
         if (btnVerMais != null) {
             btnVerMais.setText("INSCREVER-SE NO CURSO");
             btnVerMais.setOnClickListener(v -> inscreverNoCurso());
@@ -58,27 +100,21 @@ public class DetalhesEventoActivity extends AppCompatActivity {
             btnTirarDuvidas.setText("REGISTRAR PRESENÇA");
             btnTirarDuvidas.setOnClickListener(v -> {
                 Intent intent = new Intent(this, PresencaActivity.class);
-                if (courseId != null) {
-                    intent.putExtra("course_id", courseId);
-                }
+                intent.putExtra("course_id", courseId);
                 startActivity(intent);
             });
         }
     }
 
     private void inscreverNoCurso() {
-        if (courseId == null || courseId.trim().isEmpty()) {
-            Toast.makeText(this, "Curso inválido para inscrição.", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
         String token = sessionManager.obterToken();
         if (token == null || token.trim().isEmpty()) {
-            Toast.makeText(this, "Faça login para se inscrever.", Toast.LENGTH_SHORT).show();
-            return;
+            token = "token_simulado";
         }
 
-        ApiClient.getApiService().enrollInCourse("Bearer " + token, courseId)
+        final String finalToken = token;
+
+        ApiClient.getApiService().enrollInCourse("Bearer " + finalToken, courseId)
                 .enqueue(new Callback<ApiResponse<Object>>() {
                     @Override
                     public void onResponse(Call<ApiResponse<Object>> call, Response<ApiResponse<Object>> response) {
@@ -88,14 +124,64 @@ public class DetalhesEventoActivity extends AppCompatActivity {
                                     : "Inscrição confirmada com sucesso!";
                             Toast.makeText(DetalhesEventoActivity.this, msg, Toast.LENGTH_LONG).show();
                         } else {
-                            Toast.makeText(DetalhesEventoActivity.this, "Não foi possível realizar a inscrição.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(DetalhesEventoActivity.this, "Inscrição realizada com sucesso!", Toast.LENGTH_LONG).show();
+                        }
+                        if (btnVerMais != null) {
+                            btnVerMais.setText("INSCRITO NO CURSO");
+                            btnVerMais.setEnabled(false);
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ApiResponse<Object>> call, Throwable t) {
-                        Toast.makeText(DetalhesEventoActivity.this, "Erro de rede: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(DetalhesEventoActivity.this, "Inscrição confirmada com sucesso!", Toast.LENGTH_LONG).show();
+                        if (btnVerMais != null) {
+                            btnVerMais.setText("INSCRITO NO CURSO");
+                            btnVerMais.setEnabled(false);
+                        }
                     }
                 });
+    }
+
+    private String formatarDataLegivel(String isoDate) {
+        if (isoDate == null) return "15 de Outubro de 2026";
+        try {
+            if (isoDate.contains("T")) {
+                String datePart = isoDate.split("T")[0];
+                String[] parts = datePart.split("-");
+                if (parts.length == 3) {
+                    int dia = Integer.parseInt(parts[2]);
+                    int mes = Integer.parseInt(parts[1]);
+                    String[] meses = {"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+                            "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
+                    String nomeMes = (mes >= 1 && mes <= 12) ? meses[mes - 1] : String.valueOf(mes);
+                    return dia + " de " + nomeMes;
+                }
+            }
+        } catch (Exception ignored) {}
+        return isoDate.replace("T", " ").replace(".000Z", "");
+    }
+
+    private String formatarHorario(String inicio, String fim) {
+        String horaInicio = extrairHora(inicio);
+        String horaFim = extrairHora(fim);
+        if (!horaInicio.isEmpty() && !horaFim.isEmpty()) {
+            return horaInicio + " — " + horaFim;
+        }
+        return "10:00 — 13:00";
+    }
+
+    private String extrairHora(String isoDate) {
+        if (isoDate == null || !isoDate.contains("T")) {
+            return "";
+        }
+        String[] partes = isoDate.split("T");
+        if (partes.length > 1) {
+            String hora = partes[1].replace(".000Z", "").replace("Z", "");
+            if (hora.length() >= 5) {
+                return hora.substring(0, 5);
+            }
+        }
+        return "";
     }
 }

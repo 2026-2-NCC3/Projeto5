@@ -1,0 +1,323 @@
+{
+  "rootFolder": "c:\\Users\\25027230\\Documents\\GitHub\\Projeto5\\Entrega2\\Backend",
+  "analyzedAt": "2026-11-10T00:57:58.333Z",
+  "rootStructure": [
+    {
+      "name": "backups",
+      "type": "dir"
+    },
+    {
+      "name": "database",
+      "type": "dir"
+    },
+    {
+      "name": "docs",
+      "type": "dir"
+    },
+    {
+      "name": "package-lock.json",
+      "type": "file",
+      "size": 40590,
+      "lines": 1109
+    },
+    {
+      "name": "package.json",
+      "type": "file",
+      "size": 764,
+      "lines": 32
+    },
+    {
+      "name": "README.md",
+      "type": "file",
+      "size": 2959,
+      "lines": 176
+    },
+    {
+      "name": "scripts",
+      "type": "dir"
+    },
+    {
+      "name": "src",
+      "type": "dir"
+    }
+  ],
+  "rootFileSnippets": {
+    "package-lock.json": [
+      "{",
+      "\"name\": \"proxima-etapa-api\",",
+      "\"version\": \"1.0.0\",",
+      "\"lockfileVersion\": 3,",
+      "\"requires\": true,",
+      "\"packages\": {",
+      "\"\": {",
+      "\"name\": \"proxima-etapa-api\",",
+      "\"version\": \"1.0.0\",",
+      "\"license\": \"ISC\","
+    ],
+    "package.json": [
+      "{",
+      "\"name\": \"proxima-etapa-api\",",
+      "\"version\": \"1.0.0\",",
+      "\"description\": \"API REST do aplicativo Próxima Etapa\",",
+      "\"main\": \"src/server.js\",",
+      "\"scripts\": {",
+      "\"start\": \"node src/server.js\",",
+      "\"dev\": \"node --watch src/server.js\",",
+      "\"migrate\": \"node src/config/migrate.js\",",
+      "\"seed\": \"node src/config/seed.js\","
+    ],
+    "README.md": [
+      "# Backend Próxima Etapa",
+      "",
+      "API REST desenvolvida com Node.js, Express e SQLite para autenticação de alunos, consulta de cursos e agenda individual.",
+      "",
+      "## Tecnologias",
+      "",
+      "- Node.js",
+      "- Express",
+      "- SQLite",
+      "- better-sqlite3"
+    ]
+  },
+  "importantFolders": [
+    {
+      "path": "docs",
+      "category": "docs",
+      "fileCount": 2
+    },
+    {
+      "path": "scripts",
+      "category": "scripts",
+      "fileCount": 1,
+      "primaryLanguage": "PowerShell"
+    },
+    {
+      "path": "src\\config",
+      "category": "config",
+      "fileCount": 5,
+      "primaryLanguage": "JavaScript"
+    },
+    {
+      "path": "src\\routes",
+      "category": "build",
+      "fileCount": 6,
+      "primaryLanguage": "JavaScript"
+    }
+  ],
+  "readmeParagraphs": {
+    "root": "# Backend Próxima Etapa\r\n\r\nAPI REST desenvolvida com Node.js, Express e SQLite para autenticação de alunos, consulta de cursos e agenda individual.\r"
+  },
+  "totals": {
+    "numFiles": 29,
+    "numDirs": 10,
+    "totalSizeBytes": 605620,
+    "totalLinesOfCode": 3175
+  },
+  "fileCategories": {
+    "other": 4,
+    "documentation": 2,
+    "config": 3,
+    "source": 20
+  },
+  "linesOfCodePerLanguage": {
+    "PowerShell": 18,
+    "JavaScript": 3157
+  },
+  "filesPerLanguage": {
+    "PowerShell": 1,
+    "JavaScript": 19
+  },
+  "projectTypes": [
+    "JavaScript/Node.js"
+  ],
+  "frameworks": [],
+  "entryPoints": [
+    "src\\server.js"
+  ],
+  "ciCdTools": [],
+  "packageManagers": [
+    "npm/yarn"
+  ],
+  "topLevelDirectories": [
+    {
+      "name": "src",
+      "numFiles": 19,
+      "totalLoc": 3157,
+      "dominantLanguage": "JavaScript"
+    },
+    {
+      "name": "scripts",
+      "numFiles": 1,
+      "totalLoc": 18,
+      "dominantLanguage": "PowerShell"
+    },
+    {
+      "name": "backups",
+      "numFiles": 1,
+      "totalLoc": 0
+    },
+    {
+      "name": "database",
+      "numFiles": 2,
+      "totalLoc": 0
+    },
+    {
+      "name": "docs",
+      "numFiles": 2,
+      "totalLoc": 0
+    }
+  ],
+  "detailedDirectories": [
+    {
+      "path": "src",
+      "name": "src",
+      "level": 1,
+      "numFiles": 19,
+      "totalLoc": 3157,
+      "dominantLanguage": "JavaScript",
+      "category": "General",
+      "description": "General module with 19 files (JavaScript)",
+      "subdirectories": [
+        {
+          "path": "src\\controllers",
+          "name": "controllers",
+          "level": 2,
+          "numFiles": 4,
+          "totalLoc": 1755,
+          "dominantLanguage": "JavaScript",
+          "category": "Controllers",
+          "description": "Controllers module with 4 files (JavaScript)",
+          "subdirectories": []
+        },
+        {
+          "path": "src\\config",
+          "name": "config",
+          "level": 2,
+          "numFiles": 5,
+          "totalLoc": 848,
+          "dominantLanguage": "JavaScript",
+          "category": "Configuration",
+          "description": "Configuration module with 5 files (JavaScript)",
+          "subdirectories": []
+        },
+        {
+          "path": "src\\auth",
+          "name": "auth",
+          "level": 2,
+          "numFiles": 1,
+          "totalLoc": 176,
+          "dominantLanguage": "JavaScript",
+          "category": "General",
+          "description": "General module with 1 files (JavaScript)",
+          "subdirectories": []
+        },
+        {
+          "path": "src\\routes",
+          "name": "routes",
+          "level": 2,
+          "numFiles": 6,
+          "totalLoc": 154,
+          "dominantLanguage": "JavaScript",
+          "category": "General",
+          "description": "General module with 6 files (JavaScript)",
+          "subdirectories": []
+        },
+        {
+          "path": "src\\middleware",
+          "name": "middleware",
+          "level": 2,
+          "numFiles": 1,
+          "totalLoc": 32,
+          "dominantLanguage": "JavaScript",
+          "category": "General",
+          "description": "General module with 1 files (JavaScript)",
+          "subdirectories": []
+        }
+      ]
+    },
+    {
+      "path": "scripts",
+      "name": "scripts",
+      "level": 1,
+      "numFiles": 1,
+      "totalLoc": 18,
+      "dominantLanguage": "PowerShell",
+      "category": "Tools/Scripts",
+      "description": "Tools/Scripts module with 1 files (PowerShell)",
+      "subdirectories": []
+    },
+    {
+      "path": "database",
+      "name": "database",
+      "level": 1,
+      "numFiles": 2,
+      "totalLoc": 0,
+      "category": "Data",
+      "description": "Data module with 2 files",
+      "subdirectories": []
+    },
+    {
+      "path": "docs",
+      "name": "docs",
+      "level": 1,
+      "numFiles": 2,
+      "totalLoc": 0,
+      "category": "Documentation",
+      "description": "Documentation module with 2 files",
+      "subdirectories": []
+    },
+    {
+      "path": "backups",
+      "name": "backups",
+      "level": 1,
+      "numFiles": 1,
+      "totalLoc": 0,
+      "category": "General",
+      "description": "General module with 1 files",
+      "subdirectories": []
+    }
+  ],
+  "architecturalInsights": {
+    "coreApplications": [],
+    "entryPointDetails": [
+      {
+        "path": "..\\..\\..\\..\\..\\..\\..\\Program Files\\Microsoft VS Code\\src\\server.js",
+        "type": "Unknown",
+        "description": ""
+      }
+    ],
+    "serviceArchitecture": {
+      "microservices": [],
+      "monoliths": [],
+      "libraries": []
+    },
+    "layeredArchitecture": {
+      "presentation": [],
+      "business": [],
+      "data": [
+        "database"
+      ],
+      "infrastructure": []
+    }
+  },
+  "largeFiles": [],
+  "dependencies": {
+    "production": [
+      "bcryptjs",
+      "better-sqlite3",
+      "cors",
+      "dotenv",
+      "express",
+      "helmet",
+      "jsonwebtoken"
+    ],
+    "development": [],
+    "total": 7
+  },
+  "complexity": {
+    "averageFileSize": 109.48275862068965,
+    "maxFileSize": 0,
+    "nestedDepth": 0,
+    "estimatedComplexity": "low"
+  }
+}

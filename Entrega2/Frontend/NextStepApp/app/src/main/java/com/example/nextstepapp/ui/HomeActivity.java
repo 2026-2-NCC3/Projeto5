@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.nextstepapp.R;
 import com.example.nextstepapp.session.SessionManager;
@@ -20,6 +21,14 @@ public class HomeActivity extends AppCompatActivity {
 
         sessionManager = new SessionManager(this);
         scrollViewHome = findViewById(R.id.scrollViewHome);
+
+        TextView tvGreeting = findViewById(R.id.tvGreeting);
+        if (tvGreeting != null) {
+            String nome = sessionManager.obterNomeUsuario();
+            if (nome != null && !nome.trim().isEmpty()) {
+                tvGreeting.setText("Olá, " + nome + "!");
+            }
+        }
 
         // Botão Ver Detalhes do Próximo Evento
         View btnVerDetalhes = findViewById(R.id.btnVerDetalhes);

@@ -1,4 +1,5 @@
-﻿const path = require("path");
+﻿const fs = require("fs");
+const path = require("path");
 require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 
 const app = require("./app");
@@ -8,16 +9,29 @@ const PORT = Number(process.env.PORT) || 3000;
 const HOST = "0.0.0.0";
 
 if (!process.env.JWT_SECRET?.trim()) {
-    console.error("JWT_SECRET nÃ£o configurado no arquivo .env.");
-    process.exit(1);
+    console.warn("Aviso: JWT_SECRET não configurado. Utilizando chave de segurança padrão.");
+    process.env.JWT_SECRET = "proxima_etapa_jwt_secret_fecap_2026_super_segura";
 }
 
 try {
     db.prepare("SELECT 1").get();
-    console.log("ConexÃ£o com o banco realizada com sucesso.");
+    console.log("Conexão com o banco realizada com sucesso.");
+
+    // Auto-migração e Auto-seed se o banco estiver vazio
+    const schemaPath = path.join(__dirname, "../database/schema.sql");
+    if (fs.existsSync(schemaPath)) {
+        const schemaSql = fs.readFileSync(schemaPath, "utf8");
+        db.exec(schemaSql);
+    }
+
+    const countUsers = db.prepare("SELECT COUNT(*) as count FROM profiles").get()?.count || 0;
+    if (countUsers === 0) {
+        console.log("Banco de dados vazio. Executando seed inicial com dados de teste...");
+        const runSeed = require("./config/seed");
+        runSeed(db);
+    }
 } catch (error) {
-    console.error("Erro ao conectar ao banco:", error.message);
-    process.exit(1);
+    console.error("Erro ao inicializar o banco de dados:", error.message);
 }
 
 const server = app.listen(PORT, HOST, () => {
@@ -40,4 +54,3 @@ function closeServer(signal) {
 
 process.on("SIGINT", () => closeServer("SIGINT"));
 process.on("SIGTERM", () => closeServer("SIGTERM"));
-

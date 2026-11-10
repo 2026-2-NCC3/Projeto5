@@ -341,11 +341,218 @@ const markNotificationRead = handle((req) => {
     };
 });
 
+// GET /api/badges
+const getBadges = handle((req) => {
+    const userId = req.user?.id;
+    const badges = db.prepare(`
+        SELECT b.*, ub.earned_at
+        FROM badges b
+        LEFT JOIN user_badges ub ON ub.badge_id = b.id AND ub.user_id = ?
+        ORDER BY b.points_required ASC
+    `).all(userId);
+
+    return {
+        message: "Conquistas carregadas com sucesso.",
+        data: badges
+    };
+});
+
+// GET /api/tests
+const getTests = handle((req) => {
+    return {
+        message: "Testes disponíveis carregados com sucesso.",
+        data: [
+            {
+                id: "vocacional",
+                title: "Teste Vocacional",
+                description: "Descubra quais áreas combinam mais com as suas aptidões e interesses profissionais."
+            },
+            {
+                id: "disc",
+                title: "Teste de Perfil Comportamental (DISC)",
+                description: "Identifique seus padrões de comportamento: Dominância, Influência, Estabilidade e Conformidade."
+            },
+            {
+                id: "bolsas",
+                title: "Simulado para Bolsas de Estudo",
+                description: "Teste seus conhecimentos gerais e prepare-se para os processos seletivos de bolsas."
+            }
+        ]
+    };
+});
+
+// GET /api/tests/results
+const getTestResults = handle((req) => {
+    const userId = req.user?.id;
+    const results = db.prepare(`
+        SELECT *
+        FROM test_results
+        WHERE user_id = ?
+        ORDER BY completed_at DESC
+    `).all(userId);
+
+    return {
+        message: "Resultados de testes carregados com sucesso.",
+        data: results
+    };
+});
+
+// POST /api/tests/results
+const saveTestResult = handle((req) => {
+    const userId = req.user?.id;
+    const { test_type, result_summary, result_detail } = req.body || {};
+
+    if (!test_type || !result_summary) {
+        throw new HttpError(400, "test_type e result_summary são obrigatórios.");
+    }
+
+    const validTypes = ["vocacional", "disc", "bolsas"];
+    if (!validTypes.includes(test_type)) {
+        throw new HttpError(400, "Tipo de teste inválido.");
+    }
+
+    const id = crypto.randomUUID();
+    const now = new Date().toISOString();
+
+    db.prepare(`
+        INSERT INTO test_results (id, user_id, test_type, result_summary, result_detail, completed_at)
+        VALUES (?, ?, ?, ?, ?, ?)
+    `).run(id, userId, test_type, result_summary, result_detail || null, now);
+
+    return {
+        status: 201,
+        message: "Resultado do teste salvo com sucesso.",
+        data: { id, user_id: userId, test_type, result_summary, completed_at: now }
+    };
+});
+
+// GET /api/news
+const getNews = handle((req) => {
+    const news = db.prepare(`
+        SELECT id, title, slug, excerpt, content, image_url, video_url, category, tags, views, created_at
+        FROM news_posts
+        WHERE is_published = 1
+        ORDER BY created_at DESC
+    `).all();
+
+    return {
+        message: "Notícias carregadas com sucesso.",
+        data: news
+    };
+});
+
+// GET /api/news/:id
+const getNewsById = handle((req) => {
+    const post = db.prepare(`
+        SELECT *
+        FROM news_posts
+        WHERE id = ? OR slug = ?
+    `).get(req.params.id, req.params.id);
+
+    if (!post) {
+        throw new HttpError(404, "Notícia não encontrada.");
+    }
+
+    db.prepare(`UPDATE news_posts SET views = views + 1 WHERE id = ?`).run(post.id);
+
+    return {
+        message: "Notícia carregada com sucesso.",
+        data: post
+    };
+});
+
+// GET /api/news/:id/comments
+const getNewsComments = handle((req) => {
+    const comments = db.prepare(`
+        SELECT id, post_id, author_name, school, content, created_at
+        FROM news_comments
+        WHERE post_id = ?
+        ORDER BY created_at DESC
+    `).all(req.params.id);
+
+    return {
+        message: "Comentários carregados com sucesso.",
+        data: comments
+    };
+});
+
+// POST /api/news/:id/comments
+const addNewsComment = handle((req) => {
+    const userId = req.user?.id;
+    const postId = req.params.id;
+    const { content } = req.body || {};
+
+    if (!content || !content.trim()) {
+        throw new HttpError(400, "Conteúdo do comentário é obrigatório.");
+    }
+
+    const profile = db.prepare(`SELECT full_name, school FROM profiles WHERE id = ?`).get(userId);
+    const authorName = profile ? profile.full_name : "Anônimo";
+    const school = profile ? profile.school : null;
+
+    const id = crypto.randomUUID();
+    const now = new Date().toISOString();
+
+    db.prepare(`
+        INSERT INTO news_comments (id, post_id, user_id, author_name, school, content, created_at)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
+    `).run(id, postId, userId, authorName, school, content.trim(), now);
+
+    return {
+        status: 201,
+        message: "Comentário adicionado com sucesso.",
+        data: { id, post_id: postId, author_name: authorName, content, created_at: now }
+    };
+});
+
+// GET /api/videos
+const getVideos = handle((req) => {
+    const videos = db.prepare(`
+        SELECT *
+        FROM videos
+        WHERE is_active = 1
+        ORDER BY created_at DESC
+    `).all();
+
+    return {
+        message: "Vídeos carregados com sucesso.",
+        data: videos
+    };
+});
+
+// GET /api/videos/:id
+const getVideoById = handle((req) => {
+    const video = db.prepare(`
+        SELECT *
+        FROM videos
+        WHERE id = ? AND is_active = 1
+    `).get(req.params.id);
+
+    if (!video) {
+        throw new HttpError(404, "Vídeo não encontrado.");
+    }
+
+    return {
+        message: "Vídeo carregado com sucesso.",
+        data: video
+    };
+});
+
 module.exports = {
     enrollInCourse,
     cancelEnrollment,
     checkIn,
     getCertificates,
     getNotifications,
-    markNotificationRead
+    markNotificationRead,
+    getBadges,
+    getTests,
+    getTestResults,
+    saveTestResult,
+    getNews,
+    getNewsById,
+    getNewsComments,
+    addNewsComment,
+    getVideos,
+    getVideoById
 };

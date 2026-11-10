@@ -9,12 +9,14 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import java.util.Map;
 
 public interface ApiService {
 
@@ -39,6 +41,29 @@ public interface ApiService {
 
     @GET("api/courses")
     Call<ApiResponse<List<Curso>>> getCursos();
+
+    @POST("api/courses/{id}/enroll")
+    Call<ApiResponse<Object>> enrollInCourse(
+            @Header("Authorization") String authorization,
+            @Path("id") String courseId
+    );
+
+    @DELETE("api/courses/{id}/enroll")
+    Call<ApiResponse<Object>> cancelEnrollment(
+            @Header("Authorization") String authorization,
+            @Path("id") String courseId
+    );
+
+
+
+// PRESENÇA
+
+
+    @POST("api/attendance/check-in")
+    Call<ApiResponse<Object>> checkIn(
+            @Header("Authorization") String authorization,
+            @Body Map<String, String> body
+    );
 
 
 

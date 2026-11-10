@@ -70,12 +70,6 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        // Para facilitar o desenvolvimento, vamos aceitar um login fixo
-        if (matricula.equals("aluno@teste.com") && senha.equals("123456")) {
-            irParaHome();
-            return;
-        }
-
         loginOnline(matricula, senha);
     }
 
@@ -118,6 +112,13 @@ public class MainActivity extends AppCompatActivity {
                                     sessionManager.salvarToken(
                                             body.getData().getToken()
                                     );
+
+                                    if (body.getData().getUser() != null
+                                            && body.getData().getUser().getFullName() != null) {
+                                        sessionManager.salvarUsuario(
+                                                body.getData().getUser().getFullName()
+                                        );
+                                    }
 
                                     irParaHome();
                                     return;

@@ -71,11 +71,27 @@ public class CursoAdapter extends RecyclerView.Adapter<CursoAdapter.CursoViewHol
     }
 
     private String formatarData(String valor) {
-        if (valor == null || valor.isEmpty()) {
+        if (valor == null || valor.trim().isEmpty()) {
             return "Não informada";
         }
-        // Exemplo: 2026-09-26T19:00:00.000Z -> 26 de Setembro (simplificado para o exemplo)
-        return "10 de Maio"; // Valor fixo para o exemplo visual igual à imagem
+        try {
+            String limpa = valor.replace("Z", "");
+            if (limpa.contains("T")) {
+                String[] partes = limpa.split("T");
+                String[] dataPartes = partes[0].split("-");
+                if (dataPartes.length == 3) {
+                    int mes = Integer.parseInt(dataPartes[1]);
+                    int dia = Integer.parseInt(dataPartes[2]);
+                    String[] meses = {"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+                            "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
+                    String nomeMes = (mes >= 1 && mes <= 12) ? meses[mes - 1] : String.valueOf(mes);
+                    return dia + " de " + nomeMes;
+                }
+            }
+            return valor;
+        } catch (Exception e) {
+            return valor;
+        }
     }
 
     static class CursoViewHolder extends RecyclerView.ViewHolder {

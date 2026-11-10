@@ -4,14 +4,22 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.nextstepapp.R;
+import com.example.nextstepapp.model.ApiResponse;
 import com.example.nextstepapp.model.Curso;
+import com.example.nextstepapp.network.ApiClient;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CursosActivity extends AppCompatActivity {
 
@@ -39,7 +47,15 @@ public class CursosActivity extends AppCompatActivity {
 
         // Configurar Clique no Curso (Abre Detalhes)
         adapter.setOnCursoClickListener(curso -> {
-            startActivity(new Intent(this, DetalhesEventoActivity.class));
+            Intent intent = new Intent(this, DetalhesEventoActivity.class);
+            intent.putExtra("course_id", curso.getId());
+            intent.putExtra("title", curso.getTitle());
+            intent.putExtra("description", curso.getDescription());
+            intent.putExtra("location", curso.getLocation());
+            intent.putExtra("course_date", curso.getCourseDate());
+            intent.putExtra("course_time_end", curso.getCourseTimeEnd());
+            intent.putExtra("category", curso.getCategory());
+            startActivity(intent);
         });
 
         // Configurar Filtros
@@ -49,8 +65,8 @@ public class CursosActivity extends AppCompatActivity {
         findViewById(R.id.btnBack).setOnClickListener(v -> finish());
         findViewById(R.id.nav_inicio).setOnClickListener(v -> finish());
 
-        // Carregar Dados Mockados (Igual à imagem)
-        carregarDadosExemplo();
+        // Carregar Cursos da API
+        carregarCursosDaApi();
     }
 
     private void setupFilters() {
@@ -59,7 +75,8 @@ public class CursosActivity extends AppCompatActivity {
             TextView tv = (TextView) v;
             tv.setBackgroundResource(R.drawable.bg_filter_selected);
             tv.setTextColor(ContextCompat.getColor(this, R.color.white));
-            // Aqui você poderia filtrar a lista baseada na categoria
+
+            filtrarCursos(tv.getText().toString());
         };
 
         filterTodos.setOnClickListener(filterClick);
@@ -76,25 +93,37 @@ public class CursosActivity extends AppCompatActivity {
         }
     }
 
-    private void carregarDadosExemplo() {
-        List<Curso> cursos = new ArrayList<>();
-        
-        cursos.add(new Curso("1", "Introdução à Programação Mobile", 
-            "Aprenda os conceitos básicos de desenvolvimento mobile e crie seu primeiro aplicativo.", 
-            "USP - Butantã", "2026-04-25T10:00:00", "11:00", 30, 25, 50, 1, "Tecnologia"));
+    private void filtrarCursos(String categoria) {
+        if (categoria == null || categoria.equalsIgnoreCase("Todos")) {
+            adapter.atualizarCursos(listaCompleta);
+            return;
+        }
 
-        cursos.add(new Curso("2", "Análise de Dados", 
-            "Descubra como transformar dados em decisões com ferramentas práticas e projetos reais.", 
-            "USP - Butantã", "2026-05-10T14:00:00", "16:00", 25, 18, 40, 1, "Tecnologia"));
+        List<Curso> filtrados = new ArrayList<>();
+        for (Curso curso : listaCompleta) {
+            if (curso.getCategory() != null && curso.getCategory().equalsIgnoreCase(categoria)) {
+                filtrados.add(curso);
+            }
+        }
+        adapter.atualizarCursos(filtrados);
+    }
 
-        cursos.add(new Curso("3", "Habilidades Profissionais", 
-            "Desenvolva sua comunicação, trabalho em equipe e inteligência emocional.", 
-            "USP - Butantã", "2026-05-17T09:00:00", "12:00", 30, 20, 30, 1, "Soft Skills"));
+    private void carregarCursosDaApi() {
+        ApiClient.getApiService().getCursos().enqueue(new Callback<ApiResponse<List<Curso>>>() {
+            @Override
+            public void onResponse(Call<ApiResponse<List<Curso>>> call, Response<ApiResponse<List<Curso>>> response) {
+                if (response.isSuccessful() && response.body() != null && response.body().getData() != null) {
+                    listaCompleta = response.body().getData();
+                    adapter.atualizarCursos(listaCompleta);
+                } else {
+                    Toast.makeText(CursosActivity.this, "Erro ao carregar lista de cursos.", Toast.LENGTH_SHORT).show();
+                }
+            }
 
-        cursos.add(new Curso("4", "Inovação e Empreendedorismo", 
-            "Aprenda a criar soluções inovadoras e a transformar ideias em projetos reais.", 
-            "USP - Butantã", "2026-05-24T18:00:00", "20:00", 20, 5, 60, 1, "Negócios"));
-
-        adapter.atualizarCursos(cursos);
+            @Override
+            public void onFailure(Call<ApiResponse<List<Curso>>> call, Throwable t) {
+                Toast.makeText(CursosActivity.this, "Erro de rede: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

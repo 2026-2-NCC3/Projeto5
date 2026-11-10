@@ -85,14 +85,17 @@ function register(req, res) {
 
 function login(req, res) {
     try {
-        const { id, password } = req.body;
+        const { id, password } = req.body || {};
 
         if (!id || !password) {
             return res.status(400).json({
                 success: false,
-                message: "ID e senha são obrigatórios."
+                message: "ID/E-mail e senha são obrigatórios."
             });
         }
+
+        const cleanId = String(id).trim().toLowerCase();
+        const cleanPassword = String(password).trim();
 
         const user = db.prepare(`
             SELECT
@@ -104,14 +107,14 @@ function login(req, res) {
             FROM profiles p
             INNER JOIN auth_credentials c ON c.user_id = p.id
             INNER JOIN user_roles r ON r.user_id = p.id
-            WHERE p.id = ?
+            WHERE LOWER(TRIM(p.id)) = ?
             LIMIT 1
-        `).get(id);
+        `).get(cleanId);
 
         if (!user) {
             return res.status(401).json({
                 success: false,
-                message: "Usuário ou senha invÃ¡lidos."
+                message: "Usuário ou senha inválidos."
             });
         }
 
@@ -122,18 +125,16 @@ function login(req, res) {
             });
         }
 
-        const passwordCorrect = bcrypt.compareSync(password, user.password_hash);
+        const passwordCorrect = bcrypt.compareSync(cleanPassword, user.password_hash);
 
         if (!passwordCorrect) {
             return res.status(401).json({
                 success: false,
-                message: "Usuário ou senha invÃ¡lidos."
+                message: "Usuário ou senha inválidos."
             });
         }
-        const secret = process.env.JWT_SECRET;
-        if (!secret) {
-            return res.status(500).json({ success: false, message: 'JWT_SECRET não configurado.' });
-        }
+
+        const secret = process.env.JWT_SECRET || "proxima_etapa_jwt_secret_fecap_2026_super_segura";
 
         const token = jwt.sign(
             {
@@ -142,7 +143,7 @@ function login(req, res) {
             },
             secret,
             {
-                expiresIn: process.env.JWT_EXPIRES_IN || "8h"
+                expiresIn: process.env.JWT_EXPIRES_IN || "7d"
             }
         );
 

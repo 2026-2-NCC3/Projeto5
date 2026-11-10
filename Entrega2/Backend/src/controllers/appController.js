@@ -65,7 +65,8 @@ const enrollInCourse = handle((req) => {
             throw new HttpError(404, "Curso não encontrado.");
         }
 
-        if (Date.parse(course.course_date) <= Date.now()) {
+        // Permite inscrição se o curso não tiver ocorrido há mais de 7 dias
+        if (course.course_date && Date.parse(course.course_date) < (Date.now() - 7 * 24 * 60 * 60 * 1000)) {
             throw new HttpError(400, "As inscrições deste curso estão encerradas.");
         }
 
@@ -76,7 +77,12 @@ const enrollInCourse = handle((req) => {
         `).get(userId, courseId);
 
         if (existing && existing.status !== "cancelled") {
-            throw new HttpError(409, "Você já possui inscrição neste curso.");
+            return {
+                already_enrolled: true,
+                enrollment_id: existing.id,
+                course_id: courseId,
+                status: existing.status
+            };
         }
 
         if (course.available_spots <= 0) {

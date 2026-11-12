@@ -5,21 +5,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    android:fitsSystemWindows="true"
     tools:context=".ui.PresencaActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:layout_marginTop="28dp"
+        android:elevation="10dp"
         android:paddingHorizontal="16dp"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/btnVoltarPresenca"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:contentDescription="Voltar"
-            android:padding="5dp"
+            android:padding="10dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:elevation="12dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_back"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -41,9 +48,21 @@
             android:id="@+id/btnNotificacoesPresenca"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:layout_marginEnd="8dp"
             android:contentDescription="Notificações"
             android:padding="5dp"
             android:src="@drawable/ic_notifications"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btnProfilePresenca"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/purple_primary" />
+
+        <ImageView
+            android:id="@+id/btnProfilePresenca"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:contentDescription="Perfil"
+            android:src="@drawable/ic_people"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"

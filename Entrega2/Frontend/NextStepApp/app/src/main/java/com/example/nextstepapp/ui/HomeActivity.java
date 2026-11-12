@@ -31,6 +31,16 @@ public class HomeActivity extends AppCompatActivity {
             tvGreeting.setOnClickListener(v -> startActivity(new Intent(this, PerfilActivity.class)));
         }
 
+        View btnProfile = findViewById(R.id.btnProfile);
+        if (btnProfile != null) {
+            btnProfile.setOnClickListener(v -> startActivity(new Intent(this, PerfilActivity.class)));
+        }
+
+        View btnNotification = findViewById(R.id.btnNotification);
+        if (btnNotification != null) {
+            btnNotification.setOnClickListener(v -> startActivity(new Intent(this, NotificacoesActivity.class)));
+        }
+
         View cvEventAvatar = findViewById(R.id.cvEventAvatar);
         if (cvEventAvatar != null) {
             cvEventAvatar.setOnClickListener(v -> startActivity(new Intent(this, PerfilActivity.class)));

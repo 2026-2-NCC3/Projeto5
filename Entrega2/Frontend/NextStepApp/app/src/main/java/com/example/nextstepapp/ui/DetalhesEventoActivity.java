@@ -37,7 +37,14 @@ public class DetalhesEventoActivity extends AppCompatActivity {
     private void setupTopBarAndNavigation() {
         ImageView btnBack = findViewById(R.id.btnBack);
         if (btnBack != null) {
-            btnBack.setOnClickListener(v -> finish());
+            btnBack.setClickable(true);
+            btnBack.setFocusable(true);
+            btnBack.setOnClickListener(v -> {
+                Intent intent = new Intent(this, HomeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+                finish();
+            });
         }
 
         View btnNotification = findViewById(R.id.btnNotification);
@@ -45,12 +52,44 @@ public class DetalhesEventoActivity extends AppCompatActivity {
             btnNotification.setOnClickListener(v -> startActivity(new Intent(this, NotificacoesActivity.class)));
         }
 
+        View btnProfile = findViewById(R.id.btnProfile);
+        if (btnProfile != null) {
+            btnProfile.setOnClickListener(v -> startActivity(new Intent(this, PerfilActivity.class)));
+        }
+
         // Bottom Bar Navigation
-        findViewById(R.id.bottomNavigation).findViewById(R.id.nav_inicio).setOnClickListener(v -> {
-            Intent intent = new Intent(this, HomeActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            startActivity(intent);
-        });
+        View navInicio = findViewById(R.id.nav_inicio);
+        if (navInicio != null) {
+            navInicio.setOnClickListener(v -> {
+                Intent intent = new Intent(this, HomeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+            });
+        }
+
+        View navAgenda = findViewById(R.id.nav_agenda);
+        if (navAgenda != null) {
+            navAgenda.setOnClickListener(v -> {
+                startActivity(new Intent(this, AgendaActivity.class));
+                finish();
+            });
+        }
+
+        View navPresencas = findViewById(R.id.nav_presencas);
+        if (navPresencas != null) {
+            navPresencas.setOnClickListener(v -> {
+                startActivity(new Intent(this, PresencaActivity.class));
+                finish();
+            });
+        }
+
+        View navNotificacoes = findViewById(R.id.nav_notificacoes);
+        if (navNotificacoes != null) {
+            navNotificacoes.setOnClickListener(v -> {
+                startActivity(new Intent(this, NotificacoesActivity.class));
+                finish();
+            });
+        }
     }
 
     private void exibirDadosDoCurso() {

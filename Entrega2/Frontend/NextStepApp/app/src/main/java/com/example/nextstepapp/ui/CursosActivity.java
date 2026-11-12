@@ -91,14 +91,26 @@ public class CursosActivity extends AppCompatActivity {
     }
 
     private void setupNavigation() {
-        ImageView btnBack = findViewById(R.id.btnBack);
+        View btnBack = findViewById(R.id.btnBack);
         if (btnBack != null) {
-            btnBack.setOnClickListener(v -> finish());
+            btnBack.setClickable(true);
+            btnBack.setFocusable(true);
+            btnBack.setOnClickListener(v -> {
+                Intent intent = new Intent(this, HomeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+                finish();
+            });
         }
 
         View btnNotification = findViewById(R.id.btnNotification);
         if (btnNotification != null) {
             btnNotification.setOnClickListener(v -> startActivity(new Intent(this, NotificacoesActivity.class)));
+        }
+
+        View btnProfile = findViewById(R.id.btnProfile);
+        if (btnProfile != null) {
+            btnProfile.setOnClickListener(v -> startActivity(new Intent(this, PerfilActivity.class)));
         }
 
         // Bottom Bar

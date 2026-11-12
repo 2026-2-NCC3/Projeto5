@@ -2,6 +2,7 @@ package com.example.nextstepapp.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,7 +17,19 @@ public class CertificadosActivity extends AppCompatActivity {
 
         ImageView btnBack = findViewById(R.id.btnBack);
         if (btnBack != null) {
-            btnBack.setOnClickListener(v -> finish());
+            btnBack.setClickable(true);
+            btnBack.setFocusable(true);
+            btnBack.setOnClickListener(v -> {
+                Intent intent = new Intent(this, HomeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+                finish();
+            });
+        }
+
+        View btnProfile = findViewById(R.id.btnProfile);
+        if (btnProfile != null) {
+            btnProfile.setOnClickListener(v -> startActivity(new Intent(this, PerfilActivity.class)));
         }
 
         findViewById(R.id.btnDownloadCert1).setOnClickListener(v -> {

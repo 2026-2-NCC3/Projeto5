@@ -129,7 +129,14 @@ public class AgendaActivity extends AppCompatActivity {
     private void setupTopBarAndNavigation() {
         ImageView btnBack = findViewById(R.id.btnBack);
         if (btnBack != null) {
-            btnBack.setOnClickListener(v -> finish());
+            btnBack.setClickable(true);
+            btnBack.setFocusable(true);
+            btnBack.setOnClickListener(v -> {
+                Intent intent = new Intent(this, HomeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+                finish();
+            });
         }
 
         View btnNotification = findViewById(R.id.btnNotification);
@@ -140,6 +147,11 @@ public class AgendaActivity extends AppCompatActivity {
         View btnProfile = findViewById(R.id.btnProfile);
         if (btnProfile != null) {
             btnProfile.setOnClickListener(v -> startActivity(new Intent(this, PerfilActivity.class)));
+        }
+
+        View btnCalendarioCompleto = findViewById(R.id.btnCalendarioCompleto);
+        if (btnCalendarioCompleto != null) {
+            btnCalendarioCompleto.setOnClickListener(v -> startActivity(new Intent(this, AgendaSemanalActivity.class)));
         }
 
         // Bottom Navigation

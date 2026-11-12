@@ -23,14 +23,26 @@ public class AgendaSemanalActivity extends AppCompatActivity {
         tvHorarioEventoSemanal = findViewById(R.id.tvHorarioEventoSemanal);
         CalendarView calendarWeekly = findViewById(R.id.calendarWeekly);
 
-        ImageView btnBack = findViewById(R.id.btnBack);
+        View btnBack = findViewById(R.id.btnBack);
         if (btnBack != null) {
-            btnBack.setOnClickListener(v -> finish());
+            btnBack.setClickable(true);
+            btnBack.setFocusable(true);
+            btnBack.setOnClickListener(v -> {
+                Intent intent = new Intent(this, HomeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+                finish();
+            });
         }
 
         View btnNotification = findViewById(R.id.btnNotification);
         if (btnNotification != null) {
             btnNotification.setOnClickListener(v -> startActivity(new Intent(this, NotificacoesActivity.class)));
+        }
+
+        View btnProfile = findViewById(R.id.btnProfile);
+        if (btnProfile != null) {
+            btnProfile.setOnClickListener(v -> startActivity(new Intent(this, PerfilActivity.class)));
         }
 
         if (calendarWeekly != null) {
@@ -66,6 +78,11 @@ public class AgendaSemanalActivity extends AppCompatActivity {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
         });
+
+        View navAgenda = findViewById(R.id.nav_agenda);
+        if (navAgenda != null) {
+            navAgenda.setOnClickListener(v -> finish());
+        }
 
         findViewById(R.id.nav_presencas).setOnClickListener(v -> {
             startActivity(new Intent(this, PresencaActivity.class));

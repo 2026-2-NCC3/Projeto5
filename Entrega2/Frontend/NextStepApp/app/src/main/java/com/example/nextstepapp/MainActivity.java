@@ -3,12 +3,15 @@ package com.example.nextstepapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.json.JSONObject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -99,16 +102,37 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
 
-                String mensagem = body != null && body.getMessage() != null
-                        ? body.getMessage()
-                        : "Credenciais inválidas ou resposta inválida do servidor.";
+                String mensagem = null;
+                if (body != null && body.getMessage() != null) {
+                    mensagem = body.getMessage();
+                } else if (response.errorBody() != null) {
+                    try {
+                        String errorJson = response.errorBody().string();
+                        JSONObject obj = new JSONObject(errorJson);
+                        if (obj.has("message")) {
+                            mensagem = obj.getString("message");
+                        }
+                    } catch (Exception e) {
+                        Log.e("MainActivity", "Erro ao ler resposta de erro", e);
+                    }
+                }
+
+                if (mensagem == null || mensagem.trim().isEmpty()) {
+                    mensagem = "Credenciais inválidas ou resposta inválida do servidor.";
+                }
                 tvErro.setText(mensagem);
             }
 
             @Override
             public void onFailure(Call<ApiResponse<LoginData>> call, Throwable throwable) {
                 mostrarCarregamento(false);
-                tvErro.setText("Não foi possível conectar ao servidor. Verifique sua conexão.");
+                Log.e("MainActivity", "Erro de conexão no login", throwable);
+                String detalhe = throwable.getMessage() != null ? throwable.getMessage() : "";
+                if (detalhe.toLowerCase().contains("timeout") || detalhe.contains("SocketTimeout")) {
+                    tvErro.setText("O servidor demorou para responder (Render iniciando). Tente novamente.");
+                } else {
+                    tvErro.setText("Não foi possível conectar ao servidor. " + detalhe);
+                }
             }
         });
     }

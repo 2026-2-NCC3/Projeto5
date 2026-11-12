@@ -4,7 +4,7 @@ const db = require("./database");
 
 function runSeed(dbInstance = db) {
     const now = new Date().toISOString();
-    const passwordHash = bcrypt.hashSync("123456", 12);
+    const passwordHash = bcrypt.hashSync("Senha123", 12);
 
     const seedDatabase = dbInstance.transaction(() => {
         // ==========================================
@@ -90,6 +90,18 @@ function runSeed(dbInstance = db) {
                 phone: "(19) 96666-5555",
                 points: 80,
                 level: "Iniciante"
+            },
+            {
+                id: "aluno-teste",
+                full_name: "Aluno de Teste",
+                role: "student",
+                school: "E.E. Professora Maria Ribeiro",
+                grade: "3º Ano",
+                school_year: "Ensino Médio",
+                city: "São Paulo",
+                phone: "(11) 99999-9999",
+                points: 100,
+                level: "Explorador"
             }
         ];
 

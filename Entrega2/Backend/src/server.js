@@ -25,7 +25,8 @@ try {
     }
 
     const checkMaria = db.prepare("SELECT id FROM profiles WHERE id = 'maria.oliveira@teste.com'").get();
-    if (!checkMaria) {
+    const checkJoao = db.prepare("SELECT id FROM profiles WHERE id = 'joao.pedro@teste.com'").get();
+    if (!checkMaria || !checkJoao) {
         console.log("Inserindo novos usuários (Maria, João, Carlos) e dados no banco...");
         const runSeed = require("./config/seed");
         runSeed(db);

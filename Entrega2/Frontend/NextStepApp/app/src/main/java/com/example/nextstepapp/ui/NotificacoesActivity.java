@@ -18,12 +18,7 @@ public class NotificacoesActivity extends AppCompatActivity {
         if (btnBack != null) {
             btnBack.setClickable(true);
             btnBack.setFocusable(true);
-            btnBack.setOnClickListener(v -> {
-                Intent intent = new Intent(this, HomeActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                startActivity(intent);
-                finish();
-            });
+            btnBack.setOnClickListener(v -> finish());
         }
 
         View btnProfile = findViewById(R.id.btnProfile);

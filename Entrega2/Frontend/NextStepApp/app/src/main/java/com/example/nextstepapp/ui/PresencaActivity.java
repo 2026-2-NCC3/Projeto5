@@ -50,7 +50,7 @@ public class PresencaActivity extends AppCompatActivity {
     }
 
     private void configurarNavegacao() {
-        findViewById(R.id.btnVoltarPresenca).setOnClickListener(v -> abrirTela(HomeActivity.class, true));
+        findViewById(R.id.btnVoltarPresenca).setOnClickListener(v -> finish());
         findViewById(R.id.btnNotificacoesPresenca).setOnClickListener(
                 v -> abrirTela(NotificacoesActivity.class, false));
         View btnProfilePresenca = findViewById(R.id.btnProfilePresenca);

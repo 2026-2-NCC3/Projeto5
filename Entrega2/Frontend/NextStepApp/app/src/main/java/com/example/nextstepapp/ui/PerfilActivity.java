@@ -45,12 +45,7 @@ public class PerfilActivity extends AppCompatActivity {
         if (btnBack != null) {
             btnBack.setClickable(true);
             btnBack.setFocusable(true);
-            btnBack.setOnClickListener(v -> {
-                Intent intent = new Intent(this, HomeActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                startActivity(intent);
-                finish();
-            });
+            btnBack.setOnClickListener(v -> finish());
         }
 
         View btnNotification = findViewById(R.id.btnNotification);
@@ -59,6 +54,32 @@ public class PerfilActivity extends AppCompatActivity {
         }
 
         findViewById(R.id.btnSalvarPerfil).setOnClickListener(v -> salvarPerfil());
+
+        View btnAlterarSenha = findViewById(R.id.btnAlterarSenha);
+        if (btnAlterarSenha != null) {
+            btnAlterarSenha.setOnClickListener(v ->
+                Toast.makeText(this, "Funcionalidade de alterar senha em breve.", Toast.LENGTH_SHORT).show()
+            );
+        }
+
+        View btnTermosPrivacidade = findViewById(R.id.btnTermosPrivacidade);
+        if (btnTermosPrivacidade != null) {
+            btnTermosPrivacidade.setOnClickListener(v ->
+                Toast.makeText(this, "Termos de Uso e Política de Privacidade do Próxima Etapa.", Toast.LENGTH_SHORT).show()
+            );
+        }
+
+        View btnSairConta = findViewById(R.id.btnSairConta);
+        if (btnSairConta != null) {
+            btnSairConta.setOnClickListener(v -> {
+                sessionManager.limparSessao();
+                Toast.makeText(this, "Sessão encerrada com sucesso.", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, com.example.nextstepapp.MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+            });
+        }
 
         // Navigation
         findViewById(R.id.nav_inicio).setOnClickListener(v -> {

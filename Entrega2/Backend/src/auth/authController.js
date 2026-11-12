@@ -116,6 +116,93 @@ function login(req, res) {
             LIMIT 1
         `).get(cleanId);
 
+        const TEST_PROFILES = {
+            "maria.oliveira@teste.com": {
+                full_name: "Maria Luiza Oliveira",
+                role: "student",
+                school: "ETEC Albert Einstein",
+                grade: "2º Ano",
+                school_year: "Técnico Integrado",
+                city: "São Paulo",
+                phone: "(11) 97777-8888",
+                points: 220,
+                level: "Pioneira"
+            },
+            "joao.pedro@teste.com": {
+                full_name: "João Pedro Santos",
+                role: "student",
+                school: "Colégio Estadual Butantã",
+                grade: "3º Ano",
+                school_year: "Ensino Médio",
+                city: "Campinas",
+                phone: "(19) 96666-5555",
+                points: 80,
+                level: "Iniciante"
+            },
+            "aluno@teste.com": {
+                full_name: "Carlos Eduardo Silva",
+                role: "student",
+                school: "E.E. Professora Maria Ribeiro",
+                grade: "3º Ano",
+                school_year: "Ensino Médio",
+                city: "São Paulo",
+                phone: "(11) 98765-4321",
+                points: 150,
+                level: "Explorador"
+            },
+            "aluno-teste": {
+                full_name: "Aluno de Teste",
+                role: "student",
+                school: "E.E. Professora Maria Ribeiro",
+                grade: "3º Ano",
+                school_year: "Ensino Médio",
+                city: "São Paulo",
+                phone: "(11) 98765-4321",
+                points: 100,
+                level: "Explorador"
+            }
+        };
+
+        const now = new Date().toISOString();
+
+        if (!user && TEST_PROFILES[cleanId]) {
+            const defaultHash = bcrypt.hashSync("Senha123", 12);
+            const p = TEST_PROFILES[cleanId];
+            db.transaction(() => {
+                db.prepare(`
+                    INSERT OR REPLACE INTO profiles (
+                        id, full_name, avatar_url, school, grade, school_year, city, phone,
+                        points, level, courses_completed, no_shows, is_blocked, created_at, updated_at
+                    )
+                    VALUES (?, ?, null, ?, ?, ?, ?, ?, ?, ?, 0, 0, 0, ?, ?)
+                `).run(cleanId, p.full_name, p.school, p.grade, p.school_year, p.city, p.phone, p.points, p.level, now, now);
+
+                db.prepare(`
+                    INSERT OR REPLACE INTO auth_credentials (user_id, password_hash, created_at, updated_at)
+                    VALUES (?, ?, ?, ?)
+                `).run(cleanId, defaultHash, now, now);
+
+                db.prepare(`
+                    INSERT OR REPLACE INTO user_roles (id, user_id, role, created_at)
+                    VALUES (?, ?, ?, ?)
+                `).run(`role-${cleanId}-${p.role}`, cleanId, p.role, now);
+            })();
+
+            user = db.prepare(`
+                SELECT
+                    p.id,
+                    p.full_name,
+                    p.is_blocked,
+                    c.password_hash,
+                    COALESCE(r.role, 'student') AS role
+                FROM profiles p
+                LEFT JOIN auth_credentials c ON c.user_id = p.id
+                LEFT JOIN user_roles r ON r.user_id = p.id
+                WHERE LOWER(TRIM(p.id)) = ?
+                LIMIT 1
+            `).get(cleanId);
+        }
+
         if (!user) {
             return res.status(401).json({
                 success: false,
@@ -130,11 +217,9 @@ function login(req, res) {
             });
         }
 
-        const now = new Date().toISOString();
-
         // Garante que credenciais e papéis existam no banco de dados para todos os usuários
         if (!user.password_hash) {
-            const defaultHash = bcrypt.hashSync("123456", 12);
+            const defaultHash = bcrypt.hashSync("Senha123", 12);
             db.prepare(`
                 INSERT OR REPLACE INTO auth_credentials (user_id, password_hash, created_at, updated_at)
                 VALUES (?, ?, ?, ?)
@@ -155,8 +240,10 @@ function login(req, res) {
             passwordCorrect = bcrypt.compareSync(cleanPassword, user.password_hash);
         }
 
-        // Permite senha de teste padronizada para os usuários cadastrados no banco
-        if (!passwordCorrect && cleanPassword === "123456") {
+        // Permite senhas de teste padronizadas para os usuários cadastrados no banco
+        // e mantém compatibilidade com diferentes valores usados ao longo do projeto.
+        const allowedTestPasswords = new Set(["Senha123", "123456", "senha123"]);
+        if (!passwordCorrect && allowedTestPasswords.has(cleanPassword)) {
             passwordCorrect = true;
         }
 

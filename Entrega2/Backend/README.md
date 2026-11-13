@@ -1,6 +1,6 @@
-# Backend Próxima Etapa
+﻿# Backend PrÃ³xima Etapa
 
-API REST desenvolvida com Node.js, Express e SQLite para autenticação de alunos, consulta de cursos e agenda individual.
+API REST desenvolvida com Node.js, Express e SQLite para autenticaÃ§Ã£o de alunos, consulta de cursos e agenda individual.
 
 ## Tecnologias
 
@@ -29,7 +29,7 @@ src/
   server.js
 ```
 
-## Configuração
+## ConfiguraÃ§Ã£o
 
 Crie um arquivo `.env` na raiz da pasta `Backend` com base no `.env.example`:
 
@@ -39,15 +39,15 @@ JWT_SECRET=uma_chave_secreta
 JWT_EXPIRES_IN=8h
 ```
 
-O arquivo `.env` contém informações sensíveis e não deve ser enviado ao GitHub.
+O arquivo `.env` contÃ©m informaÃ§Ãµes sensÃ­veis e nÃ£o deve ser enviado ao GitHub.
 
-## Instalação
+## InstalaÃ§Ã£o
 
 ```bash
 npm install
 ```
 
-## Criar o banco e inserir dados fictícios
+## Criar o banco e inserir dados fictÃ­cios
 
 ```bash
 npm run setup
@@ -55,11 +55,11 @@ npm run setup
 
 Esse comando cria as tabelas e insere:
 
-- aluno fictício;
+- aluno fictÃ­cio;
 - credencial protegida com bcrypt;
 - papel de estudante;
-- curso fictício;
-- inscrição no curso.
+- curso fictÃ­cio;
+- inscriÃ§Ã£o no curso.
 
 ## Executar o servidor
 
@@ -67,17 +67,17 @@ Esse comando cria as tabelas e insere:
 npm start
 ```
 
-A API ficará disponível localmente em:
+A API ficarÃ¡ disponÃ­vel localmente em:
 
 ```text
 http://localhost:3000
 ```
 
-## Usuário fictício para demonstração
+## UsuÃ¡rio fictÃ­cio para demonstraÃ§Ã£o
 
 ```text
 ID: aluno-teste
-Senha: Senha123
+Senha: Senha@123
 ```
 
 ## Endpoints
@@ -88,7 +88,7 @@ Senha: Senha123
 GET /api
 ```
 
-### Saúde da API e do banco
+### SaÃºde da API e do banco
 
 ```http
 GET /api/health
@@ -109,9 +109,14 @@ Content-Type: application/json
 
 ```json
 {
-  "id": "aluno-2",
+  "email": "aluno-2@exemplo.com",
   "full_name": "Aluno Dois",
-  "password": "Senha123"
+  "password": "Senha@123",
+  "school": "Escola Exemplo",
+  "grade": "2º Ano",
+  "school_year": "Ensino Médio",
+  "city": "São Paulo",
+  "phone": "(11) 90000-0000"
 }
 ```
 
@@ -125,7 +130,7 @@ Content-Type: application/json
 ```json
 {
   "id": "aluno-teste",
-  "password": "Senha123"
+  "password": "Senha@123"
 }
 ```
 
@@ -136,41 +141,43 @@ GET /api/courses/schedule
 Authorization: Bearer TOKEN
 ```
 
-## Códigos de resposta
+## CÃ³digos de resposta
 
-- `200 OK`: operação concluída.
-- `201 Created`: usuário criado.
-- `400 Bad Request`: campos obrigatórios ausentes ou inválidos.
-- `401 Unauthorized`: credenciais ou token inválidos.
-- `403 Forbidden`: usuário bloqueado ou sem permissão.
-- `409 Conflict`: usuário já cadastrado.
+- `200 OK`: operaÃ§Ã£o concluÃ­da.
+- `201 Created`: usuÃ¡rio criado.
+- `400 Bad Request`: campos obrigatÃ³rios ausentes ou invÃ¡lidos.
+- `401 Unauthorized`: credenciais ou token invÃ¡lidos.
+- `403 Forbidden`: usuÃ¡rio bloqueado ou sem permissÃ£o.
+- `409 Conflict`: usuÃ¡rio jÃ¡ cadastrado.
 - `500 Internal Server Error`: erro interno.
-- `503 Service Unavailable`: banco indisponível.
+- `503 Service Unavailable`: banco indisponÃ­vel.
 
-## Segurança
+## SeguranÃ§a
 
 - Senhas armazenadas como hash bcrypt.
-- Autenticação realizada com JWT.
+- AutenticaÃ§Ã£o realizada com JWT.
 - Agenda protegida por middleware.
 - ID do aluno obtido pelo token.
 - Consultas SQL parametrizadas.
 - Chaves estrangeiras habilitadas.
-- Transações utilizadas no cadastro e no seed.
-- Variáveis sensíveis armazenadas no `.env`.
-- Cabeçalhos de segurança configurados com Helmet.
+- TransaÃ§Ãµes utilizadas no cadastro e no seed.
+- VariÃ¡veis sensÃ­veis armazenadas no `.env`.
+- CabeÃ§alhos de seguranÃ§a configurados com Helmet.
 
 ## Banco de dados
 
-O banco SQLite é criado em:
+O banco SQLite Ã© criado em:
 
 ```text
 database/proxima_etapa.sqlite
 ```
 
-O arquivo SQLite não é enviado ao GitHub. O banco pode ser reconstruído executando:
+O arquivo SQLite nÃ£o Ã© enviado ao GitHub. O banco pode ser reconstruÃ­do executando:
 
 ```bash
 npm run setup
 ```
 
-Todos os dados utilizados na demonstração são fictícios.
+Todos os dados utilizados na demonstraÃ§Ã£o sÃ£o fictÃ­cios.
+
+

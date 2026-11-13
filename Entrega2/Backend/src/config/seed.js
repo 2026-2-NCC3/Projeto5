@@ -1,10 +1,10 @@
-const bcrypt = require("bcryptjs");
+﻿const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
 const db = require("./database");
 
 function runSeed(dbInstance = db) {
     const now = new Date().toISOString();
-    const passwordHash = bcrypt.hashSync("Senha123", 12);
+    const passwordHash = bcrypt.hashSync("Senha@123", 12);
 
     const seedDatabase = dbInstance.transaction(() => {
         // ==========================================
@@ -13,21 +13,21 @@ function runSeed(dbInstance = db) {
         const universidades = [
             {
                 id: "uni-usp",
-                name: "Universidade de São Paulo (USP)",
+                name: "Universidade de SÃ£o Paulo (USP)",
                 logo_url: "https://upload.wikimedia.org/wikipedia/commons/4/4b/Brasao_Usp.svg",
-                description: "Principal instituição pública de ensino superior e pesquisa do Brasil."
+                description: "Principal instituiÃ§Ã£o pÃºblica de ensino superior e pesquisa do Brasil."
             },
             {
                 id: "uni-fecap",
-                name: "Fundação Escola de Comércio Álvares Penteado (FECAP)",
+                name: "FundaÃ§Ã£o Escola de ComÃ©rcio Ãlvares Penteado (FECAP)",
                 logo_url: "https://www.fecap.br/wp-content/uploads/2021/04/logo-fecap.svg",
-                description: "Centro universitário centenário com foco em Negócios e Tecnologia."
+                description: "Centro universitÃ¡rio centenÃ¡rio com foco em NegÃ³cios e Tecnologia."
             },
             {
                 id: "uni-unicamp",
                 name: "Universidade Estadual de Campinas (UNICAMP)",
                 logo_url: "https://upload.wikimedia.org/wikipedia/pt/b/b2/Unicamp_logo.svg",
-                description: "Referência latino-americana em inovação, tecnologia e patentes acadêmicas."
+                description: "ReferÃªncia latino-americana em inovaÃ§Ã£o, tecnologia e patentes acadÃªmicas."
             }
         ];
 
@@ -40,17 +40,17 @@ function runSeed(dbInstance = db) {
         }
 
         // ==========================================
-        // 2. USUÁRIOS E CREDENCIAIS (Pelo menos 3 alunos + 1 admin)
+        // 2. USUÃRIOS E CREDENCIAIS (Pelo menos 3 alunos + 1 admin)
         // ==========================================
         const usuarios = [
             {
                 id: "admin@proximaetapa.org.br",
                 full_name: "Administrador do Sistema",
                 role: "admin",
-                school: "Gestão Central",
-                grade: "Coordenação",
+                school: "GestÃ£o Central",
+                grade: "CoordenaÃ§Ã£o",
                 school_year: "2026",
-                city: "São Paulo",
+                city: "SÃ£o Paulo",
                 phone: "(11) 99999-0000",
                 points: 0,
                 level: "Administrador"
@@ -60,9 +60,9 @@ function runSeed(dbInstance = db) {
                 full_name: "Carlos Eduardo Silva",
                 role: "student",
                 school: "E.E. Professora Maria Ribeiro",
-                grade: "3º Ano",
-                school_year: "Ensino Médio",
-                city: "São Paulo",
+                grade: "3Âº Ano",
+                school_year: "Ensino MÃ©dio",
+                city: "SÃ£o Paulo",
                 phone: "(11) 98765-4321",
                 points: 150,
                 level: "Explorador"
@@ -72,20 +72,20 @@ function runSeed(dbInstance = db) {
                 full_name: "Maria Luiza Oliveira",
                 role: "student",
                 school: "ETEC Albert Einstein",
-                grade: "2º Ano",
-                school_year: "Técnico Integrado",
-                city: "São Paulo",
+                grade: "2Âº Ano",
+                school_year: "TÃ©cnico Integrado",
+                city: "SÃ£o Paulo",
                 phone: "(11) 97777-8888",
                 points: 220,
                 level: "Pioneira"
             },
             {
                 id: "joao.pedro@teste.com",
-                full_name: "João Pedro Santos",
+                full_name: "JoÃ£o Pedro Santos",
                 role: "student",
-                school: "Colégio Estadual Butantã",
-                grade: "3º Ano",
-                school_year: "Ensino Médio",
+                school: "ColÃ©gio Estadual ButantÃ£",
+                grade: "3Âº Ano",
+                school_year: "Ensino MÃ©dio",
                 city: "Campinas",
                 phone: "(19) 96666-5555",
                 points: 80,
@@ -96,9 +96,9 @@ function runSeed(dbInstance = db) {
                 full_name: "Aluno de Teste",
                 role: "student",
                 school: "E.E. Professora Maria Ribeiro",
-                grade: "3º Ano",
-                school_year: "Ensino Médio",
-                city: "São Paulo",
+                grade: "3Âº Ano",
+                school_year: "Ensino MÃ©dio",
+                city: "SÃ£o Paulo",
                 phone: "(11) 99999-9999",
                 points: 100,
                 level: "Explorador"
@@ -151,11 +151,11 @@ function runSeed(dbInstance = db) {
         const cursos = [
             {
                 id: "curso-mobile-1",
-                title: "Introdução à Programação Mobile",
+                title: "IntroduÃ§Ã£o Ã  ProgramaÃ§Ã£o Mobile",
                 description: "Aprenda os conceitos fundamentais de arquitetura mobile e desenvolva seu primeiro aplicativo Android com Java e APIs REST.",
                 banner_url: "https://images.unsplash.com/photo-1526498460520-4c246339dccb?w=800",
                 university_id: "uni-usp",
-                location: "USP - Campus Butantã (Laboratório de Informática 3)",
+                location: "USP - Campus ButantÃ£ (LaboratÃ³rio de InformÃ¡tica 3)",
                 course_date: "2026-10-15T10:00:00.000Z",
                 course_time_end: "2026-10-15T13:00:00.000Z",
                 total_spots: 35,
@@ -166,11 +166,11 @@ function runSeed(dbInstance = db) {
             },
             {
                 id: "curso-dados-2",
-                title: "Análise e Ciência de Dados com Python",
-                description: "Aprenda a analisar dados, criar gráficos e identificar padrões utilizando ferramentas modernas e casos reais de empresas.",
+                title: "AnÃ¡lise e CiÃªncia de Dados com Python",
+                description: "Aprenda a analisar dados, criar grÃ¡ficos e identificar padrÃµes utilizando ferramentas modernas e casos reais de empresas.",
                 banner_url: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800",
                 university_id: "uni-fecap",
-                location: "FECAP - Sala Multimídia B",
+                location: "FECAP - Sala MultimÃ­dia B",
                 course_date: "2026-10-22T14:00:00.000Z",
                 course_time_end: "2026-10-22T17:00:00.000Z",
                 total_spots: 30,
@@ -181,11 +181,11 @@ function runSeed(dbInstance = db) {
             },
             {
                 id: "curso-softskills-3",
-                title: "Habilidades Profissionais e Inteligência Emocional",
-                description: "Desenvolva comunicação interpessoal, oratória, liderança e resolução colaborativa de problemas para se destacar no mercado.",
+                title: "Habilidades Profissionais e InteligÃªncia Emocional",
+                description: "Desenvolva comunicaÃ§Ã£o interpessoal, oratÃ³ria, lideranÃ§a e resoluÃ§Ã£o colaborativa de problemas para se destacar no mercado.",
                 banner_url: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800",
                 university_id: "uni-fecap",
-                location: "FECAP - Auditório Principal",
+                location: "FECAP - AuditÃ³rio Principal",
                 course_date: "2026-10-29T09:00:00.000Z",
                 course_time_end: "2026-10-29T12:00:00.000Z",
                 total_spots: 40,
@@ -196,18 +196,33 @@ function runSeed(dbInstance = db) {
             },
             {
                 id: "curso-empreendedorismo-4",
-                title: "Inovação, Criatividade e Empreendedorismo",
-                description: "Aprenda como transformar ideias em modelos de negócios viáveis, aplicando design thinking e metodologias ágeis.",
+                title: "InovaÃ§Ã£o, Criatividade e Empreendedorismo",
+                description: "Aprenda como transformar ideias em modelos de negÃ³cios viÃ¡veis, aplicando design thinking e metodologias Ã¡geis.",
                 banner_url: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800",
                 university_id: "uni-unicamp",
-                location: "UNICAMP - Hub de Inovação",
+                location: "UNICAMP - Hub de InovaÃ§Ã£o",
                 course_date: "2026-11-05T18:00:00.000Z",
                 course_time_end: "2026-11-05T21:00:00.000Z",
                 total_spots: 25,
                 available_spots: 15,
                 points_awarded: 90,
                 has_certificate: 1,
-                category: "Negócios"
+                category: "NegÃ³cios"
+            },
+            {
+                id: "curso-demo-futuro",
+                title: "Oficina de Teste - Programação",
+                description: "Curso de demonstração para testar inscrição, agenda e consulta de curso.",
+                banner_url: null,
+                university_id: null,
+                location: "Online",
+                course_date: "2026-11-20T14:00:00.000Z",
+                course_time_end: "2026-11-20T16:00:00.000Z",
+                total_spots: 20,
+                available_spots: 20,
+                points_awarded: 50,
+                has_certificate: 1,
+                category: "Tecnologia"
             }
         ];
 
@@ -229,7 +244,7 @@ function runSeed(dbInstance = db) {
         }
 
         // ==========================================
-        // 4. INSCRIÇÕES / AGENDA (Pelo menos 3 por aluno)
+        // 4. INSCRIÃ‡Ã•ES / AGENDA (Pelo menos 3 por aluno)
         // ==========================================
         const inscricoes = [
             {
@@ -341,7 +356,7 @@ function runSeed(dbInstance = db) {
             {
                 id: "badge-primeiro-passo",
                 name: "Primeiro Passo",
-                description: "Completou a inscrição e participou do seu primeiro curso no Próxima Etapa.",
+                description: "Completou a inscriÃ§Ã£o e participou do seu primeiro curso no PrÃ³xima Etapa.",
                 icon: "ic_star",
                 requirement: "Completar 1 curso presencial",
                 points_required: 50
@@ -349,23 +364,23 @@ function runSeed(dbInstance = db) {
             {
                 id: "badge-foco-total",
                 name: "Foco Total",
-                description: "Presença confirmada e pontualidade em 3 eventos consecutivos.",
+                description: "PresenÃ§a confirmada e pontualidade em 3 eventos consecutivos.",
                 icon: "ic_focus",
-                requirement: "Registrar presença em 3 eventos",
+                requirement: "Registrar presenÃ§a em 3 eventos",
                 points_required: 120
             },
             {
                 id: "badge-mestre-tech",
                 name: "Mestre da Tecnologia",
-                description: "Concluiu com aproveitamento 2 cursos da trilha de Tecnologia e Programação.",
+                description: "Concluiu com aproveitamento 2 cursos da trilha de Tecnologia e ProgramaÃ§Ã£o.",
                 icon: "ic_laptop",
                 requirement: "Concluir 2 cursos de Tecnologia",
                 points_required: 200
             },
             {
                 id: "badge-lider-futuro",
-                name: "Líder do Futuro",
-                description: "Destaque nas oficinas de liderança e oratória colaborativa.",
+                name: "LÃ­der do Futuro",
+                description: "Destaque nas oficinas de lideranÃ§a e oratÃ³ria colaborativa.",
                 icon: "ic_people",
                 requirement: "Concluir curso de Soft Skills",
                 points_required: 250
@@ -383,7 +398,7 @@ function runSeed(dbInstance = db) {
             insBadge.run(b.id, b.name, b.description, b.icon, b.requirement, b.points_required, now);
         }
 
-        // Conquistas atribuídas aos alunos
+        // Conquistas atribuÃ­das aos alunos
         const insUserBadge = db.prepare(`
             INSERT OR REPLACE INTO user_badges (id, user_id, badge_id, earned_at)
             VALUES (?, ?, ?, ?)
@@ -401,9 +416,9 @@ function runSeed(dbInstance = db) {
                 id: "tr-001",
                 user_id: "aluno@teste.com",
                 test_type: "vocacional",
-                result_summary: "Forte afinidade com Ciências Exatas e Tecnologia da Informação.",
+                result_summary: "Forte afinidade com CiÃªncias Exatas e Tecnologia da InformaÃ§Ã£o.",
                 result_detail: JSON.stringify({
-                    areas: ["Desenvolvimento de Software", "Engenharia da Computação", "Ciência de Dados"],
+                    areas: ["Desenvolvimento de Software", "Engenharia da ComputaÃ§Ã£o", "CiÃªncia de Dados"],
                     afinidade_exatas: 92,
                     afinidade_humanas: 58
                 }),
@@ -413,7 +428,7 @@ function runSeed(dbInstance = db) {
                 id: "tr-002",
                 user_id: "maria.oliveira@teste.com",
                 test_type: "disc",
-                result_summary: "Perfil Predominante: Influência (I) e Comunicação Assertiva.",
+                result_summary: "Perfil Predominante: InfluÃªncia (I) e ComunicaÃ§Ã£o Assertiva.",
                 result_detail: JSON.stringify({
                     dominancia: 45,
                     influencia: 85,
@@ -426,7 +441,7 @@ function runSeed(dbInstance = db) {
                 id: "tr-003",
                 user_id: "joao.pedro@teste.com",
                 test_type: "bolsas",
-                result_summary: "Desempenho Excelente no Simulado Geral (Pontuação: 88/100).",
+                result_summary: "Desempenho Excelente no Simulado Geral (PontuaÃ§Ã£o: 88/100).",
                 result_detail: JSON.stringify({
                     acertos_linguagens: 24,
                     acertos_matematica: 27,
@@ -449,15 +464,15 @@ function runSeed(dbInstance = db) {
         }
 
         // ==========================================
-        // 8. NOTÍCIAS (Pelo menos 3)
+        // 8. NOTÃCIAS (Pelo menos 3)
         // ==========================================
         const noticias = [
             {
                 id: "noticia-001",
-                title: "Vestibular 2026: USP abre inscrições para cursos na área de Tecnologia",
+                title: "Vestibular 2026: USP abre inscriÃ§Ãµes para cursos na Ã¡rea de Tecnologia",
                 slug: "vestibular-2026-usp-inscricoes-abertas-tecnologia",
-                excerpt: "Cursos de Ciência da Computação, Engenharia e Sistemas de Informação oferecem mais de 1.200 vagas em São Paulo e interior.",
-                content: "A Universidade de São Paulo (USP) divulgou hoje o cronograma oficial para o processo seletivo deste ano. Estudantes da rede pública contam com programas de isenção de taxa e cotas sociais.",
+                excerpt: "Cursos de CiÃªncia da ComputaÃ§Ã£o, Engenharia e Sistemas de InformaÃ§Ã£o oferecem mais de 1.200 vagas em SÃ£o Paulo e interior.",
+                content: "A Universidade de SÃ£o Paulo (USP) divulgou hoje o cronograma oficial para o processo seletivo deste ano. Estudantes da rede pÃºblica contam com programas de isenÃ§Ã£o de taxa e cotas sociais.",
                 image_url: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800",
                 category: "Vestibular",
                 tags: "USP, Vestibular, Tecnologia, Bolsas",
@@ -465,24 +480,24 @@ function runSeed(dbInstance = db) {
             },
             {
                 id: "noticia-002",
-                title: "Feira de Profissões e Carreiras do Futuro reúne mais de 5 mil estudantes",
+                title: "Feira de ProfissÃµes e Carreiras do Futuro reÃºne mais de 5 mil estudantes",
                 slug: "feira-de-profissoes-carreiras-futuro-reune-estudantes",
-                excerpt: "Evento contou com estandes interativos de robótica, orientação vocacional gratuita e bate-papo com profissionais do mercado.",
-                content: "Durante três dias intensos, jovens do ensino médio puderam experimentar simuladores de voo, testar códigos de programação e participar de palestras com líderes de grandes empresas de inovação.",
+                excerpt: "Evento contou com estandes interativos de robÃ³tica, orientaÃ§Ã£o vocacional gratuita e bate-papo com profissionais do mercado.",
+                content: "Durante trÃªs dias intensos, jovens do ensino mÃ©dio puderam experimentar simuladores de voo, testar cÃ³digos de programaÃ§Ã£o e participar de palestras com lÃ­deres de grandes empresas de inovaÃ§Ã£o.",
                 image_url: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800",
                 category: "Eventos",
-                tags: "Carreira, Feira, Ensino Médio, Tecnologia",
+                tags: "Carreira, Feira, Ensino MÃ©dio, Tecnologia",
                 views: 520
             },
             {
                 id: "noticia-003",
-                title: "Projeto Próxima Etapa expande oficinas de desenvolvimento mobile em escolas parceiras",
+                title: "Projeto PrÃ³xima Etapa expande oficinas de desenvolvimento mobile em escolas parceiras",
                 slug: "projeto-proxima-etapa-expande-oficinas-mobile",
-                excerpt: "Iniciativa capacita alunos do ensino fundamental e médio em lógica de programação e criação de soluções de impacto social.",
-                content: "Com a nova expansão, o projeto atinge mais de 20 escolas públicas com aulas práticas semanais, mentoria de universitários e certificados reconhecidos por faculdades de ponta.",
+                excerpt: "Iniciativa capacita alunos do ensino fundamental e mÃ©dio em lÃ³gica de programaÃ§Ã£o e criaÃ§Ã£o de soluÃ§Ãµes de impacto social.",
+                content: "Com a nova expansÃ£o, o projeto atinge mais de 20 escolas pÃºblicas com aulas prÃ¡ticas semanais, mentoria de universitÃ¡rios e certificados reconhecidos por faculdades de ponta.",
                 image_url: "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800",
                 category: "Projeto",
-                tags: "Próxima Etapa, Inovação, Educação Pública, Apps",
+                tags: "PrÃ³xima Etapa, InovaÃ§Ã£o, EducaÃ§Ã£o PÃºblica, Apps",
                 views: 410
             }
         ];
@@ -500,7 +515,7 @@ function runSeed(dbInstance = db) {
         }
 
         // ==========================================
-        // 9. COMENTÁRIOS DE NOTÍCIAS (Pelo menos 3)
+        // 9. COMENTÃRIOS DE NOTÃCIAS (Pelo menos 3)
         // ==========================================
         const comentarios = [
             {
@@ -509,7 +524,7 @@ function runSeed(dbInstance = db) {
                 user_id: "aluno@teste.com",
                 author_name: "Carlos Eduardo Silva",
                 school: "E.E. Professora Maria Ribeiro",
-                content: "Excelente notícia! Já estou estudando para prestar Ciências da Computação."
+                content: "Excelente notÃ­cia! JÃ¡ estou estudando para prestar CiÃªncias da ComputaÃ§Ã£o."
             },
             {
                 id: "com-002",
@@ -517,15 +532,15 @@ function runSeed(dbInstance = db) {
                 user_id: "maria.oliveira@teste.com",
                 author_name: "Maria Luiza Oliveira",
                 school: "ETEC Albert Einstein",
-                content: "Muito bom saber sobre as isenções de taxa. Vai ajudar muita gente da minha sala!"
+                content: "Muito bom saber sobre as isenÃ§Ãµes de taxa. Vai ajudar muita gente da minha sala!"
             },
             {
                 id: "com-003",
                 post_id: "noticia-003",
                 user_id: "joao.pedro@teste.com",
-                author_name: "João Pedro Santos",
-                school: "Colégio Estadual Butantã",
-                content: "As oficinas de Android são incríveis, parabéns a todos os professores e mentores!"
+                author_name: "JoÃ£o Pedro Santos",
+                school: "ColÃ©gio Estadual ButantÃ£",
+                content: "As oficinas de Android sÃ£o incrÃ­veis, parabÃ©ns a todos os professores e mentores!"
             }
         ];
 
@@ -541,23 +556,23 @@ function runSeed(dbInstance = db) {
         }
 
         // ==========================================
-        // 10. VÍDEOS E PODCASTS (Pelo menos 3)
+        // 10. VÃDEOS E PODCASTS (Pelo menos 3)
         // ==========================================
         const videos = [
             {
                 id: "vid-001",
-                title: "Como Escolher a Sua Faculdade Ideal: Guia Prático para Estudantes",
-                description: "Dicas de professores e psicólogos para avaliar cursos, notas de corte e oportunidades de estágio.",
+                title: "Como Escolher a Sua Faculdade Ideal: Guia PrÃ¡tico para Estudantes",
+                description: "Dicas de professores e psicÃ³logos para avaliar cursos, notas de corte e oportunidades de estÃ¡gio.",
                 video_url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
                 thumbnail_url: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800",
-                category: "Orientação",
+                category: "OrientaÃ§Ã£o",
                 year: 2026,
                 is_podcast: 0
             },
             {
                 id: "vid-002",
                 title: "Primeiros Passos em Kotlin e Java para Android em 30 Minutos",
-                description: "Tutorial completo com os primeiros comandos e estrutura de tela para quem está começando agora.",
+                description: "Tutorial completo com os primeiros comandos e estrutura de tela para quem estÃ¡ comeÃ§ando agora.",
                 video_url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
                 thumbnail_url: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800",
                 category: "Tecnologia",
@@ -566,8 +581,8 @@ function runSeed(dbInstance = db) {
             },
             {
                 id: "vid-003",
-                title: "Podcast Próxima Etapa #01 - Jovens Criando Soluções com Inteligência Artificial",
-                description: "Entrevista exclusiva com estudantes que desenvolveram projetos de impacto social em feiras de ciências.",
+                title: "Podcast PrÃ³xima Etapa #01 - Jovens Criando SoluÃ§Ãµes com InteligÃªncia Artificial",
+                description: "Entrevista exclusiva com estudantes que desenvolveram projetos de impacto social em feiras de ciÃªncias.",
                 video_url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
                 thumbnail_url: "https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=800",
                 category: "Podcast",
@@ -589,31 +604,31 @@ function runSeed(dbInstance = db) {
         }
 
         // ==========================================
-        // 11. NOTIFICAÇÕES (Pelo menos 3 por aluno)
+        // 11. NOTIFICAÃ‡Ã•ES (Pelo menos 3 por aluno)
         // ==========================================
         const notificacoes = [
             {
                 id: "notif-001",
                 user_id: "aluno@teste.com",
                 type: "system",
-                title: "Bem-vindo ao Próxima Etapa!",
-                message: "Explore os cursos disponíveis e monte sua trilha de aprendizado para o futuro acadêmico.",
+                title: "Bem-vindo ao PrÃ³xima Etapa!",
+                message: "Explore os cursos disponÃ­veis e monte sua trilha de aprendizado para o futuro acadÃªmico.",
                 link: null
             },
             {
                 id: "notif-002",
                 user_id: "aluno@teste.com",
                 type: "course",
-                title: "Inscrição Confirmada!",
-                message: "Sua vaga no curso 'Introdução à Programação Mobile' está garantida. Veja as instruções em Detalhes.",
+                title: "InscriÃ§Ã£o Confirmada!",
+                message: "Sua vaga no curso 'IntroduÃ§Ã£o Ã  ProgramaÃ§Ã£o Mobile' estÃ¡ garantida. Veja as instruÃ§Ãµes em Detalhes.",
                 link: "/courses/curso-mobile-1"
             },
             {
                 id: "notif-003",
                 user_id: "aluno@teste.com",
                 type: "badge",
-                title: "Parabéns! Nova Conquista Desbloqueada",
-                message: "Você conquistou o badge 'Primeiro Passo' por sua participação ativa no projeto.",
+                title: "ParabÃ©ns! Nova Conquista Desbloqueada",
+                message: "VocÃª conquistou o badge 'Primeiro Passo' por sua participaÃ§Ã£o ativa no projeto.",
                 link: "/badges"
             },
             {
@@ -621,7 +636,7 @@ function runSeed(dbInstance = db) {
                 user_id: "maria.oliveira@teste.com",
                 type: "certificate",
                 title: "Certificado Emitido!",
-                message: "Seu certificado do curso de Programação Mobile já está disponível para download.",
+                message: "Seu certificado do curso de ProgramaÃ§Ã£o Mobile jÃ¡ estÃ¡ disponÃ­vel para download.",
                 link: "/certificates"
             }
         ];
@@ -638,7 +653,7 @@ function runSeed(dbInstance = db) {
         }
 
         // ==========================================
-        // 12. ESTATÍSTICAS DE IMPACTO (Pelo menos 3)
+        // 12. ESTATÃSTICAS DE IMPACTO (Pelo menos 3)
         // ==========================================
         const impact = [
             {
@@ -691,11 +706,11 @@ function runSeed(dbInstance = db) {
     console.log("=================================================");
     console.log(" BANCO DE DADOS POPULADO COM SUCESSO!");
     console.log("=================================================");
-    console.log(" Credenciais para testes (Senha padrão: 123456):");
+    console.log(" Credenciais para testes (Senha padrÃ£o: Senha@123):");
     console.log(" - Admin:  admin@proximaetapa.org.br");
     console.log(" - Aluno 1: aluno@teste.com (Carlos Eduardo Silva)");
     console.log(" - Aluno 2: maria.oliveira@teste.com (Maria Luiza)");
-    console.log(" - Aluno 3: joao.pedro@teste.com (João Pedro)");
+    console.log(" - Aluno 3: joao.pedro@teste.com (JoÃ£o Pedro)");
     console.log("=================================================");
 }
 
@@ -711,3 +726,6 @@ if (require.main === module) {
 }
 
 module.exports = runSeed;
+
+
+

@@ -1,14 +1,14 @@
-# Documentação da API Próxima Etapa
+﻿# DocumentaÃ§Ã£o da API PrÃ³xima Etapa
 
-## Visão geral
+## VisÃ£o geral
 
-A API Próxima Etapa foi desenvolvida com Node.js, Express e SQLite.
+A API PrÃ³xima Etapa foi desenvolvida com Node.js, Express e SQLite.
 
-As funcionalidades disponíveis nesta primeira versão são:
+As funcionalidades disponÃ­veis nesta primeira versÃ£o sÃ£o:
 
-- verificação de funcionamento da API;
+- verificaÃ§Ã£o de funcionamento da API;
 - cadastro de alunos;
-- autenticação com JWT;
+- autenticaÃ§Ã£o com JWT;
 - listagem de cursos ativos;
 - consulta da agenda do aluno autenticado.
 
@@ -18,7 +18,7 @@ As funcionalidades disponíveis nesta primeira versão são:
 http://localhost:3000
 ```
 
-Quando o backend for publicado, a URL local deverá ser substituída pela URL HTTPS do ambiente publicado.
+Quando o backend for publicado, a URL local deverÃ¡ ser substituÃ­da pela URL HTTPS do ambiente publicado.
 
 ## Formato das respostas
 
@@ -38,34 +38,34 @@ Exemplo de erro:
 ```json
 {
   "success": false,
-  "message": "Descrição do erro."
+  "message": "DescriÃ§Ã£o do erro."
 }
 ```
 
-## Autenticação
+## AutenticaÃ§Ã£o
 
 A API utiliza JSON Web Token, JWT, para proteger as rotas privadas.
 
-Após o login, a API retorna um token. Esse token deve ser enviado no cabeçalho das requisições protegidas:
+ApÃ³s o login, a API retorna um token. Esse token deve ser enviado no cabeÃ§alho das requisiÃ§Ãµes protegidas:
 
 ```http
 Authorization: Bearer TOKEN
 ```
 
-O token possui duração definida pela variável de ambiente:
+O token possui duraÃ§Ã£o definida pela variÃ¡vel de ambiente:
 
 ```env
 JWT_EXPIRES_IN=8h
 ```
 
-## Usuário fictício de demonstração
+## UsuÃ¡rio fictÃ­cio de demonstraÃ§Ã£o
 
 ```text
 ID: aluno-teste
-Senha: Senha123
+Senha: Senha@123
 ```
 
-Esses dados são fictícios e destinados somente aos testes e à demonstração acadêmica.
+Esses dados sÃ£o fictÃ­cios e destinados somente aos testes e Ã  demonstraÃ§Ã£o acadÃªmica.
 
 ---
 
@@ -73,9 +73,9 @@ Esses dados são fictícios e destinados somente aos testes e à demonstração 
 
 ## Entrada da API
 
-Verifica se a API está respondendo.
+Verifica se a API estÃ¡ respondendo.
 
-### Requisição
+### RequisiÃ§Ã£o
 
 ```http
 GET /api
@@ -94,17 +94,17 @@ Resposta:
 ```json
 {
   "success": true,
-  "message": "API Próxima Etapa está funcionando."
+  "message": "API PrÃ³xima Etapa estÃ¡ funcionando."
 }
 ```
 
 ---
 
-## Saúde da API
+## SaÃºde da API
 
-Verifica se a API e o banco de dados estão disponíveis.
+Verifica se a API e o banco de dados estÃ£o disponÃ­veis.
 
-### Requisição
+### RequisiÃ§Ã£o
 
 ```http
 GET /api/health
@@ -129,7 +129,7 @@ Resposta esperada:
 }
 ```
 
-### Banco indisponível
+### Banco indisponÃ­vel
 
 Status:
 
@@ -154,7 +154,7 @@ Resposta:
 
 Retorna os cursos cujo campo `is_active` possui valor `1`.
 
-### Requisição
+### RequisiÃ§Ã£o
 
 ```http
 GET /api/courses
@@ -176,7 +176,7 @@ Resposta resumida:
   "data": [
     {
       "id": "curso-1",
-      "title": "Introdução à Programação Mobile",
+      "title": "IntroduÃ§Ã£o Ã  ProgramaÃ§Ã£o Mobile",
       "description": "Aprenda a criar aplicativos Android do zero.",
       "location": "FECAP",
       "course_date": "2026-10-01T18:00:00.000Z",
@@ -215,9 +215,9 @@ Resposta:
 
 Cria um novo perfil, uma credencial protegida com bcrypt e o papel de estudante.
 
-O cadastro público cria somente usuários com papel `student`.
+O cadastro pÃºblico cria somente usuÃ¡rios com papel `student`.
 
-### Requisição
+### RequisiÃ§Ã£o
 
 ```http
 POST /api/auth/register
@@ -228,9 +228,14 @@ Content-Type: application/json
 
 ```json
 {
-  "id": "aluno-2",
+  "email": "aluno-2@exemplo.com",
   "full_name": "Aluno Dois",
-  "password": "Senha123"
+  "password": "Senha@123",
+  "school": "Escola Exemplo",
+  "grade": "2º Ano",
+  "school_year": "Ensino Médio",
+  "city": "São Paulo",
+  "phone": "(11) 90000-0000"
 }
 ```
 
@@ -247,7 +252,7 @@ Resposta:
 ```json
 {
   "success": true,
-  "message": "Usuário criado com sucesso.",
+  "message": "UsuÃ¡rio criado com sucesso.",
   "data": {
     "id": "aluno-2",
     "full_name": "Aluno Dois",
@@ -256,7 +261,7 @@ Resposta:
 }
 ```
 
-### Campos obrigatórios ausentes
+### Campos obrigatÃ³rios ausentes
 
 Status:
 
@@ -269,11 +274,11 @@ Resposta:
 ```json
 {
   "success": false,
-  "message": "ID, nome e senha são obrigatórios."
+  "message": "ID, nome e senha sÃ£o obrigatÃ³rios."
 }
 ```
 
-### Senha inválida
+### Senha invÃ¡lida
 
 Status:
 
@@ -290,7 +295,7 @@ Resposta:
 }
 ```
 
-### Usuário duplicado
+### UsuÃ¡rio duplicado
 
 Status:
 
@@ -303,7 +308,7 @@ Resposta:
 ```json
 {
   "success": false,
-  "message": "Usuário já existe."
+  "message": "UsuÃ¡rio jÃ¡ existe."
 }
 ```
 
@@ -320,7 +325,7 @@ Resposta:
 ```json
 {
   "success": false,
-  "message": "Erro ao criar usuário."
+  "message": "Erro ao criar usuÃ¡rio."
 }
 ```
 
@@ -330,7 +335,7 @@ Resposta:
 
 Valida o ID e a senha do aluno. Se as credenciais estiverem corretas, retorna um token JWT.
 
-### Requisição
+### RequisiÃ§Ã£o
 
 ```http
 POST /api/auth/login
@@ -342,7 +347,7 @@ Content-Type: application/json
 ```json
 {
   "id": "aluno-teste",
-  "password": "Senha123"
+  "password": "Senha@123"
 }
 ```
 
@@ -371,7 +376,7 @@ Resposta:
 }
 ```
 
-### Campos obrigatórios ausentes
+### Campos obrigatÃ³rios ausentes
 
 Status:
 
@@ -384,11 +389,11 @@ Resposta:
 ```json
 {
   "success": false,
-  "message": "ID e senha são obrigatórios."
+  "message": "ID e senha sÃ£o obrigatÃ³rios."
 }
 ```
 
-### Credenciais inválidas
+### Credenciais invÃ¡lidas
 
 Status:
 
@@ -401,11 +406,11 @@ Resposta:
 ```json
 {
   "success": false,
-  "message": "Usuário ou senha inválidos."
+  "message": "UsuÃ¡rio ou senha invÃ¡lidos."
 }
 ```
 
-### Usuário bloqueado
+### UsuÃ¡rio bloqueado
 
 Status:
 
@@ -418,7 +423,7 @@ Resposta:
 ```json
 {
   "success": false,
-  "message": "Usuário bloqueado."
+  "message": "UsuÃ¡rio bloqueado."
 }
 ```
 
@@ -443,11 +448,11 @@ Resposta:
 
 ## Agenda do aluno autenticado
 
-Retorna os cursos em que o aluno identificado pelo token possui inscrição.
+Retorna os cursos em que o aluno identificado pelo token possui inscriÃ§Ã£o.
 
-Essa rota não recebe o ID do aluno pela URL. O ID é obtido pelo token JWT validado pelo middleware.
+Essa rota nÃ£o recebe o ID do aluno pela URL. O ID Ã© obtido pelo token JWT validado pelo middleware.
 
-### Requisição
+### RequisiÃ§Ã£o
 
 ```http
 GET /api/courses/schedule
@@ -470,7 +475,7 @@ Resposta resumida:
   "data": [
     {
       "id": "curso-1",
-      "title": "Introdução à Programação Mobile",
+      "title": "IntroduÃ§Ã£o Ã  ProgramaÃ§Ã£o Mobile",
       "location": "FECAP",
       "course_date": "2026-10-01T18:00:00.000Z",
       "course_time_end": "2026-10-01T21:00:00.000Z",
@@ -480,7 +485,7 @@ Resposta resumida:
 }
 ```
 
-### Token não fornecido
+### Token nÃ£o fornecido
 
 Status:
 
@@ -493,11 +498,11 @@ Resposta:
 ```json
 {
   "success": false,
-  "message": "Token não fornecido."
+  "message": "Token nÃ£o fornecido."
 }
 ```
 
-### Formato de token inválido
+### Formato de token invÃ¡lido
 
 Status:
 
@@ -510,11 +515,11 @@ Resposta:
 ```json
 {
   "success": false,
-  "message": "Formato de token inválido."
+  "message": "Formato de token invÃ¡lido."
 }
 ```
 
-### Token inválido
+### Token invÃ¡lido
 
 Status:
 
@@ -527,7 +532,7 @@ Resposta:
 ```json
 {
   "success": false,
-  "message": "Token inválido."
+  "message": "Token invÃ¡lido."
 }
 ```
 
@@ -544,7 +549,7 @@ Resposta:
 ```json
 {
   "success": false,
-  "message": "Token expirado. Faça login novamente."
+  "message": "Token expirado. FaÃ§a login novamente."
 }
 ```
 
@@ -567,64 +572,92 @@ Resposta:
 
 ---
 
-# Códigos HTTP utilizados
+# CÃ³digos HTTP utilizados
 
-- `200 OK`: operação concluída.
+- `200 OK`: operaÃ§Ã£o concluÃ­da.
 - `201 Created`: recurso criado.
-- `400 Bad Request`: dados obrigatórios ausentes ou inválidos.
-- `401 Unauthorized`: credenciais ou token ausentes ou inválidos.
+- `400 Bad Request`: dados obrigatÃ³rios ausentes ou invÃ¡lidos.
+- `401 Unauthorized`: credenciais ou token ausentes ou invÃ¡lidos.
 - `403 Forbidden`: acesso bloqueado.
 - `404 Not Found`: rota inexistente.
-- `409 Conflict`: usuário já cadastrado.
+- `409 Conflict`: usuÃ¡rio jÃ¡ cadastrado.
 - `500 Internal Server Error`: falha interna.
-- `503 Service Unavailable`: banco de dados indisponível.
+- `503 Service Unavailable`: banco de dados indisponÃ­vel.
 
-# Segurança
+# SeguranÃ§a
 
 A API possui as seguintes medidas:
 
 - senhas armazenadas como hash bcrypt;
-- autenticação com JWT;
+- autenticaÃ§Ã£o com JWT;
 - rotas privadas protegidas por middleware;
-- identificação do aluno pelo token;
+- identificaÃ§Ã£o do aluno pelo token;
 - consultas SQL parametrizadas;
-- transações no cadastro e no seed;
+- transaÃ§Ãµes no cadastro e no seed;
 - chaves estrangeiras habilitadas;
-- variáveis sensíveis armazenadas no `.env`;
-- cabeçalhos de segurança configurados com Helmet;
-- mensagens genéricas para credenciais inválidas.
+- variÃ¡veis sensÃ­veis armazenadas no `.env`;
+- cabeÃ§alhos de seguranÃ§a configurados com Helmet;
+- mensagens genÃ©ricas para credenciais invÃ¡lidas.
 
 # Testes realizados
 
 Os testes foram executados no Postman:
 
-- saúde da API com `200 OK`;
+- saÃºde da API com `200 OK`;
 - cursos ativos com `200 OK`;
 - cadastro de aluno com `201 Created`;
 - cadastro duplicado com `409 Conflict`;
-- login válido com `200 OK`;
+- login vÃ¡lido com `200 OK`;
 - senha incorreta com `401 Unauthorized`;
 - agenda com token com `200 OK`;
 - agenda sem token com `401 Unauthorized`.
 
 # Banco de dados
 
-O banco local é criado em:
+O banco local Ã© criado em:
 
 ```text
 database/proxima_etapa.sqlite
 ```
 
-As tabelas são criadas pelo arquivo:
+As tabelas sÃ£o criadas pelo arquivo:
 
 ```text
 database/schema.sql
 ```
 
-Para criar o banco e inserir os dados fictícios:
+Para criar o banco e inserir os dados fictÃ­cios:
 
 ```bash
 npm run setup
 ```
 
-O arquivo SQLite não é enviado ao GitHub.
+O arquivo SQLite nÃ£o Ã© enviado ao GitHub.
+
+## Cadastro de perfil
+
+A API nÃ£o fornece uma tela visual. O aplicativo pode montar o formulÃ¡rio consultando GET /api/auth/register/fields. Os campos enviados para POST /api/auth/register sÃ£o email, full_name, password, school, grade, school_year, city e phone; avatar_url Ã© opcional. O e-mail Ã© usado como ID do perfil. O papel Ã© criado como student.
+
+Os campos points, level, courses_completed, no_shows, is_blocked, created_at e updated_at sÃ£o gerenciados pelo backend e nÃ£o devem ser preenchidos pelo formulÃ¡rio.
+
+Exemplo de requisiÃ§Ã£o:
+
+{
+  "email": "novo.aluno@exemplo.com",
+  "full_name": "Nome do Aluno",
+  "password": "SenhaForte@123",
+  "school": "Escola Exemplo",
+  "grade": "2Âº Ano",
+  "school_year": "Ensino MÃ©dio",
+  "city": "SÃ£o Paulo",
+  "phone": "(11) 90000-0000",
+  "avatar_url": null
+}
+
+## Gerenciamento de cursos
+
+As rotas POST /api/courses, PUT /api/courses/:id e DELETE /api/courses/:id permitem que um administrador autenticado crie, atualize e remova cursos. Para criar um curso sÃ£o obrigatÃ³rios title, course_date, total_spots, available_spots, points_awarded e has_certificate. university_id, quando informado, deve existir em universities.
+
+
+
+

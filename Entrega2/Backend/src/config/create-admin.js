@@ -1,11 +1,11 @@
-const bcrypt = require("bcryptjs");
+﻿const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
 
 const db = require("./database");
 
 const id = "admin@proximaetapa.org.br";
 const fullName = "Administrador";
-const password = "123456";
+const password = "Senha@123";
 const role = "admin";
 
 const existingUser = db.prepare(`
@@ -15,7 +15,7 @@ const existingUser = db.prepare(`
 `).get(id);
 
 if (existingUser) {
-    console.log("Esse usuário já existe.");
+    console.log("Esse usuÃ¡rio jÃ¡ existe.");
     process.exit(0);
 }
 

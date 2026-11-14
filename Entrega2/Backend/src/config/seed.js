@@ -652,9 +652,9 @@ function runSeed(dbInstance = db) {
             insNotif.run(n.id, n.user_id, n.type, n.title, n.message, n.link, now);
         }
 
-        // ==========================================
-        // 12. ESTATÃSTICAS DE IMPACTO (Pelo menos 3)
-        // ==========================================
+        
+        // 12. ESTATÃSTICAS DE IMPACTO 
+      
         const impact = [
             {
                 id: "imp-2024",

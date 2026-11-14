@@ -706,7 +706,7 @@ function runSeed(dbInstance = db) {
     console.log("=================================================");
     console.log(" BANCO DE DADOS POPULADO COM SUCESSO!");
     console.log("=================================================");
-    console.log(" Credenciais para testes (Senha padrÃ£o: Senha@123):");
+    console.log(" Credenciais para testes (Senha padrão: Senha@123):");
     console.log(" - Admin:  admin@proximaetapa.org.br");
     console.log(" - Aluno 1: aluno@teste.com (Carlos Eduardo Silva)");
     console.log(" - Aluno 2: maria.oliveira@teste.com (Maria Luiza)");

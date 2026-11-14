@@ -4,6 +4,7 @@ require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 
 const app = require("./app");
 const db = require("./config/database");
+const updateTestPasswords = require("./config/update-test-passwords");
 
 const PORT = Number(process.env.PORT) || 3000;
 const HOST = "0.0.0.0";
@@ -31,6 +32,7 @@ try {
         const runSeed = require("./config/seed");
         runSeed(db);
     }
+    updateTestPasswords(db);
 } catch (error) {
     console.error("Erro ao inicializar o banco de dados:", error.message);
 }
@@ -55,3 +57,4 @@ function closeServer(signal) {
 
 process.on("SIGINT", () => closeServer("SIGINT"));
 process.on("SIGTERM", () => closeServer("SIGTERM"));
+

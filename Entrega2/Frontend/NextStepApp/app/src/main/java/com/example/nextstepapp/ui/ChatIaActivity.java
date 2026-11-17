@@ -52,6 +52,9 @@ public class ChatIaActivity extends AppCompatActivity {
         findViewById(R.id.chipCertificado).setOnClickListener(v -> enviarPrompt("Como baixo meu certificado?"));
         findViewById(R.id.chipPresenca).setOnClickListener(v -> enviarPrompt("Como confirmo presença?"));
         findViewById(R.id.chipHorarios).setOnClickListener(v -> enviarPrompt("Onde vejo os horários?"));
+        findViewById(R.id.chipMateriais).setOnClickListener(v -> enviarPrompt("Onde encontro os materiais?"));
+        findViewById(R.id.chipCursos).setOnClickListener(v -> enviarPrompt("Como me inscrevo nos cursos?"));
+        findViewById(R.id.chipBeneficios).setOnClickListener(v -> enviarPrompt("Quais os benefícios da ONG?"));
     }
 
     private void enviarMensagemDigitada() {
@@ -91,16 +94,20 @@ public class ChatIaActivity extends AppCompatActivity {
 
     private void gerarRespostaIaFallback(String mensagem) {
         String msgLower = mensagem.toLowerCase();
-        String resposta = "Olá! Como posso te ajudar com os cursos, presença ou certificados do Próxima Etapa?";
+        String resposta = "Olá! Como posso te ajudar com os cursos, presença, materiais ou certificados do Próxima Etapa?";
 
         if (msgLower.contains("certificado") || msgLower.contains("diploma")) {
             resposta = "Você pode visualizar e baixar todos os seus certificados acessando o card 'Certificados' na tela inicial!";
         } else if (msgLower.contains("presença") || msgLower.contains("presenca") || msgLower.contains("qr")) {
             resposta = "Para confirmar sua presença, acesse a aba 'Presenças' no menu inferior e apresente seu QR Code único para o professor ou clique em 'Confirmar Presença Manual'.";
         } else if (msgLower.contains("curso") || msgLower.contains("inscrição") || msgLower.contains("inscricao")) {
-            resposta = "Você pode explorar os cursos disponíveis na aba 'Cursos' e se inscrever clicando no curso desejado e em 'INSCREVER-SE NO CURSO'.";
+            resposta = "Você pode explorar os cursos disponíveis no card 'Cursos' na tela inicial e se inscrever clicando no curso desejado e em 'INSCREVER-SE NO CURSO'.";
         } else if (msgLower.contains("horario") || msgLower.contains("horário") || msgLower.contains("agenda")) {
             resposta = "Consulte os horários de suas aulas na aba 'Agenda', onde você pode navegar pelos dias da semana!";
+        } else if (msgLower.contains("material") || msgLower.contains("apostila") || msgLower.contains("pdf") || msgLower.contains("baixar")) {
+            resposta = "Você pode acessar e baixar apostilas, PDFs e materiais didáticos exclusivos acessando o card 'Materiais' na tela inicial do aplicativo!";
+        } else if (msgLower.contains("benefício") || msgLower.contains("beneficio") || msgLower.contains("vantagem") || msgLower.contains("ong")) {
+            resposta = "O projeto Próxima Etapa oferece mentoria profissional, cursos gratuitos com certificado reconhecido, visitas técnicas e suporte educacional completo para estudantes do ensino médio!";
         } else if (msgLower.contains("ponto") || msgLower.contains("nivel")) {
             resposta = "Você ganha pontos a cada presença confirmada e curso concluído. Confira seu saldo no Perfil!";
         }

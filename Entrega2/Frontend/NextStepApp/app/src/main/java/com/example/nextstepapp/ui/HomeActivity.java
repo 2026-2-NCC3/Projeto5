@@ -77,6 +77,27 @@ public class HomeActivity extends AppCompatActivity {
             });
         }
 
+        View cardMateriais = findViewById(R.id.cardMateriais);
+        if (cardMateriais != null) {
+            cardMateriais.setOnClickListener(v -> {
+                startActivity(new Intent(this, MateriaisActivity.class));
+            });
+        }
+
+        View cardMetas = findViewById(R.id.cardMetas);
+        if (cardMetas != null) {
+            cardMetas.setOnClickListener(v -> {
+                startActivity(new Intent(this, MetasActivity.class));
+            });
+        }
+
+        View cardOportunidades = findViewById(R.id.cardOportunidades);
+        if (cardOportunidades != null) {
+            cardOportunidades.setOnClickListener(v -> {
+                startActivity(new Intent(this, OportunidadesActivity.class));
+            });
+        }
+
         View cardNotificacoes = findViewById(R.id.cardNotificacoesGrid);
         if (cardNotificacoes != null) {
             cardNotificacoes.setOnClickListener(v -> {

@@ -337,8 +337,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:checked="true"
-                            app:thumbTint="@color/purple_primary"
-                            app:trackTint="#D1C4E9" />
+                            app:thumbTint="@color/green_button"
+                            app:trackTint="#A5D6A7" />
                     </LinearLayout>
 
                     <View
@@ -377,8 +377,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:checked="true"
-                            app:thumbTint="@color/purple_primary"
-                            app:trackTint="#D1C4E9" />
+                            app:thumbTint="@color/green_button"
+                            app:trackTint="#A5D6A7" />
                     </LinearLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>

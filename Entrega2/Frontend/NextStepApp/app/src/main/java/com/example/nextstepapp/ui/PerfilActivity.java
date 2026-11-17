@@ -58,8 +58,22 @@ public class PerfilActivity extends AppCompatActivity {
         View btnAlterarSenha = findViewById(R.id.btnAlterarSenha);
         if (btnAlterarSenha != null) {
             btnAlterarSenha.setOnClickListener(v ->
-                Toast.makeText(this, "Funcionalidade de alterar senha em breve.", Toast.LENGTH_SHORT).show()
+                startActivity(new Intent(this, AlterarSenhaActivity.class))
             );
+        }
+
+        com.google.android.material.switchmaterial.SwitchMaterial switchPush = findViewById(R.id.switchNotificacoesPush);
+        if (switchPush != null) {
+            switchPush.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                Toast.makeText(this, isChecked ? "Notificações push ativadas" : "Notificações push desativadas", Toast.LENGTH_SHORT).show();
+            });
+        }
+
+        com.google.android.material.switchmaterial.SwitchMaterial switchLembretes = findViewById(R.id.switchLembretes);
+        if (switchLembretes != null) {
+            switchLembretes.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                Toast.makeText(this, isChecked ? "Lembretes ativados" : "Lembretes desativados", Toast.LENGTH_SHORT).show();
+            });
         }
 
         View btnTermosPrivacidade = findViewById(R.id.btnTermosPrivacidade);

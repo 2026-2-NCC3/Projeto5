@@ -185,7 +185,46 @@
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="36dp"
+                android:layout_marginEnd="8dp"
                 android:text="Onde vejo os horários?"
+                android:textAllCaps="false"
+                android:textColor="@color/purple_primary"
+                android:textSize="12sp"
+                app:cornerRadius="18dp"
+                app:strokeColor="@color/purple_primary" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/chipMateriais"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_marginEnd="8dp"
+                android:text="Onde encontro os materiais?"
+                android:textAllCaps="false"
+                android:textColor="@color/purple_primary"
+                android:textSize="12sp"
+                app:cornerRadius="18dp"
+                app:strokeColor="@color/purple_primary" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/chipCursos"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_marginEnd="8dp"
+                android:text="Como me inscrevo nos cursos?"
+                android:textAllCaps="false"
+                android:textColor="@color/purple_primary"
+                android:textSize="12sp"
+                app:cornerRadius="18dp"
+                app:strokeColor="@color/purple_primary" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/chipBeneficios"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:text="Quais os benefícios da ONG?"
                 android:textAllCaps="false"
                 android:textColor="@color/purple_primary"
                 android:textSize="12sp"

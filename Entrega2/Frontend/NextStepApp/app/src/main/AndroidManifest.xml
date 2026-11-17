@@ -47,7 +47,23 @@
             android:exported="false" />
 
         <activity
+            android:name=".ui.MateriaisActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.MetasActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.OportunidadesActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".ui.PerfilActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.AlterarSenhaActivity"
             android:exported="false" />
 
         <activity

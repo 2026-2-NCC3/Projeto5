@@ -4,6 +4,7 @@ import com.example.nextstepapp.model.ApiResponse;
 import com.example.nextstepapp.model.Curso;
 import com.example.nextstepapp.model.LoginData;
 import com.example.nextstepapp.model.LoginRequest;
+import com.example.nextstepapp.model.RegisterRequest;
 
 import java.util.List;
 import java.util.Map;
@@ -29,7 +30,7 @@ public interface ApiService {
 
     @POST("api/auth/register")
     Call<ApiResponse<LoginData>> register(
-            @Body LoginRequest request
+            @Body RegisterRequest request
     );
 
 // CURSOS

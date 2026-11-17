@@ -49,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
         sessionManager = new SessionManager(this);
 
         btnEntrar.setOnClickListener(v -> tentarLogin());
+        findViewById(R.id.tvAbrirCadastro).setOnClickListener(v ->
+                startActivity(new Intent(MainActivity.this, com.example.nextstepapp.ui.CadastroActivity.class)));
     }
 
     private void tentarLogin() {

@@ -144,4 +144,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/progressLogin" />
 
+    <TextView
+        android:id="@+id/tvAbrirCadastro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:padding="8dp"
+        android:text="Ainda não tem conta?  Cadastre-se"
+        android:textColor="@color/purple_primary"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvErro" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
